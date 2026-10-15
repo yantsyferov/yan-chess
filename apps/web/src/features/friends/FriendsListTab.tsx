@@ -1,10 +1,12 @@
 import { useSearchParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { useFriendsStore } from "./useFriendsStore";
 import { FriendCard } from "./FriendCard";
 import { Card } from "../../components/ui/Card";
 import { Button } from "../../components/ui/Button";
 
 export function FriendsListTab(): JSX.Element {
+  const { t } = useTranslation("friends");
   const [, setSearchParams] = useSearchParams();
   const friends = useFriendsStore((s) => s.friends);
 
@@ -12,17 +14,15 @@ export function FriendsListTab(): JSX.Element {
     return (
       <Card variant="glass" padding="md">
         <div className="flex flex-col items-center gap-2 py-4 text-center">
-          <h3 className="text-base font-medium text-text-primary">No friends yet</h3>
-          <p className="text-sm text-text-secondary max-w-sm">
-            Search for other players by nickname in the Search tab, or add your opponent after a game.
-          </p>
+          <h3 className="text-base font-medium text-text-primary">{t("friends.emptyTitle")}</h3>
+          <p className="text-sm text-text-secondary max-w-sm">{t("friends.emptyBody")}</p>
           <div className="mt-2">
             <Button
               variant="primary"
               size="sm"
               onClick={() => { setSearchParams({ tab: "search" }); }}
             >
-              Find players
+              {t("friends.findPlayers")}
             </Button>
           </div>
         </div>

@@ -49,13 +49,13 @@ The app must remain runnable after every slice. Translation files start skeletal
 
 ---
 
-- [ ] **Slice 4: Translate the remaining surfaces (Profile, History, Friends, OnlineBoard, ChallengeModal, 404)**
+- [x] **Slice 4: Translate the remaining surfaces (Profile, History, Friends, OnlineBoard, ChallengeModal, 404)**
 
   > Localize the three remaining feature namespaces plus the matchmaking / online board. After this slice the UI contains no inlined user-facing English prose.
 
-  - [ ] Create `apps/web/src/i18n/locales/{en,ru,es}/profile.json`, `history.json`, `friends.json` with keys for every user-visible string in the matching features. Translate in all three locales. **[Agent: react-frontend]**
-  - [ ] Replace inline strings in `apps/web/src/pages/Profile.tsx`, `pages/Play.tsx`, `pages/NotFound.tsx` (if present), and every file under `apps/web/src/features/history/`, `features/friends/`, `features/online/`. **[Agent: react-frontend]**
-  - [ ] Add remaining `common.json` keys for shared primitives (empty states, generic buttons like "Cancel"/"Close"/"Save", confirmation dialog defaults, toast titles) if any emerged during the extraction. **[Agent: react-frontend]**
+  - [x] Create `apps/web/src/i18n/locales/{en,ru,es}/profile.json`, `history.json`, `friends.json` with keys for every user-visible string in the matching features. Translate in all three locales. **[Agent: react-frontend]**
+  - [x] Replace inline strings in `apps/web/src/pages/Profile.tsx`, `pages/Play.tsx`, `pages/NotFound.tsx` (if present), and every file under `apps/web/src/features/history/`, `features/friends/`, `features/online/`. **[Agent: react-frontend]**
+  - [x] Add remaining `common.json` keys for shared primitives (empty states, generic buttons like "Cancel"/"Close"/"Save", confirmation dialog defaults, toast titles) if any emerged during the extraction. **[Agent: react-frontend]**
   - [ ] Run a sweep: `grep -rE ">[A-Z][a-z][^<>{}]+<" apps/web/src --include=*.tsx | grep -v test | grep -v node_modules` should return a trivially small set (icon alt labels, aria-labels permitted). Document any intentional English leftovers in a comment at the top of `apps/web/src/i18n/locales/README.md`. **[Agent: react-frontend]**
   - [ ] Verify: `pnpm --filter web test -- --run` passes; `pnpm --filter web build` succeeds; Playwright-drive /profile, /play (matchmaking screen), friends search in Russian; confirm no English leaks visible to the user. Stop dev server, delete artifacts. **[Agent: general-purpose]**
 

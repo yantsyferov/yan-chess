@@ -1,0 +1,84 @@
+{
+  "title": "Amigos",
+  "tabs": {
+    "friends": "Amigos",
+    "requests": "Solicitudes",
+    "search": "Buscar"
+  },
+  "search": {
+    "placeholder": "Buscar por apodo",
+    "submit": "Buscar",
+    "hint": "Escribe un apodo para buscar.",
+    "noResults": "No se encontraron jugadores.",
+    "loading": "Buscando…",
+    "error": "Error en la búsqueda."
+  },
+  "requests": {
+    "emptyTitle": "Sin solicitudes pendientes",
+    "emptyBody": "Cuando otro jugador abra su página de amigos, las solicitudes entrantes aparecerán aquí.",
+    "accept": "Aceptar",
+    "decline": "Rechazar"
+  },
+  "friends": {
+    "emptyTitle": "Aún no tienes amigos",
+    "emptyBody": "Busca a otros jugadores por apodo en la pestaña Buscar o añade a tu oponente después de una partida.",
+    "findPlayers": "Buscar jugadores",
+    "lastSeen": "Última conexión",
+    "online": "En línea",
+    "blitzRating": "Blitz {{rating}}",
+    "challenge": "Desafío",
+    "offline": "Sin conexión",
+    "finishCurrentGame": "Primero termina tu partida actual"
+  },
+  "unfriend": {
+    "label": "Eliminar amigo",
+    "confirmTitle": "¿Eliminar a {{nickname}} de amigos?",
+    "confirmBody": "Se eliminará de tu lista de amigos. Puedes enviar una nueva solicitud desde Buscar.",
+    "confirm": "Eliminar",
+    "cancel": "Cancelar"
+  },
+  "challenge": {
+    "title": "Desafiar a {{nickname}}",
+    "waiting": "Esperando a {{nickname}}",
+    "sent": "Desafío enviado ({{timer}})",
+    "mode": "Modo",
+    "color": "Color",
+    "white": "Blancas",
+    "black": "Negras",
+    "random": "Aleatorio",
+    "send": "Enviar desafío",
+    "cancel": "Cancelar",
+    "cancelChallenge": "Cancelar desafío",
+    "declined": "{{nickname}} rechazó tu desafío",
+    "expired": "El desafío expiró"
+  },
+  "outbound": {
+    "emptyTitle": "Sin solicitudes enviadas",
+    "emptyBody": "No has enviado solicitudes de amistad.",
+    "cancel": "Cancelar"
+  },
+  "friendRequest": {
+    "wantsToBeFriend": "{{nickname}} quiere ser tu amigo",
+    "view": "Ver",
+    "dismiss": "Cerrar"
+  },
+  "inboundChallenge": {
+    "challenges": "{{nickname}} te desafía a una partida de {{mode}} ({{timer}})",
+    "accept": "Aceptar",
+    "decline": "Rechazar"
+  },
+  "searchResult": {
+    "addFriend": "Añadir amigo",
+    "requestPending": "Solicitud enviada",
+    "acceptRequest": "Aceptar solicitud",
+    "friend": "Amigo"
+  },
+  "actions": {
+    "actions": "Acciones"
+  },
+  "notifications": {
+    "requestFromX": "Solicitud de amistad de {{name}}",
+    "requestAcceptedByX": "{{name}} aceptó tu solicitud",
+    "challengeFromX": "Desafío de {{name}}"
+  }
+}

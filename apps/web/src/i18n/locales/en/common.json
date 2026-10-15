@@ -15,5 +15,35 @@
     "en": "English",
     "ru": "Русский",
     "es": "Español"
+  },
+  "actions": {
+    "cancel": "Cancel",
+    "close": "Close",
+    "save": "Save",
+    "confirm": "Confirm",
+    "tryAgain": "Try again"
+  },
+  "empty": {
+    "title": "Nothing here yet",
+    "body": "No content to display."
+  },
+  "loading": "Loading…",
+  "play": {
+    "title": "Play online",
+    "connectionEstablished": "connection established",
+    "yourRating": "Your rating:",
+    "findGame": "Find game",
+    "playBot": "Play vs bot"
+  },
+  "searching": {
+    "title": "Looking for an opponent...",
+    "inQueue": "in queue:",
+    "widensAfter": "Looking for a player of similar rating. If no one is found within 10 seconds, the range widens.",
+    "cancel": "Cancel"
+  },
+  "notFound": {
+    "title": "Page not found",
+    "body": "The page you are looking for does not exist.",
+    "backHome": "Back to home"
   }
 }

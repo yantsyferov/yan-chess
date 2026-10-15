@@ -1,0 +1,8 @@
+{
+  "title": "Perfil",
+  "memberSince": "Miembro desde {{date}}",
+  "ratingsTitle": "Clasificación",
+  "historyTitle": "Historial de partidas",
+  "signOut": "Cerrar sesión",
+  "loading": "Cargando…"
+}

@@ -18,6 +18,18 @@ import enGame from "./locales/en/game.json";
 import ruGame from "./locales/ru/game.json";
 import esGame from "./locales/es/game.json";
 
+import enProfile from "./locales/en/profile.json";
+import ruProfile from "./locales/ru/profile.json";
+import esProfile from "./locales/es/profile.json";
+
+import enHistory from "./locales/en/history.json";
+import ruHistory from "./locales/ru/history.json";
+import esHistory from "./locales/es/history.json";
+
+import enFriends from "./locales/en/friends.json";
+import ruFriends from "./locales/ru/friends.json";
+import esFriends from "./locales/es/friends.json";
+
 const LANG_KEY = "yanchess:lang";
 
 function detectLang(): string {
@@ -40,9 +52,9 @@ void i18n
     fallbackLng: "en",
     defaultNS: "common",
     resources: {
-      en: { common: enCommon, auth: enAuth, errors: enErrors, game: enGame },
-      ru: { common: ruCommon, auth: ruAuth, errors: ruErrors, game: ruGame },
-      es: { common: esCommon, auth: esAuth, errors: esErrors, game: esGame },
+      en: { common: enCommon, auth: enAuth, errors: enErrors, game: enGame, profile: enProfile, history: enHistory, friends: enFriends },
+      ru: { common: ruCommon, auth: ruAuth, errors: ruErrors, game: ruGame, profile: ruProfile, history: ruHistory, friends: ruFriends },
+      es: { common: esCommon, auth: esAuth, errors: esErrors, game: esGame, profile: esProfile, history: esHistory, friends: esFriends },
     },
     interpolation: { escapeValue: false },
   });

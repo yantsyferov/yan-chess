@@ -87,5 +87,27 @@
       "whiteClock": "Часы белых",
       "blackClock": "Часы чёрных"
     }
+  },
+  "online": {
+    "loadingGame": "Загрузка партии...",
+    "drawDeclined": "Предложение ничьей отклонено.",
+    "drawCooldown": "Вы сможете предложить ничью снова через {{moves}} ваших ходов.",
+    "result": {
+      "youWon": "Вы выиграли",
+      "youLost": "Вы проиграли",
+      "draw": "Ничья",
+      "rating": "Рейтинг: {{before}} → {{after}} ({{delta}})",
+      "opponentOffersRematch": "Соперник предлагает реванш",
+      "opponentDidntRespond": "Соперник не ответил",
+      "waitingForRematch": "Ожидание реванша…",
+      "acceptRematch": "Принять реванш",
+      "rematch": "Реванш",
+      "newGame": "Новая игра",
+      "close": "Закрыть"
+    },
+    "playerStatus": {
+      "online": "в сети",
+      "offline": "не в сети"
+    }
   }
 }

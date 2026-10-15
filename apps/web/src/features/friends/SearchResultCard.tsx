@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import type { FriendSearchItem } from "@yanchess/shared";
 import { useFriendsStore } from "./useFriendsStore";
 
@@ -6,6 +7,8 @@ interface SearchResultCardProps {
 }
 
 export function SearchResultCard({ item }: SearchResultCardProps): JSX.Element {
+  const { t } = useTranslation("friends");
+
   function handleAddFriend(): void {
     void useFriendsStore.getState().sendFriendRequest(item.userId);
   }
@@ -20,7 +23,7 @@ export function SearchResultCard({ item }: SearchResultCardProps): JSX.Element {
     <div className="flex items-center justify-between px-4 py-3 rounded-lg bg-surface-elevated border border-border-subtle">
       <div className="flex flex-col gap-0.5">
         <span className="text-sm font-medium text-text-primary">{item.nickname}</span>
-        <span className="text-xs text-text-muted">Blitz {item.blitzRating}</span>
+        <span className="text-xs text-text-muted">{t("friends.blitzRating", { rating: item.blitzRating })}</span>
       </div>
       <div className="flex items-center">
         {item.relationship === "none" && (
@@ -29,7 +32,7 @@ export function SearchResultCard({ item }: SearchResultCardProps): JSX.Element {
             onClick={handleAddFriend}
             className="text-xs font-medium px-3 py-1.5 rounded-md bg-accent text-text-inverse hover:opacity-90 transition-opacity"
           >
-            Add friend
+            {t("searchResult.addFriend")}
           </button>
         )}
         {item.relationship === "pending_outbound" && (
@@ -38,7 +41,7 @@ export function SearchResultCard({ item }: SearchResultCardProps): JSX.Element {
             disabled
             className="text-xs font-medium px-3 py-1.5 rounded-md bg-surface-overlay text-text-muted cursor-not-allowed opacity-70"
           >
-            Request pending
+            {t("searchResult.requestPending")}
           </button>
         )}
         {item.relationship === "pending_inbound" && (
@@ -47,12 +50,12 @@ export function SearchResultCard({ item }: SearchResultCardProps): JSX.Element {
             onClick={handleAcceptRequest}
             className="text-xs font-medium px-3 py-1.5 rounded-md bg-accent text-text-inverse hover:opacity-90 transition-opacity"
           >
-            Accept request
+            {t("searchResult.acceptRequest")}
           </button>
         )}
         {item.relationship === "friend" && (
           <span className="text-xs font-medium px-3 py-1 rounded-full bg-surface-overlay text-text-secondary border border-border-subtle">
-            Friend
+            {t("searchResult.friend")}
           </span>
         )}
       </div>

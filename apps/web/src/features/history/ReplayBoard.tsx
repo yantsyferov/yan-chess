@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { Board } from "../../components/game/Board";
 import { Clock } from "../../components/game/Clock";
 import { MoveHistory } from "../../components/game/MoveHistory";
@@ -47,6 +48,7 @@ export function ReplayBoard({
   currentIndex,
   onMoveClick,
 }: ReplayBoardProps): JSX.Element {
+  const { t } = useTranslation("history");
   const { myColor, white, black, timeControlMs, movesSan } = data;
 
   const opponent = myColor === "white" ? black : white;
@@ -98,7 +100,7 @@ export function ReplayBoard({
 
       {/* Move history */}
       <section className="flex flex-col gap-2 w-full md:w-auto" aria-labelledby="replay-moves-heading">
-        <h2 id="replay-moves-heading" className="text-sm text-text-secondary px-1">Moves</h2>
+        <h2 id="replay-moves-heading" className="text-sm text-text-secondary px-1">{t("replay.movesHeading")}</h2>
         <MoveHistory
           movesSan={movesSan}
           highlightIndex={highlightIndex}

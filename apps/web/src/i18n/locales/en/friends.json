@@ -1,0 +1,84 @@
+{
+  "title": "Friends",
+  "tabs": {
+    "friends": "Friends",
+    "requests": "Requests",
+    "search": "Search"
+  },
+  "search": {
+    "placeholder": "Search by nickname",
+    "submit": "Search",
+    "hint": "Type a nickname to start searching.",
+    "noResults": "No players found.",
+    "loading": "Searching…",
+    "error": "Search failed."
+  },
+  "requests": {
+    "emptyTitle": "No pending requests",
+    "emptyBody": "Nicknames you add from Search will send a request here when the other player opens their Friends page.",
+    "accept": "Accept",
+    "decline": "Decline"
+  },
+  "friends": {
+    "emptyTitle": "No friends yet",
+    "emptyBody": "Search for other players by nickname in the Search tab, or add your opponent after a game.",
+    "findPlayers": "Find players",
+    "lastSeen": "Last seen",
+    "online": "Online",
+    "blitzRating": "Blitz {{rating}}",
+    "challenge": "Challenge",
+    "offline": "Offline",
+    "finishCurrentGame": "Finish your current game first"
+  },
+  "unfriend": {
+    "label": "Unfriend",
+    "confirmTitle": "Unfriend {{nickname}}?",
+    "confirmBody": "They will be removed from your friends list. You can send a new friend request from Search.",
+    "confirm": "Unfriend",
+    "cancel": "Cancel"
+  },
+  "challenge": {
+    "title": "Challenge {{nickname}}",
+    "waiting": "Waiting for {{nickname}}",
+    "sent": "Challenge sent ({{timer}})",
+    "mode": "Mode",
+    "color": "Color",
+    "white": "White",
+    "black": "Black",
+    "random": "Random",
+    "send": "Send challenge",
+    "cancel": "Cancel",
+    "cancelChallenge": "Cancel challenge",
+    "declined": "{{nickname}} declined your challenge",
+    "expired": "Challenge expired"
+  },
+  "outbound": {
+    "emptyTitle": "No outbound requests",
+    "emptyBody": "You have not sent any friend requests.",
+    "cancel": "Cancel"
+  },
+  "friendRequest": {
+    "wantsToBeFriend": "{{nickname}} wants to be your friend",
+    "view": "View",
+    "dismiss": "Dismiss"
+  },
+  "inboundChallenge": {
+    "challenges": "{{nickname}} challenges you to a {{mode}} game ({{timer}})",
+    "accept": "Accept",
+    "decline": "Decline"
+  },
+  "searchResult": {
+    "addFriend": "Add friend",
+    "requestPending": "Request pending",
+    "acceptRequest": "Accept request",
+    "friend": "Friend"
+  },
+  "actions": {
+    "actions": "Actions"
+  },
+  "notifications": {
+    "requestFromX": "Friend request from {{name}}",
+    "requestAcceptedByX": "{{name}} accepted your friend request",
+    "challengeFromX": "Challenge from {{name}}"
+  }
+}

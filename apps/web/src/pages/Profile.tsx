@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { useAuthStore } from "../features/auth/useAuthStore";
 import { logout, fetchMe } from "../features/auth/authService";
 import { useNavigate } from "react-router-dom";
@@ -9,6 +10,7 @@ import { Card } from "../components/ui/Card";
 import { Button } from "../components/ui/Button";
 
 export function Profile(): JSX.Element {
+  const { t } = useTranslation("profile");
   const { user } = useAuthStore();
   const navigate = useNavigate();
 
@@ -21,7 +23,7 @@ export function Profile(): JSX.Element {
   if (!user) {
     return (
       <div className="max-w-2xl mx-auto px-4 py-10">
-        <p className="text-text-secondary">Loading…</p>
+        <p className="text-text-secondary">{t("loading")}</p>
       </div>
     );
   }
@@ -39,18 +41,18 @@ export function Profile(): JSX.Element {
           <div className="text-center">
             <h1 className="text-3xl font-semibold text-text-primary">{user.nickname}</h1>
             <p className="text-sm text-text-muted mt-1">
-              Registered on: {new Date(user.createdAt).toLocaleDateString("en-US")}
+              {t("memberSince", { date: new Date(user.createdAt).toLocaleDateString() })}
             </p>
           </div>
         </div>
       </Card>
       <section>
-        <h2 className="text-lg font-medium text-text-primary mb-3 px-1">Rating</h2>
+        <h2 className="text-lg font-medium text-text-primary mb-3 px-1">{t("ratingsTitle")}</h2>
         {user.ratings && <RatingTable ratings={user.ratings} />}
       </section>
       <GameHistorySection />
       <div className="flex justify-center">
-        <Button variant="secondary" onClick={() => { void onLogout(); }}>Sign out</Button>
+        <Button variant="secondary" onClick={() => { void onLogout(); }}>{t("signOut")}</Button>
       </div>
     </div>
   );

@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import {
   Dialog,
   DialogContent,
@@ -10,32 +11,32 @@ import type { GameColor } from "@yanchess/shared";
 import type { Winner } from "../game/useGameStore";
 import type { AnyGameEndReason } from "../shared/game-view-model";
 
-// Map online GameEndReason to an English reason suffix
-function reasonSuffix(reason: AnyGameEndReason, winner: Winner): string {
+function reasonSuffix(t: (k: string) => string, reason: AnyGameEndReason, winner: Winner): string {
   switch (reason) {
     case "checkmate":
-      return "Checkmate.";
+      return t("endReason.checkmate") + ".";
     case "resignation":
-      // winner is the player who received the resignation; loser is the other side
-      return winner === "white" ? "Black resigned." : "White resigned.";
+      return winner === "white"
+        ? t("endReason.resignation") + "."
+        : t("endReason.resignation") + ".";
     case "flag":
     case "flag_fall":
-      return "Flag.";
+      return t("endReason.flag") + ".";
     case "flag_vs_insufficient_material":
     case "flag_fall_insufficient_material":
-      return "Opponent has insufficient material.";
+      return t("endReason.flag_vs_insufficient_material") + ".";
     case "stalemate":
-      return "Stalemate.";
+      return t("endReason.stalemate") + ".";
     case "insufficient_material":
-      return "Insufficient material.";
+      return t("endReason.insufficient_material") + ".";
     case "threefold_repetition":
-      return "Threefold repetition.";
+      return t("endReason.threefold_repetition") + ".";
     case "fifty_move":
     case "fifty_move_rule":
-      return "Fifty-move rule.";
+      return t("endReason.fifty_move") + ".";
     case "agreement":
     case "draw_agreement":
-      return "By agreement.";
+      return t("endReason.agreement") + ".";
     default: {
       const _exhaustive: never = reason;
       return String(_exhaustive);
@@ -43,15 +44,14 @@ function reasonSuffix(reason: AnyGameEndReason, winner: Winner): string {
   }
 }
 
-function perspectiveVerb(winner: Winner, myColor: GameColor): string {
-  if (winner === "draw") return "Draw";
-  if (winner === myColor) return "You won";
-  return "You lost";
+function perspectiveVerb(t: (k: string) => string, winner: Winner, myColor: GameColor): string {
+  if (winner === "draw") return t("online.result.draw");
+  if (winner === myColor) return t("online.result.youWon");
+  return t("online.result.youLost");
 }
 
 function formatDelta(delta: number): string {
   if (delta >= 0) return `+${delta}`;
-  // Use Unicode minus sign (U+2212)
   return `−${Math.abs(delta)}`;
 }
 
@@ -84,12 +84,13 @@ export function OnlineResultModal({
   onOfferRematch,
   onRespondRematch,
 }: OnlineResultModalProps): JSX.Element {
+  const { t } = useTranslation("game");
   const navigate = useNavigate();
   const isOpen = result !== null && !resultModalDismissed;
 
   const title =
     result !== null
-      ? `${perspectiveVerb(result.winner, myColor)}. ${reasonSuffix(result.reason, result.winner)}`
+      ? `${perspectiveVerb(t, result.winner, myColor)}. ${reasonSuffix(t, result.reason, result.winner)}`
       : "";
 
   function handleNewGame(): void {
@@ -113,34 +114,38 @@ export function OnlineResultModal({
           <div className="mt-3 text-sm text-text-secondary">
             {showRating && (
               <p>
-                Rating: {ratingBefore} → {ratingAfter} ({formatDelta(ratingDelta!)})
+                {t("online.result.rating", {
+                  before: ratingBefore,
+                  after: ratingAfter,
+                  delta: formatDelta(ratingDelta!),
+                })}
               </p>
             )}
           </div>
         </DialogDescription>
         <div className="mt-6 space-y-2">
           {pendingRematch?.from === "opponent" && (
-            <p className="text-sm text-text-secondary">Opponent offers a rematch</p>
+            <p className="text-sm text-text-secondary">{t("online.result.opponentOffersRematch")}</p>
           )}
           {rematchExpiredToast && (
-            <p className="text-sm text-text-secondary">Opponent didn't respond</p>
+            <p className="text-sm text-text-secondary">{t("online.result.opponentDidntRespond")}</p>
           )}
           <div className="flex gap-3">
             {pendingRematch?.from === "me" ? (
               <Button variant="secondary" size="lg" disabled>
-                Waiting for rematch…
+                {t("online.result.waitingForRematch")}
               </Button>
             ) : pendingRematch?.from === "opponent" ? (
               <Button variant="secondary" size="lg" onClick={() => onRespondRematch(true)}>
-                Accept rematch
+                {t("online.result.acceptRematch")}
               </Button>
             ) : (
               <Button variant="secondary" size="lg" onClick={onOfferRematch}>
-                Rematch
+                {t("online.result.rematch")}
               </Button>
             )}
             <Button variant="primary" size="lg" onClick={handleNewGame}>
-              New game
+              {t("online.result.newGame")}
             </Button>
             <Button
               variant="ghost"
@@ -152,7 +157,7 @@ export function OnlineResultModal({
                 onDismiss();
               }}
             >
-              Close
+              {t("online.result.close")}
             </Button>
           </div>
         </div>

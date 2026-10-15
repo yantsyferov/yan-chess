@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useParams, useLocation, Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { useGameReplay } from "../features/history/useGameReplay";
 import { useReplayPlayer } from "../features/history/useReplayPlayer";
 import { ReplayBoard } from "../features/history/ReplayBoard";
@@ -8,6 +9,7 @@ import { Card } from "../components/ui/Card";
 import { Button } from "../components/ui/Button";
 
 export function HistoryReplay(): JSX.Element {
+  const { t } = useTranslation("history");
   const { gameId } = useParams<{ gameId: string }>();
   const location = useLocation();
   const returnTo = (location.state as { returnTo?: string } | null)?.returnTo ?? "";
@@ -46,18 +48,18 @@ export function HistoryReplay(): JSX.Element {
     };
   }, [player.prev, player.next, player.first, player.last, player.togglePlay]);
 
-  if (loading) return <div className="text-text-muted text-center py-10">Loading game…</div>;
+  if (loading) return <div className="text-text-muted text-center py-10">{t("replay.loadingGame")}</div>;
 
   if (error === "forbidden") {
     return (
       <div className="max-w-5xl mx-auto px-3 py-6 sm:px-4 sm:py-10">
         <Card>
-          <h2 className="text-lg font-semibold text-text-primary mb-3">Game not available</h2>
+          <h2 className="text-lg font-semibold text-text-primary mb-3">{t("replay.gameNotAvailable")}</h2>
           <Link
             to={`/profile${returnTo}`}
             className="text-accent hover:text-accent-hover text-sm"
           >
-            ← Back to history
+            {t("replay.backToHistory")}
           </Link>
         </Card>
       </div>
@@ -68,8 +70,8 @@ export function HistoryReplay(): JSX.Element {
     return (
       <div className="max-w-5xl mx-auto px-3 py-6 sm:px-4 sm:py-10">
         <Card>
-          <p className="text-text-secondary mb-3">Couldn't load game.</p>
-          <Button onClick={refetch}>Try again</Button>
+          <p className="text-text-secondary mb-3">{t("replay.couldNotLoad")}</p>
+          <Button onClick={refetch}>{t("replay.tryAgain")}</Button>
         </Card>
       </div>
     );
@@ -83,7 +85,7 @@ export function HistoryReplay(): JSX.Element {
         to={`/profile${returnTo}`}
         className="text-accent hover:text-accent-hover text-sm mb-4 inline-block"
       >
-        ← Back to history
+        {t("replay.backToHistory")}
       </Link>
       <ReplayBoard
         data={data}

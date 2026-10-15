@@ -87,5 +87,27 @@
       "whiteClock": "Reloj de blancas",
       "blackClock": "Reloj de negras"
     }
+  },
+  "online": {
+    "loadingGame": "Cargando partida...",
+    "drawDeclined": "Oferta de tablas rechazada.",
+    "drawCooldown": "Puedes ofrecer tablas de nuevo tras {{moves}} de tus movimientos.",
+    "result": {
+      "youWon": "Ganaste",
+      "youLost": "Perdiste",
+      "draw": "Tablas",
+      "rating": "Clasificación: {{before}} → {{after}} ({{delta}})",
+      "opponentOffersRematch": "El oponente ofrece una revancha",
+      "opponentDidntRespond": "El oponente no respondió",
+      "waitingForRematch": "Esperando revancha…",
+      "acceptRematch": "Aceptar revancha",
+      "rematch": "Revancha",
+      "newGame": "Nueva partida",
+      "close": "Cerrar"
+    },
+    "playerStatus": {
+      "online": "en línea",
+      "offline": "sin conexión"
+    }
   }
 }

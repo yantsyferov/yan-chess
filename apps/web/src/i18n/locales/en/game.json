@@ -87,5 +87,27 @@
       "whiteClock": "White's clock",
       "blackClock": "Black's clock"
     }
+  },
+  "online": {
+    "loadingGame": "Loading game...",
+    "drawDeclined": "Draw offer declined.",
+    "drawCooldown": "You can offer a draw again after {{moves}} of your moves.",
+    "result": {
+      "youWon": "You won",
+      "youLost": "You lost",
+      "draw": "Draw",
+      "rating": "Rating: {{before}} → {{after}} ({{delta}})",
+      "opponentOffersRematch": "Opponent offers a rematch",
+      "opponentDidntRespond": "Opponent didn't respond",
+      "waitingForRematch": "Waiting for rematch…",
+      "acceptRematch": "Accept rematch",
+      "rematch": "Rematch",
+      "newGame": "New game",
+      "close": "Close"
+    },
+    "playerStatus": {
+      "online": "online",
+      "offline": "offline"
+    }
   }
 }

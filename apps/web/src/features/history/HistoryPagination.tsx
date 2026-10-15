@@ -1,3 +1,5 @@
+import { useTranslation } from "react-i18next";
+
 interface HistoryPaginationProps {
   currentPage: number;
   totalPages: number;
@@ -42,6 +44,8 @@ export function HistoryPagination({
   totalPages,
   onPageChange,
 }: HistoryPaginationProps): JSX.Element | null {
+  const { t } = useTranslation("history");
+
   if (totalPages <= 1) return null;
 
   const pages = buildWindowedPages(currentPage, totalPages);
@@ -49,12 +53,12 @@ export function HistoryPagination({
   const isLast = currentPage === totalPages;
 
   return (
-    <nav aria-label="Game history pagination" className="flex items-center justify-center gap-1 pt-3 pb-1">
+    <nav aria-label={t("pagination.ariaLabel")} className="flex items-center justify-center gap-1 pt-3 pb-1">
       <button
         className={NAV_FLAT}
         onClick={() => onPageChange(1)}
         disabled={isFirst}
-        aria-label="First page"
+        aria-label={t("pagination.first")}
       >
         «
       </button>
@@ -62,7 +66,7 @@ export function HistoryPagination({
         className={NAV_FLAT}
         onClick={() => onPageChange(currentPage - 1)}
         disabled={isFirst}
-        aria-label="Previous page"
+        aria-label={t("pagination.prev")}
       >
         ‹
       </button>
@@ -77,7 +81,7 @@ export function HistoryPagination({
             key={item}
             className={item === currentPage ? NAV_ACTIVE : NAV_NUMBER}
             onClick={() => onPageChange(item)}
-            aria-label={`Page ${item}`}
+            aria-label={`${t("pagination.page")} ${item}`}
             aria-current={item === currentPage ? "page" : undefined}
           >
             {item}
@@ -89,7 +93,7 @@ export function HistoryPagination({
         className={NAV_FLAT}
         onClick={() => onPageChange(currentPage + 1)}
         disabled={isLast}
-        aria-label="Next page"
+        aria-label={t("pagination.next")}
       >
         ›
       </button>
@@ -97,7 +101,7 @@ export function HistoryPagination({
         className={NAV_FLAT}
         onClick={() => onPageChange(totalPages)}
         disabled={isLast}
-        aria-label="Last page"
+        aria-label={t("pagination.last")}
       >
         »
       </button>

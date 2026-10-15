@@ -1,3 +1,5 @@
+import { useTranslation } from "react-i18next";
+
 export interface HistoryFiltersProps {
   mode: string | null;
   result: string | null;
@@ -10,6 +12,8 @@ const SELECT_BASE =
   "focus-visible:outline-accent cursor-pointer";
 
 export function HistoryFilters({ mode, result, onChange }: HistoryFiltersProps): JSX.Element {
+  const { t } = useTranslation("history");
+
   function handleMode(e: React.ChangeEvent<HTMLSelectElement>): void {
     onChange({ mode: e.target.value === "" ? null : e.target.value, result });
   }
@@ -26,11 +30,11 @@ export function HistoryFilters({ mode, result, onChange }: HistoryFiltersProps):
         value={mode ?? ""}
         onChange={handleMode}
       >
-        <option value="">All modes</option>
-        <option value="Bullet">Bullet</option>
-        <option value="Blitz">Blitz</option>
-        <option value="Rapid">Rapid</option>
-        <option value="Classical">Classical</option>
+        <option value="">{t("filters.mode")}</option>
+        <option value="Bullet">{t("filters.bullet")}</option>
+        <option value="Blitz">{t("filters.blitz")}</option>
+        <option value="Rapid">{t("filters.rapid")}</option>
+        <option value="Classical">{t("filters.classical")}</option>
       </select>
 
       <select
@@ -39,10 +43,10 @@ export function HistoryFilters({ mode, result, onChange }: HistoryFiltersProps):
         value={result ?? ""}
         onChange={handleResult}
       >
-        <option value="">All results</option>
-        <option value="wins">Wins</option>
-        <option value="losses">Losses</option>
-        <option value="draws">Draws</option>
+        <option value="">{t("filters.result")}</option>
+        <option value="wins">{t("filters.wins")}</option>
+        <option value="losses">{t("filters.losses")}</option>
+        <option value="draws">{t("filters.draws")}</option>
       </select>
     </div>
   );

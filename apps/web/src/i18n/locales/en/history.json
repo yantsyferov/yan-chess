@@ -1,0 +1,82 @@
+{
+  "title": "Game history",
+  "emptyTitle": "No games yet",
+  "emptyBody": "Finish an online game — it will show up here. Training games vs the bot are not saved.",
+  "emptyActions": {
+    "findGame": "Find game",
+    "playBot": "Play vs bot"
+  },
+  "filters": {
+    "mode": "All modes",
+    "result": "All results",
+    "bullet": "Bullet",
+    "blitz": "Blitz",
+    "rapid": "Rapid",
+    "classical": "Classical",
+    "wins": "Wins",
+    "losses": "Losses",
+    "draws": "Draws",
+    "noMatch": "No games match these filters.",
+    "clear": "Clear filters"
+  },
+  "columns": {
+    "mode": "Mode",
+    "result": "Result",
+    "opponent": "Opponent",
+    "movesCount": "Moves",
+    "duration": "Duration",
+    "date": "Date"
+  },
+  "resultLabels": {
+    "win": "Win",
+    "loss": "Loss",
+    "draw": "Draw"
+  },
+  "endReason": {
+    "checkmate": "Checkmate",
+    "stalemate": "Stalemate",
+    "insufficient_material": "Insufficient material",
+    "threefold_repetition": "Threefold repetition",
+    "fifty_move": "Fifty-move rule",
+    "flag": "Flag",
+    "flag_vs_insufficient_material": "Opponent has insufficient material",
+    "resignation": "Resignation",
+    "agreement": "Agreement"
+  },
+  "replay": {
+    "title": "Game replay",
+    "link": "Replay",
+    "next": "Next move",
+    "prev": "Previous move",
+    "first": "First move",
+    "last": "Last move",
+    "autoplay": "Autoplay",
+    "pause": "Pause",
+    "pgn": "PGN",
+    "close": "Close",
+    "movesHeading": "Moves",
+    "backToHistory": "← Back to history",
+    "loadingGame": "Loading game…",
+    "gameNotAvailable": "Game not available",
+    "couldNotLoad": "Couldn't load game.",
+    "tryAgain": "Try again",
+    "speed": {
+      "1s": "1 s/move",
+      "2s": "2 s/move",
+      "3s": "3 s/move"
+    }
+  },
+  "pagination": {
+    "page": "Page",
+    "of": "of",
+    "prev": "Previous page",
+    "next": "Next page",
+    "first": "First page",
+    "last": "Last page",
+    "ariaLabel": "Game history pagination"
+  },
+  "errors": {
+    "loadFailed": "Failed to load game history."
+  },
+  "tryAgain": "Try again"
+}

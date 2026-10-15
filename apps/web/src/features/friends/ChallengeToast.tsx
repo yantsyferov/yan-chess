@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { useFriendsStore } from "./useFriendsStore";
 import { useChallenge } from "./useChallenge";
 import { Button } from "../../components/ui/Button";
@@ -13,6 +14,7 @@ function formatSeconds(seconds: number): string {
 }
 
 function ChallengeToastInner(): JSX.Element {
+  const { t } = useTranslation("friends");
   const inboundChallenge = useFriendsStore((s) => s.inboundChallenge)!;
   const respondInboundChallenge = useFriendsStore((s) => s.respondInboundChallenge);
   const { secondsLeft } = useChallenge(inboundChallenge.expiresAt);
@@ -20,11 +22,11 @@ function ChallengeToastInner(): JSX.Element {
   return (
     <div className="fixed top-4 right-4 z-50 bg-surface-overlay backdrop-blur-[16px] border border-border-subtle rounded-xl shadow-lg p-4 max-w-sm w-[calc(100vw-2rem)]">
       <p className="text-sm text-text-primary">
-        <span className="font-semibold">{inboundChallenge.challengerNickname}</span>
-        {" challenges you to a "}
-        <span className="font-semibold">{inboundChallenge.mode}</span>
-        {" game "}
-        <span className="font-mono text-text-muted">({formatSeconds(secondsLeft)})</span>
+        {t("inboundChallenge.challenges", {
+          nickname: inboundChallenge.challengerNickname,
+          mode: inboundChallenge.mode,
+          timer: formatSeconds(secondsLeft),
+        })}
       </p>
       <div className="flex gap-2 mt-3">
         <Button
@@ -32,14 +34,14 @@ function ChallengeToastInner(): JSX.Element {
           size="sm"
           onClick={() => respondInboundChallenge(true)}
         >
-          Accept
+          {t("inboundChallenge.accept")}
         </Button>
         <Button
           variant="secondary"
           size="sm"
           onClick={() => respondInboundChallenge(false)}
         >
-          Decline
+          {t("inboundChallenge.decline")}
         </Button>
       </div>
     </div>

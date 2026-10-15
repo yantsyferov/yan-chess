@@ -1,0 +1,84 @@
+{
+  "title": "Друзья",
+  "tabs": {
+    "friends": "Друзья",
+    "requests": "Заявки",
+    "search": "Поиск"
+  },
+  "search": {
+    "placeholder": "Поиск по нику",
+    "submit": "Найти",
+    "hint": "Введите ник для поиска.",
+    "noResults": "Игроки не найдены.",
+    "loading": "Поиск…",
+    "error": "Ошибка поиска."
+  },
+  "requests": {
+    "emptyTitle": "Нет входящих заявок",
+    "emptyBody": "Когда другой игрок откроет страницу друзей, входящие заявки появятся здесь.",
+    "accept": "Принять",
+    "decline": "Отклонить"
+  },
+  "friends": {
+    "emptyTitle": "Друзей пока нет",
+    "emptyBody": "Найдите других игроков по нику во вкладке Поиск или добавьте соперника после партии.",
+    "findPlayers": "Найти игроков",
+    "lastSeen": "Был(а) в сети",
+    "online": "В сети",
+    "blitzRating": "Блиц {{rating}}",
+    "challenge": "Вызов",
+    "offline": "Не в сети",
+    "finishCurrentGame": "Сначала завершите текущую партию"
+  },
+  "unfriend": {
+    "label": "Удалить из друзей",
+    "confirmTitle": "Удалить {{nickname}} из друзей?",
+    "confirmBody": "Игрок будет удалён из вашего списка друзей. Вы можете снова отправить заявку через Поиск.",
+    "confirm": "Удалить",
+    "cancel": "Отмена"
+  },
+  "challenge": {
+    "title": "Вызов {{nickname}}",
+    "waiting": "Ожидание {{nickname}}",
+    "sent": "Вызов отправлен ({{timer}})",
+    "mode": "Режим",
+    "color": "Цвет",
+    "white": "Белые",
+    "black": "Чёрные",
+    "random": "Случайно",
+    "send": "Отправить вызов",
+    "cancel": "Отмена",
+    "cancelChallenge": "Отменить вызов",
+    "declined": "{{nickname}} отклонил(а) вызов",
+    "expired": "Время вызова истекло"
+  },
+  "outbound": {
+    "emptyTitle": "Нет исходящих заявок",
+    "emptyBody": "Вы ещё не отправляли заявок в друзья.",
+    "cancel": "Отмена"
+  },
+  "friendRequest": {
+    "wantsToBeFriend": "{{nickname}} хочет добавить вас в друзья",
+    "view": "Посмотреть",
+    "dismiss": "Закрыть"
+  },
+  "inboundChallenge": {
+    "challenges": "{{nickname}} вызывает вас на партию {{mode}} ({{timer}})",
+    "accept": "Принять",
+    "decline": "Отклонить"
+  },
+  "searchResult": {
+    "addFriend": "Добавить в друзья",
+    "requestPending": "Заявка отправлена",
+    "acceptRequest": "Принять заявку",
+    "friend": "Друг"
+  },
+  "actions": {
+    "actions": "Действия"
+  },
+  "notifications": {
+    "requestFromX": "Заявка в друзья от {{name}}",
+    "requestAcceptedByX": "{{name}} принял(а) вашу заявку",
+    "challengeFromX": "Вызов от {{name}}"
+  }
+}
