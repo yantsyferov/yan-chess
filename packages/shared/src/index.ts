@@ -1,4 +1,5 @@
 export * from "./schemas/auth";
+export * from "./schemas/users";
 export * from "./types/user";
 export * from "./types/game";
 export * from "./types/history";

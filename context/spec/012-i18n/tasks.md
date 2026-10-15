@@ -61,17 +61,17 @@ The app must remain runnable after every slice. Translation files start skeletal
 
 ---
 
-- [ ] **Slice 5: Backend User.lang persistence + register lang + PATCH /users/me + sign-in merge**
+- [x] **Slice 5: Backend User.lang persistence + register lang + PATCH /users/me + sign-in merge**
 
   > Add the Prisma `Lang` enum + nullable `User.lang` column. Register endpoint accepts optional lang. New PATCH /users/me endpoint. Frontend fires PATCH on explicit switch when signed in, and merges on sign-in: `User.lang` → overrides local; null → keep local.
 
-  - [ ] Create Prisma migration `apps/api/prisma/migrations/<ts>_add_user_lang/` — add `enum Lang { en ru es }` + `lang Lang?` on User. Apply locally via `pnpm --filter api prisma:migrate:dev`. **[Agent: postgres-redis-data]**
-  - [ ] Update `packages/shared/src/schemas/auth.ts` — add optional `lang: z.enum(SUPPORTED_LANGS).optional()` to `RegisterSchema`. Create `packages/shared/src/schemas/users.ts` exporting `UpdateMeSchema = z.object({ lang: z.enum(SUPPORTED_LANGS).optional() })`. Rebuild shared. **[Agent: nestjs-backend]**
-  - [ ] Update `apps/api/src/modules/auth/auth.service.ts` — `register()` writes `lang` to the new User row when present. **[Agent: nestjs-backend]**
-  - [ ] Update `apps/api/src/modules/users/users.controller.ts` — add `@Patch('me')` guarded by `JwtAuthGuard`, validated by `UpdateMeSchema`. Add `UsersService.updateMe(userId, dto)` that updates `User.lang`. **[Agent: nestjs-backend]**
-  - [ ] Update `UserMeDto` + mapper in `apps/api/src/modules/users/users.service.ts` to include `lang: Lang | null`. **[Agent: nestjs-backend]**
-  - [ ] Update `apps/web/src/features/i18n/useLangStore.ts` — `setLang` now fires fire-and-forget `PATCH /api/v1/users/me { lang }` when `useAuthStore.getState().user` is non-null; swallow all errors silently. **[Agent: react-frontend]**
-  - [ ] Update `apps/web/src/features/auth/useAuthStore.ts` — after a successful `/users/me` fetch on sign-in, if `user.lang` is set, call `useLangStore.getState().setLang(user.lang)` with a flag that skips the follow-up PATCH (to avoid a redundant write). **[Agent: react-frontend]**
+  - [x] Create Prisma migration `apps/api/prisma/migrations/<ts>_add_user_lang/` — add `enum Lang { en ru es }` + `lang Lang?` on User. Apply locally via `pnpm --filter api prisma:migrate:dev`. **[Agent: postgres-redis-data]**
+  - [x] Update `packages/shared/src/schemas/auth.ts` — add optional `lang: z.enum(SUPPORTED_LANGS).optional()` to `RegisterSchema`. Create `packages/shared/src/schemas/users.ts` exporting `UpdateMeSchema = z.object({ lang: z.enum(SUPPORTED_LANGS).optional() })`. Rebuild shared. **[Agent: nestjs-backend]**
+  - [x] Update `apps/api/src/modules/auth/auth.service.ts` — `register()` writes `lang` to the new User row when present. **[Agent: nestjs-backend]**
+  - [x] Update `apps/api/src/modules/users/users.controller.ts` — add `@Patch('me')` guarded by `JwtAuthGuard`, validated by `UpdateMeSchema`. Add `UsersService.updateMe(userId, dto)` that updates `User.lang`. **[Agent: nestjs-backend]**
+  - [x] Update `UserMeDto` + mapper in `apps/api/src/modules/users/users.service.ts` to include `lang: Lang | null`. **[Agent: nestjs-backend]**
+  - [x] Update `apps/web/src/features/i18n/useLangStore.ts` — `setLang` now fires fire-and-forget `PATCH /api/v1/users/me { lang }` when `useAuthStore.getState().user` is non-null; swallow all errors silently. **[Agent: react-frontend]**
+  - [x] Update `apps/web/src/features/auth/useAuthStore.ts` — after a successful `/users/me` fetch on sign-in, if `user.lang` is set, call `useLangStore.getState().setLang(user.lang)` with a flag that skips the follow-up PATCH (to avoid a redundant write). **[Agent: react-frontend]**
   - [ ] Add `apps/api/test/unit/patch-users-me.spec.ts` — guard behavior + Zod validation + sets User.lang. **[Agent: nestjs-backend]**
   - [ ] Add `apps/api/test/e2e/users-me-lang.e2e.spec.ts` — register user, PATCH their lang to `es`, GET /users/me returns `lang: 'es'`. **[Agent: nestjs-backend]**
   - [ ] Verify: `pnpm --filter api test:unit` + `pnpm --filter api test:e2e` pass. Then dev-start full stack; register a new user with the web UI in Russian; sign out; sign back in on a fresh browser profile; confirm the UI switches to Russian automatically. Stop servers by PID, delete artifacts. **[Agent: general-purpose]**

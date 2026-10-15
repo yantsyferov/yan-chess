@@ -94,6 +94,7 @@ export class AuthService {
           nickname: dto.nickname,
           nicknameNormalized: dto.nickname.toLowerCase(),
           passwordHash,
+          lang: dto.lang ?? null,
         },
         select: { id: true, email: true },
       });

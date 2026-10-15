@@ -6,6 +6,7 @@ import { registerSchema } from "@yanchess/shared";
 import type { RegisterInput } from "@yanchess/shared";
 import { useTranslation } from "react-i18next";
 import { translateZodMessage } from "../lib/zodErrorMap";
+import { useLangStore } from "../features/i18n/useLangStore";
 import { Input } from "../components/ui/Input";
 import { PasswordInput } from "../components/ui/PasswordInput";
 import { Button } from "../components/ui/Button";
@@ -36,7 +37,7 @@ export function Register(): JSX.Element {
 
     let response;
     try {
-      response = await authService.register(data);
+      response = await authService.register({ ...data, lang: useLangStore.getState().current });
     } catch {
       setTopError(t("register.networkError"));
       return;

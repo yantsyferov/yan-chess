@@ -28,6 +28,12 @@ enum FriendshipStatus {
   accepted
 }
 
+enum Lang {
+  en
+  ru
+  es
+}
+
 enum GameEndReason {
   checkmate
   resignation
@@ -49,6 +55,7 @@ model User {
   emailVerifiedAt    DateTime? @map("email_verified_at") @db.Timestamptz(3)
   createdAt          DateTime  @default(now()) @map("created_at") @db.Timestamptz(3)
   passwordUpdatedAt  DateTime  @default(now()) @map("password_updated_at") @db.Timestamptz(3)
+  lang               Lang?
 
   emailVerificationTokens EmailVerificationToken[]
   passwordResetTokens     PasswordResetToken[]

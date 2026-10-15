@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { SUPPORTED_LANGS } from "../types/lang.js";
 
 // Primitive field schemas — reused across request schemas.
 export const emailSchema = z
@@ -27,6 +28,7 @@ export const registerSchema = z
     nickname: nicknameSchema,
     password: passwordSchema,
     confirmPassword: z.string(),
+    lang: z.enum(SUPPORTED_LANGS).optional(),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "password.confirmation_mismatch",
