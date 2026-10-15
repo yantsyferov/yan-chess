@@ -5,6 +5,15 @@ name: Deploy to Fly.io
 on:
   push:
     branches: [main]
+    # Doc-only / spec-only commits do not change the Docker image byte-wise,
+    # so skip the deploy for them. A commit that touches BOTH code and docs
+    # still triggers (GitHub Actions uses OR semantics across the diff).
+    paths-ignore:
+      - "**/*.md"
+      - "docs/**"
+      - "context/**"
+      - ".gitignore"
+      - "LICENSE"
 
 concurrency:
   # Only one deploy at a time per branch. New pushes queue — do NOT cancel
