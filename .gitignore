@@ -1,0 +1,49 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+build/
+*.tsbuildinfo
+
+# Turbo / cache
+.turbo/
+.cache/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# Coverage
+coverage/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+!.vscode/settings.json
+!.vscode/extensions.json
+
+# pnpm
+.pnpm-store/
+
+# App-specific (Slice 3+)
+apps/api/dev-outbox/
+
+# Claude Code per-dev settings (approval history is user-local)
+.claude/settings.local.json
+
+# Playwright MCP artifacts (snapshots + console logs from Verify runs — ephemeral)
+.playwright-mcp/
+
+# tmp scratch
+/tmp/

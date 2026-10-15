@@ -1,0 +1,25 @@
+{
+  "name": "yanchess",
+  "version": "0.0.0",
+  "private": true,
+  "packageManager": "pnpm@9.15.0",
+  "scripts": {
+    "dev": "concurrently -k -n shared,web,api -c cyan,magenta,yellow 'pnpm --filter @yanchess/shared dev' 'pnpm --filter web dev' 'pnpm --filter api dev'",
+    "api:dev": "pnpm --filter api dev",
+    "web:dev": "pnpm --filter web dev",
+    "build": "pnpm --recursive --filter './packages/*' build && pnpm --recursive --filter './apps/*' build",
+    "lint": "pnpm --recursive lint",
+    "typecheck": "pnpm --recursive typecheck",
+    "db:up": "docker compose up -d postgres redis",
+    "db:down": "docker compose down",
+    "db:logs": "docker compose logs -f postgres redis",
+    "db:reset": "docker compose down -v && docker compose up -d postgres redis"
+  },
+  "engines": {
+    "node": ">=20.17.0",
+    "pnpm": ">=9"
+  },
+  "devDependencies": {
+    "concurrently": "^9"
+  }
+}

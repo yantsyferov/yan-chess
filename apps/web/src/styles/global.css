@@ -1,0 +1,80 @@
+/* Box-sizing reset */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Base reset */
+body {
+  margin: 0;
+}
+
+html,
+body {
+  min-height: 100vh;
+}
+
+/* Theme color-scheme for native form controls */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+}
+
+/* Smooth theme transitions */
+html {
+  transition: background-color 200ms, color 200ms;
+}
+
+/* Body base */
+body {
+  background: var(--surface-base);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Scrollbar polish (webkit) */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Chessboard pattern overlay — dark theme only */
+:root[data-theme="dark"] body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: url(/chessboard-pattern.svg);
+  background-size: 240px 240px;
+  background-repeat: repeat;
+  opacity: 0.5;
+  pointer-events: none;
+  z-index: -1;
+}
+
+:root[data-theme="light"] body::before {
+  content: none;
+}
+
+/* Reset default focus outlines — components add their own focus-visible rings */
+button:focus,
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+}

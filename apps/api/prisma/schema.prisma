@@ -1,0 +1,146 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["postgresqlExtensions"]
+  binaryTargets   = ["native", "linux-musl-arm64-openssl-3.0.x", "linux-musl-openssl-3.0.x"]
+}
+
+datasource db {
+  provider   = "postgresql"
+  url        = env("DATABASE_URL")
+  extensions = [citext]
+}
+
+enum Mode {
+  Bullet
+  Blitz
+  Rapid
+  Classical
+}
+
+enum GameResult {
+  white_win
+  black_win
+  draw
+}
+
+enum FriendshipStatus {
+  pending
+  accepted
+}
+
+enum GameEndReason {
+  checkmate
+  resignation
+  flag
+  flag_vs_insufficient_material
+  stalemate
+  insufficient_material
+  threefold_repetition
+  fifty_move
+  agreement
+}
+
+model User {
+  id                 String    @id @default(uuid()) @db.Uuid
+  email              String    @unique @db.Citext
+  nickname           String
+  nicknameNormalized String    @unique @map("nickname_normalized")
+  passwordHash       String    @map("password_hash")
+  emailVerifiedAt    DateTime? @map("email_verified_at") @db.Timestamptz(3)
+  createdAt          DateTime  @default(now()) @map("created_at") @db.Timestamptz(3)
+  passwordUpdatedAt  DateTime  @default(now()) @map("password_updated_at") @db.Timestamptz(3)
+
+  emailVerificationTokens EmailVerificationToken[]
+  passwordResetTokens     PasswordResetToken[]
+  ratings                 RatingByMode[]
+  gamesAsWhite            Game[]                   @relation("WhiteGames")
+  gamesAsBlack            Game[]                   @relation("BlackGames")
+  friendshipsAsA          Friendship[]             @relation("UserAFriendships")
+  friendshipsAsB          Friendship[]             @relation("UserBFriendships")
+
+  @@map("users")
+}
+
+model RatingByMode {
+  userId      String   @map("user_id") @db.Uuid
+  mode        Mode
+  rating      Int      @default(1500)
+  rd          Float    @default(350) @db.DoublePrecision
+  volatility  Float    @default(0.06) @db.DoublePrecision
+  gamesPlayed Int      @default(0) @map("games_played")
+  updatedAt   DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(3)
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([userId, mode])
+  @@map("ratings_by_mode")
+}
+
+model EmailVerificationToken {
+  tokenHash String    @id @map("token_hash")
+  userId    String    @map("user_id") @db.Uuid
+  expiresAt DateTime  @map("expires_at") @db.Timestamptz(3)
+  usedAt    DateTime? @map("used_at") @db.Timestamptz(3)
+  createdAt DateTime  @default(now()) @map("created_at") @db.Timestamptz(3)
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("email_verification_tokens")
+}
+
+model Game {
+  id                String        @id @default(uuid()) @db.Uuid
+  mode              Mode
+  timeControlMs     Int           @map("time_control_ms")
+  whiteUserId       String        @map("white_user_id") @db.Uuid
+  blackUserId       String        @map("black_user_id") @db.Uuid
+  result            GameResult
+  endReason         GameEndReason @map("end_reason")
+  pgn               String        @db.Text
+  finalFen          String        @map("final_fen") @db.Text
+  whiteRatingBefore Int           @map("white_rating_before")
+  whiteRatingAfter  Int           @map("white_rating_after")
+  blackRatingBefore Int           @map("black_rating_before")
+  blackRatingAfter  Int           @map("black_rating_after")
+  startedAt         DateTime      @map("started_at") @db.Timestamptz(3)
+  endedAt           DateTime      @map("ended_at") @db.Timestamptz(3)
+
+  whiteUser User @relation("WhiteGames", fields: [whiteUserId], references: [id])
+  blackUser User @relation("BlackGames", fields: [blackUserId], references: [id])
+
+  @@index([whiteUserId, startedAt(sort: Desc)])
+  @@index([blackUserId, startedAt(sort: Desc)])
+  @@map("games")
+}
+
+model PasswordResetToken {
+  tokenHash String    @id @map("token_hash")
+  userId    String    @map("user_id") @db.Uuid
+  expiresAt DateTime  @map("expires_at") @db.Timestamptz(3)
+  usedAt    DateTime? @map("used_at") @db.Timestamptz(3)
+  createdAt DateTime  @default(now()) @map("created_at") @db.Timestamptz(3)
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("password_reset_tokens")
+}
+
+model Friendship {
+  id          String           @id @default(uuid()) @db.Uuid
+  userAId     String           @map("user_a_id") @db.Uuid
+  userBId     String           @map("user_b_id") @db.Uuid
+  status      FriendshipStatus
+  initiatedBy String           @map("initiated_by") @db.Uuid
+  createdAt   DateTime         @default(now()) @map("created_at") @db.Timestamptz(3)
+  respondedAt DateTime?        @map("responded_at") @db.Timestamptz(3)
+
+  userA User @relation("UserAFriendships", fields: [userAId], references: [id], onDelete: Cascade)
+  userB User @relation("UserBFriendships", fields: [userBId], references: [id], onDelete: Cascade)
+
+  @@unique([userAId, userBId])
+  @@index([userAId, status])
+  @@index([userBId, status])
+  @@map("friendships")
+}

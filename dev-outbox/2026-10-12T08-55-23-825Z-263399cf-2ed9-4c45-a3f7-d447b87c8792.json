@@ -1,0 +1,6 @@
+{
+  "to": "bob3@test.com",
+  "subject": "Confirm your YanChess registration",
+  "html": "<p>Click the button below to confirm your registration.</p><p><a href=\"http://localhost:5173/verify-email?token=HTrms1RDfEYV8A-cUgZ5SSmuu_ayHoakjJNiOQ0jDW4\">Confirm email</a></p>",
+  "token": "HTrms1RDfEYV8A-cUgZ5SSmuu_ayHoakjJNiOQ0jDW4"
+}

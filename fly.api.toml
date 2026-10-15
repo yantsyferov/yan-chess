@@ -1,0 +1,43 @@
+# fly.api.toml — deployed with: fly deploy -c fly.api.toml
+# Build context is repo root so Dockerfile can access the full monorepo.
+
+app            = "yanchess-api"
+primary_region = "fra"
+
+[build]
+  dockerfile = "apps/api/Dockerfile"
+  ignorefile = ".dockerignore"
+
+[env]
+  NODE_ENV = "production"
+  PORT     = "3000"
+
+[deploy]
+  # KNOWN ISSUE (spec 011 Slice 6): release_command requires prisma CLI (devDep)
+  # which is pruned by `pnpm deploy --prod` in apps/api/Dockerfile runtime stage.
+  # Enabling this line will cause `fly deploy` to fail during the release phase.
+  # For the first deploy, migrations were run manually from laptop against Neon.
+  # Follow-up: add prisma to runtime image via one of:
+  #   (a) `RUN npm install -g prisma@5.22.0` in the Dockerfile runtime stage
+  #   (b) move "prisma" from devDependencies to dependencies in apps/api/package.json
+  # After the fix, un-comment the line below.
+  # release_command = "pnpm --filter api prisma migrate deploy"
+
+[http_service]
+  internal_port       = 3000
+  force_https         = true
+  auto_stop_machines  = "stop"
+  auto_start_machines = true
+  min_machines_running = 0
+
+  [[http_service.checks]]
+    path         = "/api/v1/health"
+    interval     = "15s"
+    timeout      = "5s"
+    grace_period = "10s"
+    method       = "GET"
+
+[[vm]]
+  memory   = "512mb"
+  cpu_kind = "shared"
+  cpus     = 1
