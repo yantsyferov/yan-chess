@@ -1,0 +1,91 @@
+{
+  "board": {
+    "movesHeading": "Movimientos"
+  },
+  "endReason": {
+    "checkmate": "Jaque mate",
+    "stalemate": "Rey ahogado",
+    "draw_agreement": "Tablas por acuerdo",
+    "threefold_repetition": "Tablas por repetición",
+    "fifty_move_rule": "Tablas por regla de los 50 movimientos",
+    "insufficient_material": "Tablas por material insuficiente",
+    "flag_fall": "Tiempo agotado",
+    "flag_fall_insufficient_material": "Tablas — el rival no tiene material suficiente",
+    "resignation": "Abandono",
+    "agreement": "Tablas por acuerdo",
+    "fifty_move": "Tablas por regla de los 50 movimientos",
+    "flag": "Tiempo agotado",
+    "flag_vs_insufficient_material": "Tablas — el rival no tiene material suficiente"
+  },
+  "endModal": {
+    "whiteWins": "Ganan las blancas",
+    "blackWins": "Ganan las negras",
+    "draw": "Tablas",
+    "newGame": "Nueva partida",
+    "close": "Cerrar",
+    "descriptionAriaLabel": "Pantalla de resultado"
+  },
+  "actions": {
+    "resign": "Abandonar",
+    "offerDraw": "Ofrecer tablas",
+    "confirmResign": "¿Abandonar con {{side}}?",
+    "confirmResignBody": "Esta acción no se puede deshacer.",
+    "cancel": "Cancelar",
+    "confirm": "Abandonar"
+  },
+  "drawOffer": {
+    "title": "{{side}} ofrece tablas.",
+    "description": "Oferta de tablas",
+    "accept": "Aceptar",
+    "decline": "Rechazar"
+  },
+  "promotion": {
+    "title": "Elige una pieza",
+    "queen": "Dama",
+    "rook": "Torre",
+    "bishop": "Alfil",
+    "knight": "Caballo"
+  },
+  "moveHistory": {
+    "empty": "Aún no hay movimientos."
+  },
+  "vsBotSetup": {
+    "title": "Jugar contra el bot",
+    "difficulty": "Dificultad",
+    "timeControl": "Control de tiempo",
+    "color": "Color",
+    "start": "Iniciar partida",
+    "loadingEngine": "Cargando motor...",
+    "modeOptions": {
+      "Bullet": "Bullet",
+      "Blitz": "Blitz",
+      "Rapid": "Rapid",
+      "Classical": "Classical"
+    },
+    "levelNames": {
+      "beginner": "Principiante",
+      "amateur": "Amateur",
+      "clubPlayer": "Jugador de club",
+      "strong": "Fuerte",
+      "expert": "Experto"
+    },
+    "levelDescriptions": {
+      "beginner": "Aprendiendo las reglas",
+      "amateur": "Juega por diversión, conoce lo básico",
+      "clubPlayer": "Jugador activo promedio",
+      "strong": "Jugador de club experimentado",
+      "expert": "Candidato a maestro"
+    },
+    "colors": {
+      "white": "Blancas",
+      "black": "Negras",
+      "random": "Aleatorio"
+    }
+  },
+  "clock": {
+    "ariaLabels": {
+      "whiteClock": "Reloj de blancas",
+      "blackClock": "Reloj de negras"
+    }
+  }
+}

@@ -38,13 +38,13 @@ The app must remain runnable after every slice. Translation files start skeletal
 
 ---
 
-- [ ] **Slice 3: Translate game surfaces (board, promotion, end-of-game, vs-bot setup, hotseat page)**
+- [x] **Slice 3: Translate game surfaces (board, promotion, end-of-game, vs-bot setup, hotseat page)**
 
   > Localize `pages/Game.tsx`, `pages/VsBot.tsx`, `features/vs-bot/VsBotSetup.tsx`, `components/game/*` (MoveHistory, PromotionDialog, DrawOfferDialog, ConfirmResignDialog, GameActions, GameClock, GameEndModal). SAN notation remains untouched.
 
-  - [ ] Create `apps/web/src/i18n/locales/{en,ru,es}/game.json` with keys for all board controls, end-of-game labels (`endReason.checkmate`, `endReason.stalemate`, etc.), piece names (`pieces.queen`, etc.), draw-offer dialog, resign confirmation, clocks, and vs-bot setup options. Translate in all three locales. **[Agent: react-frontend]**
-  - [ ] Replace inline strings in `apps/web/src/pages/Game.tsx`, `pages/VsBot.tsx`, `features/vs-bot/VsBotSetup.tsx`, and every file under `apps/web/src/components/game/` with `t('game:*')` calls. **[Agent: react-frontend]**
-  - [ ] Add `apps/web/src/components/game/__tests__/GameActions.i18n.test.tsx` — asserts Resign + Offer-draw labels render in Russian when i18n language is `ru`. **[Agent: react-frontend]**
+  - [x] Create `apps/web/src/i18n/locales/{en,ru,es}/game.json` with keys for all board controls, end-of-game labels (`endReason.checkmate`, `endReason.stalemate`, etc.), piece names (`pieces.queen`, etc.), draw-offer dialog, resign confirmation, clocks, and vs-bot setup options. Translate in all three locales. **[Agent: react-frontend]**
+  - [x] Replace inline strings in `apps/web/src/pages/Game.tsx`, `pages/VsBot.tsx`, `features/vs-bot/VsBotSetup.tsx`, and every file under `apps/web/src/components/game/` with `t('game:*')` calls. **[Agent: react-frontend]**
+  - [x] Add `apps/web/src/components/game/__tests__/GameActions.i18n.test.tsx` — asserts Resign + Offer-draw labels render in Russian when i18n language is `ru`. **[Agent: react-frontend]**
   - [ ] Verify: `pnpm --filter web test -- --run` passes; drive /vs-bot setup + play one move + end game in Spanish via Playwright MCP, confirm UI copy localized. Stop dev server, delete artifacts. **[Agent: general-purpose]**
 
 ---

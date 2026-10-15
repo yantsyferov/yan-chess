@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { Dialog, DialogContent, DialogTitle } from "../ui/Dialog";
 import type { PendingPromotion } from "../../features/shared/game-view-model";
 
@@ -7,14 +8,14 @@ interface PieceOption {
   piece: PromotionPiece;
   whiteGlyph: string;
   blackGlyph: string;
-  label: string;
+  labelKey: string;
 }
 
 const PIECE_OPTIONS: PieceOption[] = [
-  { piece: "q", whiteGlyph: "♕", blackGlyph: "♛", label: "Queen" },
-  { piece: "r", whiteGlyph: "♖", blackGlyph: "♜", label: "Rook" },
-  { piece: "b", whiteGlyph: "♗", blackGlyph: "♝", label: "Bishop" },
-  { piece: "n", whiteGlyph: "♘", blackGlyph: "♞", label: "Knight" },
+  { piece: "q", whiteGlyph: "♕", blackGlyph: "♛", labelKey: "promotion.queen" },
+  { piece: "r", whiteGlyph: "♖", blackGlyph: "♜", labelKey: "promotion.rook" },
+  { piece: "b", whiteGlyph: "♗", blackGlyph: "♝", labelKey: "promotion.bishop" },
+  { piece: "n", whiteGlyph: "♘", blackGlyph: "♞", labelKey: "promotion.knight" },
 ];
 
 interface PromotionDialogProps {
@@ -25,6 +26,7 @@ interface PromotionDialogProps {
 }
 
 export function PromotionDialog({ pending, promotingColor, onPromote, onCancel }: PromotionDialogProps): JSX.Element {
+  const { t } = useTranslation("game");
   const isOpen = pending !== null;
 
   function handleOpenChange(open: boolean): void {
@@ -34,12 +36,12 @@ export function PromotionDialog({ pending, promotingColor, onPromote, onCancel }
   return (
     <Dialog open={isOpen} onOpenChange={handleOpenChange}>
       <DialogContent>
-        <DialogTitle className="text-center mb-4">Choose a piece</DialogTitle>
+        <DialogTitle className="text-center mb-4">{t("promotion.title")}</DialogTitle>
         <div className="flex gap-3 justify-center">
-          {PIECE_OPTIONS.map(({ piece, whiteGlyph, blackGlyph, label }, index) => (
+          {PIECE_OPTIONS.map(({ piece, whiteGlyph, blackGlyph, labelKey }, index) => (
             <button
               key={piece}
-              aria-label={label}
+              aria-label={t(labelKey)}
               // eslint-disable-next-line jsx-a11y/no-autofocus
               autoFocus={index === 0}
               onClick={() => onPromote(piece)}

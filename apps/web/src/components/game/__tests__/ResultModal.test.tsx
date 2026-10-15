@@ -40,7 +40,7 @@ describe("ResultModal", () => {
     expect(screen.getByText("Draw. Stalemate.")).toBeInTheDocument();
   });
 
-  it("shows 'White lost. Flag.' for black winner via flag_fall", () => {
+  it("shows 'Black wins. Timeout.' for black winner via flag_fall", () => {
     // @regression
     render(
       <ResultModal
@@ -50,7 +50,7 @@ describe("ResultModal", () => {
         onDismiss={vi.fn()}
       />,
     );
-    expect(screen.getByText("White lost. Flag.")).toBeInTheDocument();
+    expect(screen.getByText("Black wins. Timeout.")).toBeInTheDocument();
   });
 
   it("'New game' button calls onNewGame (phase returns to idle)", () => {

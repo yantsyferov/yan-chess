@@ -14,6 +14,10 @@ import enErrors from "./locales/en/errors.json";
 import ruErrors from "./locales/ru/errors.json";
 import esErrors from "./locales/es/errors.json";
 
+import enGame from "./locales/en/game.json";
+import ruGame from "./locales/ru/game.json";
+import esGame from "./locales/es/game.json";
+
 const LANG_KEY = "yanchess:lang";
 
 function detectLang(): string {
@@ -36,9 +40,9 @@ void i18n
     fallbackLng: "en",
     defaultNS: "common",
     resources: {
-      en: { common: enCommon, auth: enAuth, errors: enErrors },
-      ru: { common: ruCommon, auth: ruAuth, errors: ruErrors },
-      es: { common: esCommon, auth: esAuth, errors: esErrors },
+      en: { common: enCommon, auth: enAuth, errors: enErrors, game: enGame },
+      ru: { common: ruCommon, auth: ruAuth, errors: ruErrors, game: ruGame },
+      es: { common: esCommon, auth: esAuth, errors: esErrors, game: esGame },
     },
     interpolation: { escapeValue: false },
   });

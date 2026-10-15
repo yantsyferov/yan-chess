@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { Zap, Flame, Clock, Hourglass, Sparkles, BookOpen, Users, Swords, Trophy, Loader2 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import type { Mode } from "@yanchess/shared";
@@ -43,17 +44,12 @@ const LEVEL_ICONS: Record<BotLevel, LucideIcon> = {
 
 type ColorOption = "white" | "black" | "random";
 
-const COLOR_LABELS: Record<ColorOption, string> = {
-  white: "White",
-  black: "Black",
-  random: "Random",
-};
-
 const COLOR_OPTIONS: readonly ColorOption[] = ["white", "black", "random"] as const;
 
 // ── Component ─────────────────────────────────────────────────────────────────
 
 export function VsBotSetup({ engineReady = false }: { engineReady?: boolean } = {}): JSX.Element {
+  const { t } = useTranslation("game");
   const level = useVsBotStore((s) => s.setup.level);
   const color = useVsBotStore((s) => s.setup.color);
   const mode = useVsBotStore((s) => s.setup.mode);
@@ -65,12 +61,12 @@ export function VsBotSetup({ engineReady = false }: { engineReady?: boolean } = 
   return (
     <div className="max-w-3xl mx-auto px-3 py-6 sm:px-4 sm:py-10 flex flex-col gap-8">
       <h1 className="text-3xl font-semibold text-text-primary text-center">
-        Play vs bot
+        {t("vsBotSetup.title")}
       </h1>
 
       {/* Group 1 — Level */}
       <section className="flex flex-col gap-3">
-        <h2 className="text-xl font-semibold text-text-primary">Difficulty</h2>
+        <h2 className="text-xl font-semibold text-text-primary">{t("vsBotSetup.difficulty")}</h2>
         <div className="grid grid-cols-1 sm:grid-cols-5 gap-3">
           {BOT_LEVELS.map((cfg) => {
             const isActive = level === cfg.key;
@@ -96,11 +92,11 @@ export function VsBotSetup({ engineReady = false }: { engineReady?: boolean } = 
                       aria-hidden
                     />
                     <span className="text-sm font-semibold text-text-primary text-center">
-                      {cfg.label}
+                      {t(`vsBotSetup.levelNames.${cfg.key}`)}
                     </span>
                     <span className="text-xs text-accent font-medium">{cfg.elo} ELO</span>
                     <span className="text-xs text-text-secondary text-center leading-tight">
-                      {cfg.description}
+                      {t(`vsBotSetup.levelDescriptions.${cfg.key}`)}
                     </span>
                   </div>
                 </Card>
@@ -112,7 +108,7 @@ export function VsBotSetup({ engineReady = false }: { engineReady?: boolean } = 
 
       {/* Group 2 — Color */}
       <section className="flex flex-col gap-3">
-        <h2 className="text-xl font-semibold text-text-primary">Color</h2>
+        <h2 className="text-xl font-semibold text-text-primary">{t("vsBotSetup.color")}</h2>
         <div className="grid grid-cols-3 gap-3">
           {COLOR_OPTIONS.map((c) => {
             const isActive = color === c;
@@ -135,7 +131,7 @@ export function VsBotSetup({ engineReady = false }: { engineReady?: boolean } = 
                       {c === "white" ? "♔" : c === "black" ? "♚" : "🎲"}
                     </span>
                     <span className="text-sm font-semibold text-text-primary">
-                      {COLOR_LABELS[c]}
+                      {t(`vsBotSetup.colors.${c}`)}
                     </span>
                   </div>
                 </Card>
@@ -147,7 +143,7 @@ export function VsBotSetup({ engineReady = false }: { engineReady?: boolean } = 
 
       {/* Group 3 — Time control */}
       <section className="flex flex-col gap-3">
-        <h2 className="text-xl font-semibold text-text-primary">Time control</h2>
+        <h2 className="text-xl font-semibold text-text-primary">{t("vsBotSetup.timeControl")}</h2>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           {MODE_OPTIONS.map(({ mode: m, Icon }) => {
             const isActive = mode === m;
@@ -187,7 +183,7 @@ export function VsBotSetup({ engineReady = false }: { engineReady?: boolean } = 
         {!engineReady && (
           <span className="flex items-center gap-1.5 text-xs text-text-muted">
             <Loader2 size={12} className="animate-spin" aria-hidden />
-            Loading engine...
+            {t("vsBotSetup.loadingEngine")}
           </span>
         )}
         <Button
@@ -196,7 +192,7 @@ export function VsBotSetup({ engineReady = false }: { engineReady?: boolean } = 
           onClick={startGame}
           disabled={!engineReady}
         >
-          Start game
+          {t("vsBotSetup.start")}
         </Button>
       </div>
     </div>
