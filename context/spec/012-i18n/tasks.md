@@ -78,13 +78,13 @@ The app must remain runnable after every slice. Translation files start skeletal
 
 ---
 
-- [ ] **Slice 6: Localized transactional emails**
+- [x] **Slice 6: Localized transactional emails**
 
   > Extract inline email HTML from `auth.service.ts` into dedicated template modules with `{ en, ru, es }` maps. Pass `user.lang ?? 'en'` into the templates. Register-flow email uses the lang submitted on registration; password-reset uses the lang stored on the user's account.
 
-  - [ ] Extend `MailMessage` in `apps/api/src/modules/mail/mail.service.ts` with optional `lang?: Lang`. No signature change to `send()`. **[Agent: nestjs-backend]**
-  - [ ] Create `apps/api/src/modules/mail/templates/verify-email.ts`, `reset-password.ts`, `resend-verify.ts` — each exports a function `(ctx, lang) => { subject, html }` backed by a `Record<Lang, {...}>`. Unsupported lang → log warn + fall back to `en`. **[Agent: nestjs-backend]**
-  - [ ] Update `apps/api/src/modules/auth/auth.service.ts` to call the three template functions with `user.lang ?? 'en'` instead of using inline template strings. Remove the obsolete inline template strings. **[Agent: nestjs-backend]**
+  - [x] Extend `MailMessage` in `apps/api/src/modules/mail/mail.service.ts` with optional `lang?: Lang`. No signature change to `send()`. **[Agent: nestjs-backend]**
+  - [x] Create `apps/api/src/modules/mail/templates/verify-email.ts`, `reset-password.ts`, `resend-verify.ts` — each exports a function `(ctx, lang) => { subject, html }` backed by a `Record<Lang, {...}>`. Unsupported lang → log warn + fall back to `en`. **[Agent: nestjs-backend]**
+  - [x] Update `apps/api/src/modules/auth/auth.service.ts` to call the three template functions with `user.lang ?? 'en'` instead of using inline template strings. Remove the obsolete inline template strings. **[Agent: nestjs-backend]**
   - [ ] Add `apps/api/test/unit/mail-templates.spec.ts` — for each of the three templates × three langs, assert the subject + html contain the expected localized key phrases (substring checks); assert the `en` fallback on invalid lang. **[Agent: nestjs-backend]**
   - [ ] Add `apps/api/test/e2e/register-email-lang.e2e.spec.ts` — POST /auth/register with `lang: 'ru'`; read the latest file in `apps/api/dev-outbox/`; assert the subject contains the Russian phrase and the HTML contains the Russian CTA. **[Agent: nestjs-backend]**
   - [ ] Verify: `pnpm --filter api test:unit` + `test:e2e` pass. Then dev-start, register a user through the web UI in Spanish, confirm the dev-outbox file contains Spanish subject + body. Stop servers, delete artifacts. **[Agent: general-purpose]**
