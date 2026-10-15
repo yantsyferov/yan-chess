@@ -1,6 +1,8 @@
 {
   "board": {
-    "movesHeading": "Moves"
+    "movesHeading": "Moves",
+    "pageTitle": "Game",
+    "startGame": "Start game"
   },
   "endReason": {
     "checkmate": "Checkmate",

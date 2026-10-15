@@ -1,6 +1,8 @@
 {
   "board": {
-    "movesHeading": "Movimientos"
+    "movesHeading": "Movimientos",
+    "pageTitle": "Partida",
+    "startGame": "Empezar partida"
   },
   "endReason": {
     "checkmate": "Jaque mate",

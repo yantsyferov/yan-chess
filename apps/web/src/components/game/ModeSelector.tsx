@@ -1,5 +1,6 @@
 import { Zap, Flame, Clock, Hourglass } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import type { Mode } from "@yanchess/shared";
 import { Card } from "../ui/Card";
 import { Button } from "../ui/Button";
@@ -30,6 +31,7 @@ interface ModeSelectorProps {
 }
 
 export function ModeSelector({ showStartButton = true }: ModeSelectorProps = {}): JSX.Element {
+  const { t } = useTranslation("game");
   const mode = useGameStore((s) => s.mode);
   const setMode = useGameStore((s) => s.setMode);
   const startGame = useGameStore((s) => s.startGame);
@@ -71,7 +73,7 @@ export function ModeSelector({ showStartButton = true }: ModeSelectorProps = {})
       </div>
       {showStartButton && (
         <Button variant="primary" size="lg" onClick={startGame}>
-          Start game
+          {t("board.startGame")}
         </Button>
       )}
     </div>

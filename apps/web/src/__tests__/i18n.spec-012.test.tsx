@@ -138,7 +138,7 @@ describe("§2.4 — Device-local persistence", () => {
 // ---------------------------------------------------------------------------
 
 describe("§2.8 — Error messages locale coverage", () => {
-  let i18n: Awaited<ReturnType<typeof import("../i18n/index")>>["default"];
+  let i18n: typeof import("../i18n/index").default;
 
   beforeAll(async () => {
     i18n = (await import("../i18n/index")).default;
@@ -171,7 +171,7 @@ describe("§2.8 — Error messages locale coverage", () => {
 // ---------------------------------------------------------------------------
 
 describe("§2.9 — Chess-specific content localization", () => {
-  let i18n: Awaited<ReturnType<typeof import("../i18n/index")>>["default"];
+  let i18n: typeof import("../i18n/index").default;
 
   beforeAll(async () => {
     i18n = (await import("../i18n/index")).default;
@@ -245,7 +245,7 @@ vi.mock("../features/auth/authService", () => ({
 }));
 
 describe("§2.9 — MoveHistory component: SAN strings are not translated", () => {
-  let i18n: Awaited<ReturnType<typeof import("../i18n/index")>>["default"];
+  let i18n: typeof import("../i18n/index").default;
 
   beforeAll(async () => {
     i18n = (await import("../i18n/index")).default;

@@ -51,7 +51,7 @@ export default function Game(): JSX.Element {
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-10">
-      <h1 className="text-3xl font-semibold text-text-primary mb-6 text-center">Game</h1>
+      <h1 className="text-3xl font-semibold text-text-primary mb-6 text-center">{t("board.pageTitle")}</h1>
       {phase === "idle" && <ModeSelector />}
       {(phase === "playing" || phase === "ended") && (
         <div className="flex flex-col md:flex-row items-start justify-center gap-6">

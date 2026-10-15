@@ -1,6 +1,8 @@
 {
   "board": {
-    "movesHeading": "Ходы"
+    "movesHeading": "Ходы",
+    "pageTitle": "Партия",
+    "startGame": "Начать партию"
   },
   "endReason": {
     "checkmate": "Мат",
