@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import type { FriendListItem } from "@yanchess/shared";
 import { MoreHorizontal, Swords } from "lucide-react";
 import {
@@ -23,6 +24,7 @@ interface FriendCardProps {
 }
 
 export function FriendCard({ item }: FriendCardProps): JSX.Element {
+  const { t } = useTranslation("friends");
   const [confirmOpen, setConfirmOpen] = useState(false);
   const activeGameId = useOnlineGameStore((s) => s.gameId);
 
@@ -39,9 +41,9 @@ export function FriendCard({ item }: FriendCardProps): JSX.Element {
 
   const challengeDisabled = !item.online || activeGameId !== null;
   const challengeTitle = !item.online
-    ? "Offline"
+    ? t("friends.offline")
     : activeGameId !== null
-      ? "Finish your current game first"
+      ? t("friends.finishCurrentGame")
       : undefined;
 
   return (
@@ -59,7 +61,7 @@ export function FriendCard({ item }: FriendCardProps): JSX.Element {
           />
           <div className="flex flex-col gap-0.5">
             <span className="text-sm font-medium text-text-primary">{item.nickname}</span>
-            <span className="text-xs text-text-muted">Blitz {item.blitzRating}</span>
+            <span className="text-xs text-text-muted">{t("friends.blitzRating", { rating: item.blitzRating })}</span>
           </div>
         </div>
 
@@ -91,7 +93,7 @@ export function FriendCard({ item }: FriendCardProps): JSX.Element {
                 className="text-danger data-[highlighted]:text-danger"
                 onSelect={() => setConfirmOpen(true)}
               >
-                Unfriend
+                {t("unfriend.label")}
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
@@ -101,18 +103,16 @@ export function FriendCard({ item }: FriendCardProps): JSX.Element {
       {/* Confirmation dialog */}
       <Dialog open={confirmOpen} onOpenChange={setConfirmOpen}>
         <DialogContent>
-          <DialogTitle>Unfriend {item.nickname}?</DialogTitle>
-          <DialogDescription>
-            They will be removed from your friends list. You can send a new friend request from Search.
-          </DialogDescription>
+          <DialogTitle>{t("unfriend.confirmTitle", { nickname: item.nickname })}</DialogTitle>
+          <DialogDescription>{t("unfriend.confirmBody")}</DialogDescription>
           <div className="flex justify-end gap-3 mt-6">
             <DialogClose asChild>
               <Button variant="secondary" size="sm">
-                Cancel
+                {t("unfriend.cancel")}
               </Button>
             </DialogClose>
             <Button variant="danger" size="sm" onClick={handleUnfriendConfirm}>
-              Unfriend
+              {t("unfriend.confirm")}
             </Button>
           </div>
         </DialogContent>

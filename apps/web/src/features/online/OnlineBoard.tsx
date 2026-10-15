@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { useOnlineGameStore } from "./useOnlineGameStore";
 import { useOnlineGameViewModel } from "./useOnlineGameViewModel";
 import { useOnlineGameClock } from "./useOnlineGameClock";
@@ -22,13 +23,14 @@ function PlayerCard({
   rating: number;
   online?: boolean;
 }): JSX.Element {
+  const { t } = useTranslation("game");
   const dotClass =
     online === false
       ? "inline-block w-2 h-2 rounded-full bg-text-muted"
       : "inline-block w-2 h-2 rounded-full bg-green-500";
   return (
     <div className="flex items-center gap-2 px-1">
-      <span className={dotClass} aria-label={online === false ? "offline" : "online"} />
+      <span className={dotClass} aria-label={online === false ? t("online.playerStatus.offline") : t("online.playerStatus.online")} />
       <span className="text-text-primary font-semibold truncate">{nickname}</span>
       <span className="text-text-muted text-sm tabular-nums">{rating}</span>
     </div>
@@ -36,6 +38,7 @@ function PlayerCard({
 }
 
 export function OnlineBoard(): JSX.Element {
+  const { t } = useTranslation("game");
   const vm = useOnlineGameViewModel();
   const opponent = useOnlineGameStore((s) => s.opponent);
   const mode = useOnlineGameStore((s) => s.mode);
@@ -67,7 +70,7 @@ export function OnlineBoard(): JSX.Element {
   }, [vm?.canInteract, vm?.fen]);
 
   if (vm === null) {
-    return <div className="text-text-muted text-center py-10">Loading game...</div>;
+    return <div className="text-text-muted text-center py-10">{t("online.loadingGame")}</div>;
   }
 
   const orientation = color === "black" ? "black" : "white";
@@ -130,18 +133,18 @@ export function OnlineBoard(): JSX.Element {
           onOfferDraw={vm.onOfferDraw}
         />
         {drawDeclinedToast && (
-          <Alert tone="info">Draw offer declined.</Alert>
+          <Alert tone="info">{t("online.drawDeclined")}</Alert>
         )}
         {drawOfferCooldownMoves !== null && (
           <Alert tone="info">
-            You can offer a draw again after {drawOfferCooldownMoves} of your moves.
+            {t("online.drawCooldown", { moves: drawOfferCooldownMoves })}
           </Alert>
         )}
       </div>
 
       {/* Move history */}
       <section className="flex flex-col gap-2 w-full md:w-auto" aria-labelledby="online-moves-heading">
-        <h2 id="online-moves-heading" className="text-sm text-text-secondary px-1">Moves</h2>
+        <h2 id="online-moves-heading" className="text-sm text-text-secondary px-1">{t("board.movesHeading")}</h2>
         <MoveHistory movesSan={vm.movesSan} />
       </section>
 

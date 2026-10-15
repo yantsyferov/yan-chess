@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { SkipBack, ChevronLeft, Play, Pause, ChevronRight, SkipForward } from "lucide-react";
 import { IconButton } from "../../components/ui/IconButton";
 
@@ -27,13 +28,14 @@ export function ReplayControls({
   speed = 2000,
   onSpeedChange,
 }: ReplayControlsProps): JSX.Element {
+  const { t } = useTranslation("history");
   const atStart = currentIndex === 0;
   const atEnd = currentIndex === totalMoves;
 
   return (
     <div className="flex items-center justify-center gap-1" aria-label="Replay controls">
       <IconButton
-        label="First move"
+        label={t("replay.first")}
         size="md"
         onClick={onFirst}
         disabled={atStart}
@@ -42,7 +44,7 @@ export function ReplayControls({
       </IconButton>
 
       <IconButton
-        label="Previous move"
+        label={t("replay.prev")}
         size="md"
         onClick={onPrev}
         disabled={atStart}
@@ -51,7 +53,7 @@ export function ReplayControls({
       </IconButton>
 
       <IconButton
-        label={isPlaying ? "Pause" : "Play"}
+        label={isPlaying ? t("replay.pause") : t("replay.autoplay")}
         size="md"
         onClick={onTogglePlay}
         disabled={onTogglePlay === undefined}
@@ -60,7 +62,7 @@ export function ReplayControls({
       </IconButton>
 
       <IconButton
-        label="Next move"
+        label={t("replay.next")}
         size="md"
         onClick={onNext}
         disabled={atEnd}
@@ -69,7 +71,7 @@ export function ReplayControls({
       </IconButton>
 
       <IconButton
-        label="Last move"
+        label={t("replay.last")}
         size="md"
         onClick={onLast}
         disabled={atEnd}
@@ -84,9 +86,9 @@ export function ReplayControls({
           onChange={(e) => onSpeedChange(Number(e.target.value))}
           className="ml-2 text-sm bg-surface-secondary text-text-primary border border-border rounded px-1 py-0.5"
         >
-          <option value={1000}>1 s/move</option>
-          <option value={2000}>2 s/move</option>
-          <option value={3000}>3 s/move</option>
+          <option value={1000}>{t("replay.speed.1s")}</option>
+          <option value={2000}>{t("replay.speed.2s")}</option>
+          <option value={3000}>{t("replay.speed.3s")}</option>
         </select>
       )}
     </div>

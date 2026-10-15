@@ -1,24 +1,7 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import type { GameListItem, GameEndReason } from "@yanchess/shared";
 import { MODE_LABELS } from "../shared/mode-labels";
-
-function endReasonLabel(reason: GameEndReason): string {
-  switch (reason) {
-    case "checkmate": return "Checkmate";
-    case "stalemate": return "Stalemate";
-    case "insufficient_material": return "Insufficient material";
-    case "threefold_repetition": return "Threefold repetition";
-    case "fifty_move": return "Fifty-move rule";
-    case "flag": return "Flag";
-    case "flag_vs_insufficient_material": return "Opponent has insufficient material";
-    case "resignation": return "Resignation";
-    case "agreement": return "Agreement";
-    default: {
-      const _exhaustive: never = reason;
-      return String(_exhaustive);
-    }
-  }
-}
 
 function formatDate(iso: string): string {
   return new Date(iso).toLocaleString(undefined, {
@@ -37,12 +20,6 @@ function formatDelta(delta: number): string {
   return "0";
 }
 
-const RESULT_LABELS: Record<GameListItem["result"], string> = {
-  win: "Win",
-  loss: "Loss",
-  draw: "Draw",
-};
-
 const ROW_BG: Record<GameListItem["result"], string> = {
   win: "bg-green-900/10",
   loss: "bg-red-900/10",
@@ -54,14 +31,35 @@ interface GameRowProps {
 }
 
 export function GameRow({ item }: GameRowProps): JSX.Element {
+  const { t } = useTranslation("history");
   const location = useLocation();
   const navigate = useNavigate();
   const replayTo = `/history/${item.gameId}`;
   const replayState = { returnTo: location.search };
 
+  function endReasonLabel(reason: GameEndReason): string {
+    switch (reason) {
+      case "checkmate": return t("endReason.checkmate");
+      case "stalemate": return t("endReason.stalemate");
+      case "insufficient_material": return t("endReason.insufficient_material");
+      case "threefold_repetition": return t("endReason.threefold_repetition");
+      case "fifty_move": return t("endReason.fifty_move");
+      case "flag": return t("endReason.flag");
+      case "flag_vs_insufficient_material": return t("endReason.flag_vs_insufficient_material");
+      case "resignation": return t("endReason.resignation");
+      case "agreement": return t("endReason.agreement");
+      default: {
+        const _exhaustive: never = reason;
+        return String(_exhaustive);
+      }
+    }
+  }
+
   function handleRowClick(): void {
     navigate(replayTo, { state: replayState });
   }
+
+  const resultLabel = t(`resultLabels.${item.result}`);
 
   return (
     <div
@@ -81,7 +79,7 @@ export function GameRow({ item }: GameRowProps): JSX.Element {
       </span>
 
       <span className="text-sm font-medium text-text-primary shrink-0">
-        {RESULT_LABELS[item.result]}
+        {resultLabel}
         <span className="text-text-muted font-normal"> — {endReasonLabel(item.endReason)}</span>
       </span>
 
@@ -95,7 +93,7 @@ export function GameRow({ item }: GameRowProps): JSX.Element {
         className="text-sm text-accent hover:text-accent-hover shrink-0"
         onClick={(e) => { e.stopPropagation(); }}
       >
-        &#9654; Replay
+        &#9654; {t("replay.link")}
       </Link>
     </div>
   );

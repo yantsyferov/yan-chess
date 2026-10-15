@@ -1,5 +1,6 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { Mode, Prisma } from "@prisma/client";
+import type { Lang, UpdateMeInput } from "@yanchess/shared";
 import { PrismaService } from "../prisma/prisma.service";
 
 export interface RatingDto {
@@ -14,8 +15,11 @@ export interface UserMeDto {
   email: string;
   createdAt: Date;
   avatar: null;
+  lang: Lang | null;
   ratings: RatingDto[];
 }
+
+export type UpdateMeDto = UpdateMeInput;
 
 const MODE_ORDER: Mode[] = [Mode.Bullet, Mode.Blitz, Mode.Rapid, Mode.Classical];
 
@@ -55,6 +59,31 @@ export class UsersService {
       email: user.email,
       createdAt: user.createdAt,
       avatar: null,
+      lang: (user.lang as Lang | null) ?? null,
+      ratings,
+    };
+  }
+
+  async updateMe(userId: string, dto: UpdateMeDto): Promise<UserMeDto> {
+    const user = await this.prisma.user.update({
+      where: { id: userId },
+      data: { lang: dto.lang ?? undefined },
+      include: { ratings: true },
+    });
+
+    const byMode = new Map(user.ratings.map((r) => [r.mode, r]));
+    const ratings: RatingDto[] = MODE_ORDER
+      .map((m) => byMode.get(m))
+      .filter((r): r is NonNullable<typeof r> => r !== undefined)
+      .map((r) => ({ mode: r.mode, rating: r.rating, gamesPlayed: r.gamesPlayed }));
+
+    return {
+      id: user.id,
+      nickname: user.nickname,
+      email: user.email,
+      createdAt: user.createdAt,
+      avatar: null,
+      lang: (user.lang as Lang | null) ?? null,
       ratings,
     };
   }

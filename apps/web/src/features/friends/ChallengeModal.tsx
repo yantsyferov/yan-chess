@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import type { Mode } from "@yanchess/shared";
 import type { ChallengeColor } from "@yanchess/shared";
 import { useFriendsStore } from "./useFriendsStore";
@@ -11,11 +12,6 @@ import {
 import { Button } from "../../components/ui/Button";
 
 const MODES: Mode[] = ["Bullet", "Blitz", "Rapid", "Classical"];
-const COLORS: { value: ChallengeColor; label: string }[] = [
-  { value: "white", label: "White" },
-  { value: "black", label: "Black" },
-  { value: "random", label: "Random" },
-];
 
 function pad(n: number): string {
   return String(n).padStart(2, "0");
@@ -36,16 +32,17 @@ function WaitingContent({
   expiresAt: number;
   onCancel: () => void;
 }): JSX.Element {
+  const { t } = useTranslation("friends");
   const { secondsLeft } = useChallenge(expiresAt);
   return (
     <>
-      <DialogTitle>Waiting for {targetNickname}</DialogTitle>
+      <DialogTitle>{t("challenge.waiting", { nickname: targetNickname })}</DialogTitle>
       <p className="text-sm text-text-secondary mt-3">
-        Challenge sent ({formatSeconds(secondsLeft)})
+        {t("challenge.sent", { timer: formatSeconds(secondsLeft) })}
       </p>
       <div className="flex justify-end mt-6">
         <Button variant="secondary" size="sm" onClick={onCancel}>
-          Cancel challenge
+          {t("challenge.cancelChallenge")}
         </Button>
       </div>
     </>
@@ -70,6 +67,7 @@ function AutoCloseContent({
 }
 
 export function ChallengeModal(): JSX.Element | null {
+  const { t } = useTranslation("friends");
   const outboundChallenge = useFriendsStore((s) => s.outboundChallenge);
   const sendChallenge = useFriendsStore((s) => s.sendChallenge);
   const cancelOutboundChallenge = useFriendsStore((s) => s.cancelOutboundChallenge);
@@ -90,6 +88,12 @@ export function ChallengeModal(): JSX.Element | null {
   const { targetNickname, sentAt, expiresAt, status } = outboundChallenge;
   const isOpen = true;
 
+  const COLORS: { value: ChallengeColor; label: string }[] = [
+    { value: "white", label: t("challenge.white") },
+    { value: "black", label: t("challenge.black") },
+    { value: "random", label: t("challenge.random") },
+  ];
+
   function handleOpenChange(open: boolean): void {
     if (!open) cancelOutboundChallenge();
   }
@@ -103,12 +107,12 @@ export function ChallengeModal(): JSX.Element | null {
       <DialogContent>
         {status === "declined" ? (
           <AutoCloseContent
-            message={`${targetNickname} declined your challenge`}
+            message={t("challenge.declined", { nickname: targetNickname })}
             onClose={cancelOutboundChallenge}
           />
         ) : status === "expired" ? (
           <AutoCloseContent
-            message="Challenge expired"
+            message={t("challenge.expired")}
             onClose={cancelOutboundChallenge}
           />
         ) : sentAt > 0 ? (
@@ -119,11 +123,11 @@ export function ChallengeModal(): JSX.Element | null {
           />
         ) : (
           <>
-            <DialogTitle>Challenge {targetNickname}</DialogTitle>
+            <DialogTitle>{t("challenge.title", { nickname: targetNickname })}</DialogTitle>
 
             {/* Mode selector */}
             <div className="mt-4">
-              <p className="text-xs text-text-muted mb-2 uppercase tracking-wide">Mode</p>
+              <p className="text-xs text-text-muted mb-2 uppercase tracking-wide">{t("challenge.mode")}</p>
               <div className="grid grid-cols-4 gap-2">
                 {MODES.map((m) => (
                   <button
@@ -145,7 +149,7 @@ export function ChallengeModal(): JSX.Element | null {
 
             {/* Color selector */}
             <div className="mt-4">
-              <p className="text-xs text-text-muted mb-2 uppercase tracking-wide">Color</p>
+              <p className="text-xs text-text-muted mb-2 uppercase tracking-wide">{t("challenge.color")}</p>
               <div className="grid grid-cols-3 gap-2">
                 {COLORS.map(({ value, label }) => (
                   <button
@@ -167,10 +171,10 @@ export function ChallengeModal(): JSX.Element | null {
 
             <div className="flex justify-end gap-3 mt-6">
               <Button variant="secondary" size="sm" onClick={cancelOutboundChallenge}>
-                Cancel
+                {t("challenge.cancel")}
               </Button>
               <Button variant="primary" size="sm" onClick={handleSend}>
-                Send challenge
+                {t("challenge.send")}
               </Button>
             </div>
           </>

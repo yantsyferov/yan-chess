@@ -1,0 +1,8 @@
+{
+  "title": "Профиль",
+  "memberSince": "Зарегистрирован: {{date}}",
+  "ratingsTitle": "Рейтинг",
+  "historyTitle": "История партий",
+  "signOut": "Выйти",
+  "loading": "Загрузка…"
+}

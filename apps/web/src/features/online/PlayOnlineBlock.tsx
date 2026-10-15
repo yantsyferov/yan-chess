@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { Zap, Flame, Clock, Hourglass } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import type { Mode } from "@yanchess/shared";
@@ -31,6 +32,7 @@ const MODE_OPTIONS: readonly ModeOption[] = [
 const DEFAULT_RATING = 1500;
 
 export function PlayOnlineBlock(): JSX.Element {
+  const { t } = useTranslation("common");
   const navigate = useNavigate();
   const user = useAuthStore((s) => s.user);
   const mode = useGameStore((s) => s.mode);
@@ -60,7 +62,7 @@ export function PlayOnlineBlock(): JSX.Element {
   return (
     <div className="flex flex-col gap-6">
       <h2 className="text-2xl font-semibold text-text-primary text-center">
-        Play online
+        {t("play.title")}
       </h2>
 
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 w-full">
@@ -100,12 +102,12 @@ export function PlayOnlineBlock(): JSX.Element {
       </div>
 
       <p className="text-center text-text-secondary text-sm">
-        Your rating: <span className="font-semibold text-text-primary">{rating}</span>
+        {t("play.yourRating")} <span className="font-semibold text-text-primary">{rating}</span>
       </p>
 
       <div className="flex justify-center">
         <Button variant="primary" size="lg" onClick={handleFindGame}>
-          Find game
+          {t("play.findGame")}
         </Button>
       </div>
     </div>

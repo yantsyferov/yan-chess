@@ -10,6 +10,9 @@ import { MailService } from "../mail/mail.service";
 import { RedisService } from "../redis/redis.service";
 import { UsersService } from "../users/users.service";
 import { RateLimiterService } from "../rate-limiter/rate-limiter.service";
+import { verifyEmailTemplate } from "../mail/templates/verify-email.js";
+import { resetPasswordTemplate } from "../mail/templates/reset-password.js";
+import { resendVerifyTemplate } from "../mail/templates/resend-verify.js";
 
 const ARGON2_OPTIONS: argon2.Options = {
   type: argon2.argon2id,
@@ -86,7 +89,7 @@ export class AuthService {
   async register(dto: RegisterInput): Promise<void> {
     const passwordHash = await argon2.hash(dto.password, ARGON2_OPTIONS);
 
-    let user: { id: string; email: string };
+    let user: { id: string; email: string; nickname: string };
     try {
       user = await this.prisma.user.create({
         data: {
@@ -94,8 +97,9 @@ export class AuthService {
           nickname: dto.nickname,
           nicknameNormalized: dto.nickname.toLowerCase(),
           passwordHash,
+          lang: dto.lang ?? null,
         },
-        select: { id: true, email: true },
+        select: { id: true, email: true, nickname: true },
       });
     } catch (e: unknown) {
       if (e instanceof Prisma.PrismaClientKnownRequestError && e.code === "P2002") {
@@ -114,12 +118,15 @@ export class AuthService {
     const webUrl = process.env["WEB_URL"] ?? "http://localhost:5173";
     const link = `${webUrl}/verify-email?token=${rawToken}`;
 
+    const lang = dto.lang ?? "en";
+    const tpl = verifyEmailTemplate({ link, nickname: user.nickname }, lang);
     try {
       await this.mailService.send({
         to: user.email,
-        subject: "Confirm your YanChess registration",
-        html: `<p>Click the button below to confirm your registration.</p><p><a href="${link}">Confirm email</a></p>`,
+        subject: tpl.subject,
+        html: tpl.html,
         token: rawToken,
+        lang,
       });
     } catch (e: unknown) {
       this.logger.error(`Failed to send verify email to ${user.email}`, e);
@@ -280,12 +287,15 @@ export class AuthService {
 
     const rawToken = await this.tokenService.issue(user.id, "reset", 60 * 60); // 1h
     const link = `${process.env["WEB_URL"] ?? "http://localhost:5173"}/reset-password?token=${rawToken}`;
+    const lang = (user.lang as "en" | "ru" | "es" | null) ?? "en";
+    const tpl = resetPasswordTemplate({ link, nickname: user.nickname }, lang);
     try {
       await this.mailService.send({
         to: user.email,
-        subject: "Reset your YanChess password",
-        html: `<p>Click the button below to reset your password.</p><p><a href="${link}">Reset password</a></p>`,
+        subject: tpl.subject,
+        html: tpl.html,
         token: rawToken,
+        lang,
       });
     } catch (e: unknown) {
       this.logger.error(`Failed to send reset email to ${user.email}`, e);
@@ -323,12 +333,15 @@ export class AuthService {
 
     const rawToken = await this.tokenService.issue(user.id, "verify", 24 * 60 * 60);
     const link = `${process.env["WEB_URL"] ?? "http://localhost:5173"}/verify-email?token=${rawToken}`;
+    const lang = (user.lang as "en" | "ru" | "es" | null) ?? "en";
+    const tpl = resendVerifyTemplate({ link, nickname: user.nickname }, lang);
     try {
       await this.mailService.send({
         to: user.email,
-        subject: "Confirm your YanChess registration",
-        html: `<p>Click the button below to confirm your registration.</p><p><a href="${link}">Confirm email</a></p>`,
+        subject: tpl.subject,
+        html: tpl.html,
         token: rawToken,
+        lang,
       });
     } catch (e: unknown) {
       this.logger.error(`Failed to resend verify email to ${user.email}`, e);

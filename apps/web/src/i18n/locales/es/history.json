@@ -1,0 +1,82 @@
+{
+  "title": "Historial de partidas",
+  "emptyTitle": "Aún no hay partidas",
+  "emptyBody": "Termina una partida en línea y aparecerá aquí. Las partidas de entrenamiento contra el bot no se guardan.",
+  "emptyActions": {
+    "findGame": "Buscar partida",
+    "playBot": "Jugar contra el bot"
+  },
+  "filters": {
+    "mode": "Todos los modos",
+    "result": "Todos los resultados",
+    "bullet": "Bala",
+    "blitz": "Blitz",
+    "rapid": "Rápido",
+    "classical": "Clásico",
+    "wins": "Victorias",
+    "losses": "Derrotas",
+    "draws": "Tablas",
+    "noMatch": "No hay partidas con estos filtros.",
+    "clear": "Borrar filtros"
+  },
+  "columns": {
+    "mode": "Modo",
+    "result": "Resultado",
+    "opponent": "Oponente",
+    "movesCount": "Movimientos",
+    "duration": "Duración",
+    "date": "Fecha"
+  },
+  "resultLabels": {
+    "win": "Victoria",
+    "loss": "Derrota",
+    "draw": "Tablas"
+  },
+  "endReason": {
+    "checkmate": "Jaque mate",
+    "stalemate": "Ahogado",
+    "insufficient_material": "Material insuficiente",
+    "threefold_repetition": "Repetición triple",
+    "fifty_move": "Regla de los 50 movimientos",
+    "flag": "Bandera",
+    "flag_vs_insufficient_material": "El oponente tiene material insuficiente",
+    "resignation": "Rendición",
+    "agreement": "Acuerdo"
+  },
+  "replay": {
+    "title": "Repetición",
+    "link": "Repetición",
+    "next": "Siguiente movimiento",
+    "prev": "Movimiento anterior",
+    "first": "Primer movimiento",
+    "last": "Último movimiento",
+    "autoplay": "Reproducir",
+    "pause": "Pausar",
+    "pgn": "PGN",
+    "close": "Cerrar",
+    "movesHeading": "Movimientos",
+    "backToHistory": "← Volver al historial",
+    "loadingGame": "Cargando partida…",
+    "gameNotAvailable": "Partida no disponible",
+    "couldNotLoad": "No se pudo cargar la partida.",
+    "tryAgain": "Reintentar",
+    "speed": {
+      "1s": "1 s/mov",
+      "2s": "2 s/mov",
+      "3s": "3 s/mov"
+    }
+  },
+  "pagination": {
+    "page": "Página",
+    "of": "de",
+    "prev": "Página anterior",
+    "next": "Página siguiente",
+    "first": "Primera página",
+    "last": "Última página",
+    "ariaLabel": "Paginación del historial"
+  },
+  "errors": {
+    "loadFailed": "Error al cargar el historial."
+  },
+  "tryAgain": "Reintentar"
+}

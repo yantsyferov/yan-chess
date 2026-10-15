@@ -66,6 +66,10 @@ Items that were flagged `[ ]` in a functional-spec with a documented reason duri
 - **AC §2.5 #1-3** — two-user matchmaking live in prod (moves within 1s, 10s disconnect/reconnect, browser refresh resume). **Phase B explicitly skipped per user decision** — covered by 76 spec-004 e2e tests + prior live dev verification.
 - **AC §2.6 #3** — failed health check aborts deploy. Not force-tested; Fly default behavior.
 
+### From spec 012 — Internationalization
+
+- **AC §2.8 rate-limit toast on /login** — the "too many attempts" message shown after being rate-limited isn't routed through the `errors` i18n namespace. Users in RU / ES see an English toast. Non-blocking (rare path). Fix: add `errors.rate_limit.{too_many_attempts, locked_out, server_error}` keys to all three locale files + replace the catch-handler literals in `apps/web/src/pages/Login.tsx` with `t('errors:rate_limit.*')`.
+
 ---
 
 ## 🟢 Technical debt (not blocking, bites at scale)

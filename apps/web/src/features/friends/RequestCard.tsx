@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import type { FriendRequestItem } from "@yanchess/shared";
 import { useFriendsStore } from "./useFriendsStore";
 
@@ -20,6 +21,8 @@ function formatRelativeTime(isoString: string): string {
 }
 
 export function RequestCard({ item }: RequestCardProps): JSX.Element {
+  const { t } = useTranslation("friends");
+
   function handleAccept(): void {
     void useFriendsStore.getState().acceptRequest(item.friendshipId);
   }
@@ -45,14 +48,14 @@ export function RequestCard({ item }: RequestCardProps): JSX.Element {
           onClick={handleAccept}
           className="text-xs font-medium px-3 py-1.5 rounded-md bg-accent text-text-inverse hover:opacity-90 transition-opacity"
         >
-          Accept
+          {t("requests.accept")}
         </button>
         <button
           type="button"
           onClick={handleDecline}
           className="text-xs font-medium px-3 py-1.5 rounded-md bg-surface-overlay text-text-secondary border border-border-subtle hover:bg-surface-elevated transition-colors"
         >
-          Decline
+          {t("requests.decline")}
         </button>
       </div>
     </div>

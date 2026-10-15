@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { useAuthStore } from "../features/auth/useAuthStore";
 import { useGameStore } from "../features/game/useGameStore";
 import { getSocket } from "../features/online/socket";
@@ -23,6 +24,7 @@ function isMode(value: unknown): value is Mode {
 }
 
 export function Play(): JSX.Element {
+  const { t } = useTranslation("common");
   const [isConnected, setIsConnected] = useState<boolean>(false);
 
   const matchmakingPhase = useMatchmakingStore((s) => s.phase);
@@ -104,10 +106,10 @@ export function Play(): JSX.Element {
         {isConnected && (
           <div className="fixed top-3 right-3 flex items-center gap-1.5">
             <span className="inline-block w-2 h-2 rounded-full bg-green-500" />
-            <span className="text-text-muted text-xs">connection established</span>
+            <span className="text-text-muted text-xs">{t("play.connectionEstablished")}</span>
           </div>
         )}
-        <h1 className="text-3xl font-semibold text-text-primary">Play online</h1>
+        <h1 className="text-3xl font-semibold text-text-primary">{t("play.title")}</h1>
 
         <Card variant="glass" padding="lg">
           <ModeSelector showStartButton={false} />
@@ -115,7 +117,7 @@ export function Play(): JSX.Element {
 
         <Card variant="glass" padding="md">
           <p className="text-text-secondary text-sm text-center">
-            Your rating:{" "}
+            {t("play.yourRating")}{" "}
             <span className="text-text-primary font-semibold">{displayRating}</span>
           </p>
         </Card>
@@ -130,15 +132,12 @@ export function Play(): JSX.Element {
               }
             }}
           >
-            Find game
+            {t("play.findGame")}
           </Button>
         </div>
       </div>
     );
   }
 
-  // TODO: render searching phase (Slice 2 — socket connection + queue join)
-  // TODO: render playing phase (Slice 3 — live game board via ChessBoard component)
-  // TODO: render result phase (Slice 4 — game over screen with rematch / back to lobby)
   return <></>;
 }

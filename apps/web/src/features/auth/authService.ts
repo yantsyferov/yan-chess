@@ -3,9 +3,11 @@ import type {
   LoginInput,
   RegisterInput,
   ResetPasswordInput,
+  Lang,
 } from "@yanchess/shared";
 import { apiPost, type ApiResponse } from "./apiClient";
 import { useAuthStore, type AuthUser } from "./useAuthStore";
+import { useLangStore } from "../i18n/useLangStore";
 import { disconnectSocket } from "../online/socket";
 import { disconnectFriendsSocket } from "../friends/friends-socket";
 import { resetFriendsStore } from "../friends/useFriendsStore";
@@ -171,6 +173,7 @@ export async function fetchMe(): Promise<AuthUser | null> {
     email: string;
     createdAt: string;
     avatar: null;
+    lang: Lang | null;
     ratings: import("./useAuthStore").Rating[];
   };
   const user: AuthUser = {
@@ -181,5 +184,8 @@ export async function fetchMe(): Promise<AuthUser | null> {
     ratings: u.ratings,
   };
   if (token) useAuthStore.getState().setSession(token, user);
+  if (u.lang !== null && u.lang !== undefined) {
+    useLangStore.getState().setLang(u.lang, { skipPatch: true });
+  }
   return user;
 }

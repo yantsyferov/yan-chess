@@ -52,7 +52,7 @@ const PUBLIC_AUTH_PATHS = [
   "/auth/password/reset",
 ];
 
-async function authedFetch<T>(path: string, init: RequestInit, retrying = false): Promise<ApiResponse<T>> {
+export async function authedFetch<T>(path: string, init: RequestInit, retrying = false): Promise<ApiResponse<T>> {
   const { accessToken } = useAuthStore.getState();
   const headers = new Headers(init.headers);
   if (accessToken) headers.set("Authorization", `Bearer ${accessToken}`);

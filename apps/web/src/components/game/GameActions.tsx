@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { Button } from "../ui/Button";
 
 interface GameActionsProps {
@@ -14,12 +15,13 @@ export function GameActions({
   onOfferDraw,
   showDrawOffer = true,
 }: GameActionsProps): JSX.Element | null {
+  const { t } = useTranslation("game");
   if (!canAct) return null;
   return (
     <div className="flex flex-wrap gap-3">
-      <Button variant="secondary" onClick={onResignClick}>Resign</Button>
+      <Button variant="secondary" onClick={onResignClick}>{t("actions.resign")}</Button>
       {showDrawOffer && (
-        <Button variant="secondary" onClick={onOfferDraw}>Offer draw</Button>
+        <Button variant="secondary" onClick={onOfferDraw}>{t("actions.offerDraw")}</Button>
       )}
     </div>
   );

@@ -1,0 +1,49 @@
+{
+  "header": {
+    "appName": "YanChess",
+    "hotseat": "Hotseat",
+    "vsBot": "vs Bot",
+    "friends": "Amigos",
+    "profile": "Perfil",
+    "signIn": "Iniciar sesión",
+    "signUp": "Registrarse",
+    "signOut": "Cerrar sesión",
+    "menuAriaLabel": "Abrir menú",
+    "accountAriaLabel": "Abrir menú de cuenta"
+  },
+  "languages": {
+    "en": "English",
+    "ru": "Русский",
+    "es": "Español"
+  },
+  "actions": {
+    "cancel": "Cancelar",
+    "close": "Cerrar",
+    "save": "Guardar",
+    "confirm": "Confirmar",
+    "tryAgain": "Reintentar"
+  },
+  "empty": {
+    "title": "Todavía no hay nada aquí",
+    "body": "No hay contenido para mostrar."
+  },
+  "loading": "Cargando…",
+  "play": {
+    "title": "Jugar en línea",
+    "connectionEstablished": "conexión establecida",
+    "yourRating": "Tu clasificación:",
+    "findGame": "Buscar partida",
+    "playBot": "Jugar contra el bot"
+  },
+  "searching": {
+    "title": "Buscando oponente...",
+    "inQueue": "en cola:",
+    "widensAfter": "Buscamos un jugador con clasificación similar. Si no se encuentra en 10 segundos, el rango se amplía.",
+    "cancel": "Cancelar"
+  },
+  "notFound": {
+    "title": "Página no encontrada",
+    "body": "La página que buscas no existe.",
+    "backHome": "Volver al inicio"
+  }
+}

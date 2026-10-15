@@ -1,0 +1,115 @@
+{
+  "board": {
+    "movesHeading": "Moves",
+    "pageTitle": "Game",
+    "startGame": "Start game"
+  },
+  "endReason": {
+    "checkmate": "Checkmate",
+    "stalemate": "Stalemate",
+    "draw_agreement": "Draw by agreement",
+    "threefold_repetition": "Draw by repetition",
+    "fifty_move_rule": "Draw by fifty-move rule",
+    "insufficient_material": "Draw by insufficient material",
+    "flag_fall": "Timeout",
+    "flag_fall_insufficient_material": "Draw — opponent has insufficient material",
+    "resignation": "Resignation",
+    "agreement": "Draw by agreement",
+    "fifty_move": "Draw by fifty-move rule",
+    "flag": "Timeout",
+    "flag_vs_insufficient_material": "Draw — opponent has insufficient material"
+  },
+  "endModal": {
+    "whiteWins": "White wins",
+    "blackWins": "Black wins",
+    "draw": "Draw",
+    "newGame": "New game",
+    "close": "Close",
+    "descriptionAriaLabel": "Game result screen"
+  },
+  "actions": {
+    "resign": "Resign",
+    "offerDraw": "Offer draw",
+    "confirmResign": "Resign as {{side}}?",
+    "confirmResignBody": "This action cannot be undone.",
+    "cancel": "Cancel",
+    "confirm": "Resign"
+  },
+  "drawOffer": {
+    "title": "{{side}} offers a draw.",
+    "description": "Draw offer",
+    "accept": "Accept",
+    "decline": "Decline"
+  },
+  "promotion": {
+    "title": "Choose a piece",
+    "queen": "Queen",
+    "rook": "Rook",
+    "bishop": "Bishop",
+    "knight": "Knight"
+  },
+  "moveHistory": {
+    "empty": "No moves yet."
+  },
+  "vsBotSetup": {
+    "title": "Play vs bot",
+    "difficulty": "Difficulty",
+    "timeControl": "Time control",
+    "color": "Color",
+    "start": "Start game",
+    "loadingEngine": "Loading engine...",
+    "modeOptions": {
+      "Bullet": "Bullet",
+      "Blitz": "Blitz",
+      "Rapid": "Rapid",
+      "Classical": "Classical"
+    },
+    "levelNames": {
+      "beginner": "Beginner",
+      "amateur": "Amateur",
+      "clubPlayer": "Club Player",
+      "strong": "Strong",
+      "expert": "Expert"
+    },
+    "levelDescriptions": {
+      "beginner": "Just learning the rules",
+      "amateur": "Plays casually, knows the basics",
+      "clubPlayer": "Average active player",
+      "strong": "Experienced club player",
+      "expert": "Candidate master"
+    },
+    "colors": {
+      "white": "White",
+      "black": "Black",
+      "random": "Random"
+    }
+  },
+  "clock": {
+    "ariaLabels": {
+      "whiteClock": "White's clock",
+      "blackClock": "Black's clock"
+    }
+  },
+  "online": {
+    "loadingGame": "Loading game...",
+    "drawDeclined": "Draw offer declined.",
+    "drawCooldown": "You can offer a draw again after {{moves}} of your moves.",
+    "result": {
+      "youWon": "You won",
+      "youLost": "You lost",
+      "draw": "Draw",
+      "rating": "Rating: {{before}} → {{after}} ({{delta}})",
+      "opponentOffersRematch": "Opponent offers a rematch",
+      "opponentDidntRespond": "Opponent didn't respond",
+      "waitingForRematch": "Waiting for rematch…",
+      "acceptRematch": "Accept rematch",
+      "rematch": "Rematch",
+      "newGame": "New game",
+      "close": "Close"
+    },
+    "playerStatus": {
+      "online": "online",
+      "offline": "offline"
+    }
+  }
+}

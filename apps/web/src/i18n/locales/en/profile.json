@@ -1,0 +1,8 @@
+{
+  "title": "Profile",
+  "memberSince": "Member since {{date}}",
+  "ratingsTitle": "Rating",
+  "historyTitle": "Game history",
+  "signOut": "Sign out",
+  "loading": "Loading…"
+}

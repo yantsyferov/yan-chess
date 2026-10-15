@@ -1,4 +1,5 @@
 import { useSearchParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { FriendsListTab } from "../features/friends/FriendsListTab";
 import { FriendsRequestsTab } from "../features/friends/FriendsRequestsTab";
 import { FriendsSearch } from "../features/friends/FriendsSearch";
@@ -15,6 +16,7 @@ function resolveTab(raw: string | null): TabId {
 }
 
 export function Friends(): JSX.Element {
+  const { t } = useTranslation("friends");
   const [searchParams, setSearchParams] = useSearchParams();
 
   const activeTab = resolveTab(searchParams.get("tab"));
@@ -37,16 +39,16 @@ export function Friends(): JSX.Element {
 
   return (
     <div className="max-w-2xl mx-auto px-3 py-6 sm:px-4 sm:py-10 flex flex-col gap-6">
-      <h1 className="text-3xl font-semibold text-text-primary">Friends</h1>
+      <h1 className="text-3xl font-semibold text-text-primary">{t("title")}</h1>
       <div className="flex gap-2">
         <button type="button" className={tabClass("friends")} onClick={() => { handleTabClick("friends"); }}>
-          Friends
+          {t("tabs.friends")}
         </button>
         <button type="button" className={tabClass("requests")} onClick={() => { handleTabClick("requests"); }}>
-          Requests
+          {t("tabs.requests")}
         </button>
         <button type="button" className={tabClass("search")} onClick={() => { handleTabClick("search"); }}>
-          Search
+          {t("tabs.search")}
         </button>
       </div>
       {activeTab === "friends" && <FriendsListTab />}

@@ -1,7 +1,7 @@
 # Technical Specification: Internationalization — i18n MVP for YanChess
 
 - **Functional Specification:** [`./functional-spec.md`](./functional-spec.md)
-- **Status:** Draft
+- **Status:** Completed
 - **Author(s):** AWOS /awos:tech (orchestrator + react-frontend + nestjs-backend specialists)
 
 ---

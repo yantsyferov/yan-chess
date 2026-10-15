@@ -4,6 +4,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Link, useSearchParams } from "react-router-dom";
 import { resetPasswordSchema } from "@yanchess/shared";
 import type { ResetPasswordInput } from "@yanchess/shared";
+import { useTranslation } from "react-i18next";
+import { translateZodMessage } from "../lib/zodErrorMap";
 import { PasswordInput } from "../components/ui/PasswordInput";
 import { Button } from "../components/ui/Button";
 import { AuthLayout } from "../components/ui/AuthLayout";
@@ -12,6 +14,7 @@ import * as authService from "../features/auth/authService";
 type ResetState = "form" | "success" | "invalid";
 
 export function ResetPassword(): JSX.Element {
+  const { t } = useTranslation("auth");
   const [search] = useSearchParams();
   const token = search.get("token") ?? "";
   const [state, setState] = useState<ResetState>(token ? "form" : "invalid");
@@ -36,9 +39,9 @@ export function ResetPassword(): JSX.Element {
 
   if (state === "success") {
     return (
-      <AuthLayout title="Password updated">
+      <AuthLayout title={t("resetPassword.successTitle")}>
         <Link to="/login" className="text-accent hover:text-accent-hover underline">
-          Sign in
+          {t("resetPassword.successSignIn")}
         </Link>
       </AuthLayout>
     );
@@ -46,33 +49,33 @@ export function ResetPassword(): JSX.Element {
 
   if (state === "invalid") {
     return (
-      <AuthLayout title="Link is invalid">
+      <AuthLayout title={t("resetPassword.invalidTitle")}>
         <Link
           to="/forgot-password"
           className="text-accent hover:text-accent-hover underline"
         >
-          Request a new link
+          {t("resetPassword.invalidAction")}
         </Link>
       </AuthLayout>
     );
   }
 
   return (
-    <AuthLayout title="Reset password">
+    <AuthLayout title={t("resetPassword.title")}>
       <form onSubmit={onSubmit} noValidate className="flex flex-col gap-4">
         <input type="hidden" {...register("token")} value={token} />
         <PasswordInput
-          label="New password"
+          label={t("resetPassword.newPassword")}
           {...register("newPassword")}
-          error={errors.newPassword?.message}
+          error={translateZodMessage(errors.newPassword?.message)}
         />
         <PasswordInput
-          label="Confirm new password"
+          label={t("resetPassword.confirmNewPassword")}
           {...register("confirmNewPassword")}
-          error={errors.confirmNewPassword?.message}
+          error={translateZodMessage(errors.confirmNewPassword?.message)}
         />
         <Button type="submit" isLoading={isSubmitting}>
-          Save password
+          {t("resetPassword.submit")}
         </Button>
       </form>
     </AuthLayout>

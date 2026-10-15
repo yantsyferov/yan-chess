@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { useFriendsStore } from "./useFriendsStore";
 
 interface Props {
@@ -8,6 +9,7 @@ interface Props {
 }
 
 export function FriendRequestToast({ id, requesterNickname }: Props): JSX.Element {
+  const { t } = useTranslation("friends");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -33,8 +35,7 @@ export function FriendRequestToast({ id, requesterNickname }: Props): JSX.Elemen
       className="bg-surface-overlay backdrop-blur-[16px] border border-border-subtle rounded-xl shadow-lg p-4 max-w-sm w-[calc(100vw-2rem)]"
     >
       <p className="text-sm text-text-primary">
-        <span className="font-semibold">{requesterNickname}</span>
-        {" wants to be your friend"}
+        {t("friendRequest.wantsToBeFriend", { nickname: requesterNickname })}
       </p>
       <div className="flex gap-2 mt-3">
         <button
@@ -42,7 +43,7 @@ export function FriendRequestToast({ id, requesterNickname }: Props): JSX.Elemen
           onClick={handleView}
           className="px-3 py-1.5 rounded-lg text-sm font-medium bg-accent text-text-inverse hover:opacity-90 transition-opacity"
         >
-          View
+          {t("friendRequest.view")}
         </button>
         <button
           type="button"

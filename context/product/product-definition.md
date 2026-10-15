@@ -17,6 +17,8 @@ Build a modern online platform for playing chess — a chess.com-style product w
 
 Chess enthusiasts of every level — from beginners who are just learning the rules to seasoned club players with ratings. Common denominator: people who want to play online at their convenience and see their progress.
 
+**Language reach (post-spec 012):** the product is natively available to **English, Russian, and Spanish speakers**. A visitor whose system language is Russian or Spanish sees the entire product — site, forms, transactional emails — in their language from the first visit without configuring anything. English remains the baseline for every other locale.
+
 ### 1.3. User Personas
 
 - **Persona 1: "Misha the amateur"** _[Assumption]_
@@ -28,6 +30,11 @@ Chess enthusiasts of every level — from beginners who are just learning the ru
   - **Role:** Member of a chess club with a rating of ~1800.
   - **Goal:** Play serious rated games, train against the bot at specific difficulty levels, and keep a list of friend-opponents.
   - **Frustration:** Wants a controlled environment — no cheaters, with fair ELO and the ability to opt out of unsuitable opponents.
+
+- **Persona 3: "Diego the Spanish-speaking amateur"** _[Confirmed by spec 012]_
+  - **Role:** Casual player in Latin America, English comfort ranges from "non-existent" to "menu-navigation only".
+  - **Goal:** Play without translating buttons mentally — browse the site, matchmake, resolve a draw offer, and read the verify-email in Spanish.
+  - **Frustration:** Most chess platforms are English-only in menu/forms, which creates a comprehension tax on every click; this friction compounds for parents introducing kids to the game.
 
 ### 1.4. Success Metrics _[Assumption]_
 
@@ -49,6 +56,7 @@ Chess enthusiasts of every level — from beginners who are just learning the ru
 - **Multiple game modes** _[Assumption]_ — Bullet (1 min), Blitz (3–5 min), Rapid (10–15 min), Classical (30+ min).
 - **Rating system** — ELO or Glicko-2, a separate rating per mode, history of changes.
 - **Friends** — search by nickname, send/accept requests, friend list, direct challenge to a game.
+- **Multilingual UI (EN / RU / ES)** _[Confirmed by spec 012]_ — auto-detected from the browser's language on first visit, switchable via a Header dropdown at any time, synced across devices after sign-in. Transactional emails (verify, password-reset) arrive in the user's language.
 
 ### 2.2. User Journey
 
@@ -73,6 +81,7 @@ Chess enthusiasts of every level — from beginners who are just learning the ru
 - Rating system (ELO or Glicko-2), separate per mode.
 - Friends: search, requests, list, direct game challenge.
 - Personal game history with the ability to replay moves _[Assumption]_.
+- Trilingual UI + emails (English / Russian / Spanish) with auto-detection from browser language and per-user override that syncs across devices — _[Confirmed by spec 012]_.
 
 ### 3.2. What's Out-of-Scope (Non-Goals) _[Assumption]_
 
@@ -85,3 +94,6 @@ Chess enthusiasts of every level — from beginners who are just learning the ru
 - Anti-cheat system (beyond elementary limits such as engine-help detection — not in MVP).
 - Public rating ladder/leaderboard.
 - Chess variants (Chess960, Crazyhouse, etc.).
+- A fourth product language (French, German, Portuguese, Chinese, Arabic, etc.). English/Russian/Spanish is the maintained set; the application displays in English for any other system language.
+- Right-to-left (RTL) layout support (Arabic, Hebrew, Persian). Not enabled.
+- Community-contributed translations.

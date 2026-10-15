@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useGameStore } from "../features/game/useGameStore";
 import { useHotseatViewModel } from "../features/game/useHotseatViewModel";
 import { useGameClock } from "../features/game/useGameClock";
@@ -24,6 +25,7 @@ export default function Game(): JSX.Element {
   const promotingColor: "w" | "b" = chess.turn();
 
   // Derive the current resign side for ConfirmResignDialog
+  const { t } = useTranslation("game");
   const pendingResignStore = useRawGameStore((s) => s.pendingResign);
   const resignActiveColor: "white" | "black" = pendingResignStore ?? vm.sideToMove;
 
@@ -49,7 +51,7 @@ export default function Game(): JSX.Element {
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-10">
-      <h1 className="text-3xl font-semibold text-text-primary mb-6 text-center">Game</h1>
+      <h1 className="text-3xl font-semibold text-text-primary mb-6 text-center">{t("board.pageTitle")}</h1>
       {phase === "idle" && <ModeSelector />}
       {(phase === "playing" || phase === "ended") && (
         <div className="flex flex-col md:flex-row items-start justify-center gap-6">
@@ -76,7 +78,7 @@ export default function Game(): JSX.Element {
             />
           </div>
           <section className="flex flex-col gap-2 w-full md:w-auto" aria-labelledby="moves-heading">
-            <h2 id="moves-heading" className="text-sm text-text-secondary px-1">Moves</h2>
+            <h2 id="moves-heading" className="text-sm text-text-secondary px-1">{t("board.movesHeading")}</h2>
             <MoveHistory movesSan={vm.movesSan} />
           </section>
           {phase === "playing" && (

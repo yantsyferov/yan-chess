@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import {
   Dialog,
   DialogContent,
@@ -8,26 +9,6 @@ import { Button } from "../ui/Button";
 import type { Winner } from "../../features/game/useGameStore";
 import type { AnyGameEndReason } from "../../features/shared/game-view-model";
 
-const TITLE: Partial<Record<AnyGameEndReason, (winner: Winner) => string>> = {
-  checkmate: (w) =>
-    w === "white" ? "White wins. Checkmate." : "Black wins. Checkmate.",
-  stalemate: () => "Draw. Stalemate.",
-  insufficient_material: () => "Draw. Insufficient material.",
-  threefold_repetition: () => "Draw. Threefold repetition.",
-  fifty_move_rule: () => "Draw. Fifty-move rule.",
-  flag_fall: (w) =>
-    w === "black"
-      ? "White lost. Flag."
-      : "Black lost. Flag.",
-  flag_fall_insufficient_material: () =>
-    "Draw. Opponent has insufficient material.",
-  resignation: (w) =>
-    w === "white"
-      ? "Black resigned. White wins."
-      : "White resigned. Black wins.",
-  draw_agreement: () => "Draw. By agreement.",
-};
-
 interface ResultModalProps {
   result: { winner: Winner; reason: AnyGameEndReason } | null;
   resultModalDismissed: boolean;
@@ -36,8 +17,20 @@ interface ResultModalProps {
 }
 
 export function ResultModal({ result, resultModalDismissed, onNewGame, onDismiss }: ResultModalProps): JSX.Element {
+  const { t } = useTranslation("game");
   const isOpen = result !== null && !resultModalDismissed;
-  const title = result != null ? (TITLE[result.reason]?.(result.winner) ?? result.reason) : "";
+
+  function buildTitle(): string {
+    if (result == null) return "";
+    const reasonLabel = t(`endReason.${result.reason}`, { defaultValue: result.reason });
+    if (result.winner === "white") {
+      return `${t("endModal.whiteWins")}. ${reasonLabel}.`;
+    }
+    if (result.winner === "black") {
+      return `${t("endModal.blackWins")}. ${reasonLabel}.`;
+    }
+    return `${t("endModal.draw")}. ${reasonLabel}.`;
+  }
 
   return (
     <Dialog
@@ -47,16 +40,16 @@ export function ResultModal({ result, resultModalDismissed, onNewGame, onDismiss
       }}
     >
       <DialogContent>
-        <DialogTitle>{title}</DialogTitle>
+        <DialogTitle>{buildTitle()}</DialogTitle>
         <DialogDescription className="sr-only">
-          Game result screen
+          {t("endModal.descriptionAriaLabel")}
         </DialogDescription>
         <div className="flex gap-3 mt-6">
           <Button variant="primary" size="lg" onClick={onNewGame}>
-            New game
+            {t("endModal.newGame")}
           </Button>
           <Button variant="secondary" size="lg" onClick={onDismiss}>
-            Close
+            {t("endModal.close")}
           </Button>
         </div>
       </DialogContent>

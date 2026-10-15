@@ -1,0 +1,115 @@
+{
+  "board": {
+    "movesHeading": "Ходы",
+    "pageTitle": "Партия",
+    "startGame": "Начать партию"
+  },
+  "endReason": {
+    "checkmate": "Мат",
+    "stalemate": "Пат",
+    "draw_agreement": "Ничья по соглашению",
+    "threefold_repetition": "Ничья повторением ходов",
+    "fifty_move_rule": "Ничья по правилу 50 ходов",
+    "insufficient_material": "Ничья из-за недостатка материала",
+    "flag_fall": "Просрочка времени",
+    "flag_fall_insufficient_material": "Ничья — у соперника недостаточно материала",
+    "resignation": "Сдача",
+    "agreement": "Ничья по соглашению",
+    "fifty_move": "Ничья по правилу 50 ходов",
+    "flag": "Просрочка времени",
+    "flag_vs_insufficient_material": "Ничья — у соперника недостаточно материала"
+  },
+  "endModal": {
+    "whiteWins": "Белые выигрывают",
+    "blackWins": "Чёрные выигрывают",
+    "draw": "Ничья",
+    "newGame": "Новая игра",
+    "close": "Закрыть",
+    "descriptionAriaLabel": "Результат партии"
+  },
+  "actions": {
+    "resign": "Сдаться",
+    "offerDraw": "Предложить ничью",
+    "confirmResign": "Сдаться за {{side}}?",
+    "confirmResignBody": "Это действие нельзя отменить.",
+    "cancel": "Отмена",
+    "confirm": "Сдаться"
+  },
+  "drawOffer": {
+    "title": "{{side}} предлагает ничью.",
+    "description": "Предложение ничьей",
+    "accept": "Принять",
+    "decline": "Отклонить"
+  },
+  "promotion": {
+    "title": "Выберите фигуру",
+    "queen": "Ферзь",
+    "rook": "Ладья",
+    "bishop": "Слон",
+    "knight": "Конь"
+  },
+  "moveHistory": {
+    "empty": "Ходов ещё нет."
+  },
+  "vsBotSetup": {
+    "title": "Играть против бота",
+    "difficulty": "Сложность",
+    "timeControl": "Контроль времени",
+    "color": "Цвет",
+    "start": "Начать игру",
+    "loadingEngine": "Загрузка движка...",
+    "modeOptions": {
+      "Bullet": "Bullet",
+      "Blitz": "Blitz",
+      "Rapid": "Rapid",
+      "Classical": "Classical"
+    },
+    "levelNames": {
+      "beginner": "Новичок",
+      "amateur": "Любитель",
+      "clubPlayer": "Клубный игрок",
+      "strong": "Сильный",
+      "expert": "Эксперт"
+    },
+    "levelDescriptions": {
+      "beginner": "Только изучает правила",
+      "amateur": "Играет для удовольствия, знает основы",
+      "clubPlayer": "Средний активный игрок",
+      "strong": "Опытный клубный игрок",
+      "expert": "Кандидат в мастера"
+    },
+    "colors": {
+      "white": "Белые",
+      "black": "Чёрные",
+      "random": "Случайный"
+    }
+  },
+  "clock": {
+    "ariaLabels": {
+      "whiteClock": "Часы белых",
+      "blackClock": "Часы чёрных"
+    }
+  },
+  "online": {
+    "loadingGame": "Загрузка партии...",
+    "drawDeclined": "Предложение ничьей отклонено.",
+    "drawCooldown": "Вы сможете предложить ничью снова через {{moves}} ваших ходов.",
+    "result": {
+      "youWon": "Вы выиграли",
+      "youLost": "Вы проиграли",
+      "draw": "Ничья",
+      "rating": "Рейтинг: {{before}} → {{after}} ({{delta}})",
+      "opponentOffersRematch": "Соперник предлагает реванш",
+      "opponentDidntRespond": "Соперник не ответил",
+      "waitingForRematch": "Ожидание реванша…",
+      "acceptRematch": "Принять реванш",
+      "rematch": "Реванш",
+      "newGame": "Новая игра",
+      "close": "Закрыть"
+    },
+    "playerStatus": {
+      "online": "в сети",
+      "offline": "не в сети"
+    }
+  }
+}

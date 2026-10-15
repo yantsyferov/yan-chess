@@ -6,6 +6,7 @@ import { describe, expect, it, vi, beforeEach } from "vitest";
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router-dom";
+import "../../src/i18n/index";
 
 // Mock authService to avoid network calls
 vi.mock("../../src/features/auth/authService", () => ({
@@ -46,7 +47,7 @@ describe("Register page integration", () => {
       renderRegister();
       await user.click(screen.getByRole("button", { name: "Sign up" }));
       await waitFor(() => {
-        expect(screen.getByText("Enter a valid email")).toBeInTheDocument();
+        expect(screen.getByText("Email is required")).toBeInTheDocument();
       });
     });
 
@@ -57,9 +58,7 @@ describe("Register page integration", () => {
       await user.click(screen.getByRole("button", { name: "Sign up" }));
       await waitFor(() => {
         expect(
-          screen.getByText(
-            "Nickname can contain 3–20 Latin letters, digits, and underscores",
-          ),
+          screen.getByText("Nickname must be at least 3 characters"),
         ).toBeInTheDocument();
       });
     });
@@ -71,9 +70,7 @@ describe("Register page integration", () => {
       await user.click(screen.getByRole("button", { name: "Sign up" }));
       await waitFor(() => {
         expect(
-          screen.getByText(
-            "Password must be at least 8 characters and contain at least one letter and one digit",
-          ),
+          screen.getByText("Password must be at least 8 characters"),
         ).toBeInTheDocument();
       });
     });
@@ -119,7 +116,7 @@ describe("Register page integration", () => {
       await user.type(screen.getByLabelText("Confirm password"), "Password1");
       await user.click(screen.getByRole("button", { name: "Sign up" }));
       await waitFor(() => {
-        expect(screen.getByText("This email is already registered")).toBeInTheDocument();
+        expect(screen.getAllByText("This email is already registered.").length).toBeGreaterThan(0);
       });
     });
 

@@ -1,4 +1,5 @@
 import { Link, useSearchParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { useGamesList } from "./useGamesList";
 import { GameRow } from "./GameRow";
 import { HistoryPagination } from "./HistoryPagination";
@@ -20,6 +21,7 @@ function SkeletonRow(): JSX.Element {
 }
 
 export function GameHistorySection(): JSX.Element {
+  const { t } = useTranslation("history");
   const { games, pagination, loading, error, refetch } = useGamesList();
   const [searchParams, setSearchParams] = useSearchParams();
   const mode = searchParams.get("mode");
@@ -60,7 +62,7 @@ export function GameHistorySection(): JSX.Element {
   if (loading) {
     return (
       <section>
-        <h2 className="text-lg font-medium text-text-primary mb-3 px-1">Game history</h2>
+        <h2 className="text-lg font-medium text-text-primary mb-3 px-1">{t("title")}</h2>
         <HistoryFilters mode={mode} result={result} onChange={handleFiltersChange} />
         <div className="mt-3">
           <Card variant="default" padding="none">
@@ -78,13 +80,13 @@ export function GameHistorySection(): JSX.Element {
   if (error !== null) {
     return (
       <section>
-        <h2 className="text-lg font-medium text-text-primary mb-3 px-1">Game history</h2>
+        <h2 className="text-lg font-medium text-text-primary mb-3 px-1">{t("title")}</h2>
         <HistoryFilters mode={mode} result={result} onChange={handleFiltersChange} />
         <div className="mt-3">
           <Alert tone="danger">
             <div className="flex items-center justify-between gap-4">
               <span>{error}</span>
-              <Button size="sm" variant="secondary" onClick={refetch}>Try again</Button>
+              <Button size="sm" variant="secondary" onClick={refetch}>{t("tryAgain")}</Button>
             </div>
           </Alert>
         </div>
@@ -95,14 +97,14 @@ export function GameHistorySection(): JSX.Element {
   if (games.length === 0 && isFiltered) {
     return (
       <section>
-        <h2 className="text-lg font-medium text-text-primary mb-3 px-1">Game history</h2>
+        <h2 className="text-lg font-medium text-text-primary mb-3 px-1">{t("title")}</h2>
         <HistoryFilters mode={mode} result={result} onChange={handleFiltersChange} />
         <div className="mt-3">
           <Card variant="default" padding="lg">
             <div className="flex flex-col items-center gap-3 text-center">
-              <p className="text-sm text-text-secondary">No games match these filters.</p>
+              <p className="text-sm text-text-secondary">{t("filters.noMatch")}</p>
               <Button size="sm" variant="secondary" onClick={() => { setSearchParams({}); }}>
-                Clear filters
+                {t("filters.clear")}
               </Button>
             </div>
           </Card>
@@ -114,19 +116,17 @@ export function GameHistorySection(): JSX.Element {
   if (games.length === 0) {
     return (
       <section>
-        <h2 className="text-lg font-medium text-text-primary mb-3 px-1">Game history</h2>
+        <h2 className="text-lg font-medium text-text-primary mb-3 px-1">{t("title")}</h2>
         <Card variant="default" padding="lg">
           <div className="flex flex-col items-center gap-3 text-center">
-            <h3 className="text-base font-medium text-text-primary">No games yet</h3>
-            <p className="text-sm text-text-secondary">
-              Finish an online game — it will show up here. Training games vs the bot are not saved.
-            </p>
+            <h3 className="text-base font-medium text-text-primary">{t("emptyTitle")}</h3>
+            <p className="text-sm text-text-secondary">{t("emptyBody")}</p>
             <div className="flex gap-3 mt-2">
               <Link to="/">
-                <Button>Find game</Button>
+                <Button>{t("emptyActions.findGame")}</Button>
               </Link>
               <Link to="/vs-bot">
-                <Button variant="secondary">Play vs bot</Button>
+                <Button variant="secondary">{t("emptyActions.playBot")}</Button>
               </Link>
             </div>
           </div>
@@ -137,7 +137,7 @@ export function GameHistorySection(): JSX.Element {
 
   return (
     <section>
-      <h2 className="text-lg font-medium text-text-primary mb-3 px-1">Game history</h2>
+      <h2 className="text-lg font-medium text-text-primary mb-3 px-1">{t("title")}</h2>
       <HistoryFilters mode={mode} result={result} onChange={handleFiltersChange} />
       <div className="mt-3">
         <Card variant="default" padding="none">

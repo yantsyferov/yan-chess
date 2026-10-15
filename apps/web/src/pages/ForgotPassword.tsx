@@ -4,12 +4,15 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Link } from "react-router-dom";
 import { forgotPasswordSchema } from "@yanchess/shared";
 import type { ForgotPasswordInput } from "@yanchess/shared";
+import { useTranslation } from "react-i18next";
+import { translateZodMessage } from "../lib/zodErrorMap";
 import { Input } from "../components/ui/Input";
 import { Button } from "../components/ui/Button";
 import { AuthLayout } from "../components/ui/AuthLayout";
 import * as authService from "../features/auth/authService";
 
 export function ForgotPassword(): JSX.Element {
+  const { t } = useTranslation("auth");
   const [submitted, setSubmitted] = useState(false);
   const {
     register,
@@ -32,15 +35,15 @@ export function ForgotPassword(): JSX.Element {
   if (submitted) {
     return (
       <AuthLayout
-        title="Check your email"
+        title={t("forgotPassword.sentTitle")}
         footer={
           <Link to="/login" className="text-accent hover:underline">
-            ← Back to sign in
+            {t("forgotPassword.backToSignIn")}
           </Link>
         }
       >
         <p className="text-text-secondary">
-          If this email is registered, we've sent a password reset link to it. The link is valid for 1 hour.
+          {t("forgotPassword.sentBody")}
         </p>
       </AuthLayout>
     );
@@ -48,22 +51,22 @@ export function ForgotPassword(): JSX.Element {
 
   return (
     <AuthLayout
-      title="Forgot password?"
+      title={t("forgotPassword.title")}
       footer={
         <Link to="/login" className="text-accent hover:underline">
-          ← Back to sign in
+          {t("forgotPassword.backToSignIn")}
         </Link>
       }
     >
       <form onSubmit={onSubmit} noValidate className="flex flex-col gap-4">
         <Input
-          label="Email"
+          label={t("forgotPassword.email")}
           type="email"
           {...register("email")}
-          error={errors.email?.message}
+          error={translateZodMessage(errors.email?.message)}
         />
         <Button type="submit" isLoading={isSubmitting}>
-          Send reset link
+          {t("forgotPassword.submit")}
         </Button>
       </form>
     </AuthLayout>
