@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { Loader2, CheckCircle2, AlertCircle } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import * as authService from "../features/auth/authService";
 import { AuthLayout } from "../components/ui/AuthLayout";
 import { Button } from "../components/ui/Button";
@@ -19,6 +20,7 @@ type VerifyState =
 const verifiedTokens = new Set<string>();
 
 export function VerifyEmail(): JSX.Element {
+  const { t } = useTranslation("auth");
   const [search] = useSearchParams();
   const token = search.get("token");
   const [state, setState] = useState<VerifyState>(
@@ -46,7 +48,7 @@ export function VerifyEmail(): JSX.Element {
       <AuthLayout>
         <div className="flex flex-col items-center gap-3 text-text-secondary">
           <Loader2 size={28} className="animate-spin" />
-          <p>Verifying email…</p>
+          <p>{t("verifyEmail.loading")}</p>
         </div>
       </AuthLayout>
     );
@@ -59,10 +61,10 @@ export function VerifyEmail(): JSX.Element {
           <div className="flex h-14 w-14 items-center justify-center rounded-full bg-accent/10 text-accent">
             <CheckCircle2 size={28} />
           </div>
-          <h1 className="text-2xl font-semibold text-text-primary">Email verified</h1>
-          <p className="text-text-secondary">You can now sign in.</p>
+          <h1 className="text-2xl font-semibold text-text-primary">{t("verifyEmail.successTitle")}</h1>
+          <p className="text-text-secondary">{t("verifyEmail.successBody")}</p>
           <Link to="/login" className="w-full">
-            <Button variant="primary" className="w-full">Sign in</Button>
+            <Button variant="primary" className="w-full">{t("verifyEmail.successSignIn")}</Button>
           </Link>
         </div>
       </AuthLayout>
@@ -76,12 +78,12 @@ export function VerifyEmail(): JSX.Element {
         <div className="flex h-14 w-14 items-center justify-center rounded-full bg-danger-surface text-danger">
           <AlertCircle size={28} />
         </div>
-        <h1 className="text-2xl font-semibold text-text-primary">Link is invalid</h1>
+        <h1 className="text-2xl font-semibold text-text-primary">{t("verifyEmail.failTitle")}</h1>
         <p className="text-sm text-text-secondary">
-          To get a new link, request one from the sign-in page.
+          {t("verifyEmail.failBody")}
         </p>
         <Link to="/forgot-password" className="w-full">
-          <Button variant="secondary" className="w-full">Request a new link</Button>
+          <Button variant="secondary" className="w-full">{t("verifyEmail.failAction")}</Button>
         </Link>
       </div>
     </AuthLayout>

@@ -25,16 +25,16 @@ The app must remain runnable after every slice. Translation files start skeletal
 
 ---
 
-- [ ] **Slice 2: Translate the auth flow + migrate Zod schemas to error codes**
+- [x] **Slice 2: Translate the auth flow + migrate Zod schemas to error codes**
 
   > Localize Login, Register, VerifyEmail, ForgotPassword, ResetPassword. Introduce stable error codes in `packages/shared/src/schemas/auth.ts` so form-validation messages can be translated through the `errors` namespace.
 
-  - [ ] Create `apps/web/src/i18n/locales/{en,ru,es}/auth.json` and `errors.json` with keys for all five auth pages (page titles, form labels, buttons, inline hints, success/failure messages, email-verification banners). Translate in all three locales. **[Agent: react-frontend]**
-  - [ ] Update `packages/shared/src/schemas/auth.ts` — attach stable `params: { i18nKey: 'password.too_short' }` style metadata to every validation issue; keep the English `message` as the dev-friendly fallback. Rebuild shared package. **[Agent: nestjs-backend]**
-  - [ ] Create `apps/web/src/lib/zodErrorMap.ts` — custom Zod error map that reads `params.i18nKey` from issues and returns the result of `i18n.t('errors:<key>')`; falls through to the issue's default message if no key is present. Install it globally via `z.setErrorMap(zodErrorMap)` from `apps/web/src/i18n/index.ts`. **[Agent: react-frontend]**
-  - [ ] Replace inline strings in `apps/web/src/pages/Login.tsx`, `Register.tsx`, `VerifyEmail.tsx`, `ForgotPassword.tsx`, `ResetPassword.tsx` with `t('auth:*')` / `t('errors:*')` calls. **[Agent: react-frontend]**
-  - [ ] Add `apps/web/src/__tests__/auth-i18n.test.tsx` — renders `Login.tsx` and `Register.tsx` under `<I18nextProvider>` with `ru` and `es` locales set; asserts form labels + a sample validation error render in the chosen language. **[Agent: react-frontend]**
-  - [ ] Verify: `pnpm --filter web test -- --run` passes; dev-start the web app, Playwright-drive /login + /register in all three languages, submit forms with invalid inputs, confirm validation copy localized correctly. Stop dev server by PID, delete artifacts. **[Agent: general-purpose]**
+  - [x] Create `apps/web/src/i18n/locales/{en,ru,es}/auth.json` and `errors.json` with keys for all five auth pages (page titles, form labels, buttons, inline hints, success/failure messages, email-verification banners). Translate in all three locales. **[Agent: react-frontend]**
+  - [x] Update `packages/shared/src/schemas/auth.ts` — attach stable `params: { i18nKey: 'password.too_short' }` style metadata to every validation issue; keep the English `message` as the dev-friendly fallback. Rebuild shared package. **[Agent: nestjs-backend]**
+  - [x] Create `apps/web/src/lib/zodErrorMap.ts` — custom Zod error map that reads `params.i18nKey` from issues and returns the result of `i18n.t('errors:<key>')`; falls through to the issue's default message if no key is present. Install it globally via `z.setErrorMap(zodErrorMap)` from `apps/web/src/i18n/index.ts`. **[Agent: react-frontend]**
+  - [x] Replace inline strings in `apps/web/src/pages/Login.tsx`, `Register.tsx`, `VerifyEmail.tsx`, `ForgotPassword.tsx`, `ResetPassword.tsx` with `t('auth:*')` / `t('errors:*')` calls. **[Agent: react-frontend]**
+  - [x] Add `apps/web/src/__tests__/auth-i18n.test.tsx` — renders `Login.tsx` and `Register.tsx` under `<I18nextProvider>` with `ru` and `es` locales set; asserts form labels + a sample validation error render in the chosen language. **[Agent: react-frontend]**
+  - [x] Verify: `pnpm --filter web test -- --run` passes; dev-start the web app, Playwright-drive /login + /register in all three languages, submit forms with invalid inputs, confirm validation copy localized correctly. Stop dev server by PID, delete artifacts. **[Agent: general-purpose]**
 
 ---
 

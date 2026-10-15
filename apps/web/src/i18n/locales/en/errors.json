@@ -1,0 +1,22 @@
+{
+  "email": {
+    "required": "Email is required",
+    "invalid": "Please enter a valid email"
+  },
+  "password": {
+    "required": "Password is required",
+    "too_short": "Password must be at least 8 characters",
+    "needs_letter": "Password must contain at least one letter",
+    "needs_digit": "Password must contain at least one digit",
+    "confirmation_mismatch": "Passwords do not match"
+  },
+  "nickname": {
+    "required": "Nickname is required",
+    "too_short": "Nickname must be at least 3 characters",
+    "too_long": "Nickname must be at most 20 characters",
+    "invalid_chars": "Nickname can only contain letters, digits and underscore"
+  },
+  "token": {
+    "required": "Token is required"
+  }
+}

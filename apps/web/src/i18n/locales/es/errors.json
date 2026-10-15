@@ -1,0 +1,22 @@
+{
+  "email": {
+    "required": "El correo electrónico es obligatorio",
+    "invalid": "Introduce un correo electrónico válido"
+  },
+  "password": {
+    "required": "La contraseña es obligatoria",
+    "too_short": "La contraseña debe tener al menos 8 caracteres",
+    "needs_letter": "La contraseña debe contener al menos una letra",
+    "needs_digit": "La contraseña debe contener al menos un número",
+    "confirmation_mismatch": "Las contraseñas no coinciden"
+  },
+  "nickname": {
+    "required": "El apodo es obligatorio",
+    "too_short": "El apodo debe tener al menos 3 caracteres",
+    "too_long": "El apodo no puede tener más de 20 caracteres",
+    "invalid_chars": "El apodo solo puede contener letras, números y guión bajo"
+  },
+  "token": {
+    "required": "El token es obligatorio"
+  }
+}

@@ -4,6 +4,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { loginSchema } from "@yanchess/shared";
 import type { LoginInput } from "@yanchess/shared";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import { translateZodMessage } from "../lib/zodErrorMap";
 import { Input } from "../components/ui/Input";
 import { PasswordInput } from "../components/ui/PasswordInput";
 import { Checkbox } from "../components/ui/Checkbox";
@@ -19,6 +21,7 @@ interface LocationState {
 }
 
 export function Login(): JSX.Element {
+  const { t } = useTranslation("auth");
   const navigate = useNavigate();
   const location = useLocation();
   const locationState = (location.state ?? {}) as LocationState;
@@ -52,8 +55,8 @@ export function Login(): JSX.Element {
     }
     const body = result.body as LoginErrorResponse;
     if (result.status === 401 && body.code === "invalid_credentials") {
-      setError("email", { message: "Invalid email or password" });
-      setError("password", { message: "Invalid email or password" });
+      setError("email", { message: t("login.invalid") });
+      setError("password", { message: t("login.invalid") });
       return;
     }
     if (result.status === 403 && body.code === "email_not_verified") {
@@ -61,10 +64,10 @@ export function Login(): JSX.Element {
       return;
     }
     if (result.status === 429 && body.code === "locked") {
-      setLockoutMessage("Too many failed attempts. Try again in 15 minutes");
+      setLockoutMessage(t("login.lockedOut"));
       return;
     }
-    setTopError("Something went wrong. Please try again later.");
+    setTopError(t("login.serverError"));
   });
 
   async function onResend(): Promise<void> {
@@ -80,10 +83,10 @@ export function Login(): JSX.Element {
 
   return (
     <AuthLayout
-      title="Sign in"
+      title={t("login.title")}
       footer={
         <Link to="/register" className="text-accent hover:underline">
-          No account? Sign up
+          {t("login.noAccount")} {t("login.signUpLink")}
         </Link>
       }
     >
@@ -93,7 +96,7 @@ export function Login(): JSX.Element {
         {lockoutMessage !== null && <Alert tone="danger">{lockoutMessage}</Alert>}
         {emailNotVerified !== null && (
           <Alert tone="info">
-            Please verify your email. Check your inbox at <strong>{emailNotVerified}</strong>{" "}
+            {t("login.emailNotVerified")} <strong>{emailNotVerified}</strong>{" "}
             or{" "}
             {resendState === "idle" && (
               <button
@@ -103,40 +106,40 @@ export function Login(): JSX.Element {
                 }}
                 className="underline text-accent hover:text-accent-hover"
               >
-                resend the email
+                {t("login.resendLink")}
               </button>
             )}
             {resendState === "sent" && (
-              <span>Email sent. Check your inbox.</span>
+              <span>{t("login.emailSent")}</span>
             )}
             {resendState.startsWith("throttled:") && (
               <span>
-                Email already sent. Try again in {resendState.split(":")[1]} seconds
+                {t("login.emailThrottled", { seconds: resendState.split(":")[1] })}
               </span>
             )}
           </Alert>
         )}
         <form onSubmit={onSubmit} noValidate className="flex flex-col gap-4">
           <Input
-            label="Email"
+            label={t("login.email")}
             type="email"
             {...register("email")}
-            error={errors.email?.message}
+            error={translateZodMessage(errors.email?.message)}
           />
           <PasswordInput
-            label="Password"
+            label={t("login.password")}
             {...register("password")}
-            error={errors.password?.message}
+            error={translateZodMessage(errors.password?.message)}
           />
-          <Checkbox label="Remember me" {...register("rememberMe")} />
+          <Checkbox label={t("login.rememberMe")} {...register("rememberMe")} />
           <Link
             to="/forgot-password"
             className="text-accent hover:text-accent-hover text-sm"
           >
-            Forgot password?
+            {t("login.forgotPasswordLink")}
           </Link>
           <Button type="submit" isLoading={isSubmitting}>
-            Sign in
+            {t("login.submit")}
           </Button>
         </form>
       </div>

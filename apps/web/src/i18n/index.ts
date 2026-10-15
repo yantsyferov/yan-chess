@@ -1,9 +1,18 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
+import { z } from "zod";
 
 import enCommon from "./locales/en/common.json";
 import ruCommon from "./locales/ru/common.json";
 import esCommon from "./locales/es/common.json";
+
+import enAuth from "./locales/en/auth.json";
+import ruAuth from "./locales/ru/auth.json";
+import esAuth from "./locales/es/auth.json";
+
+import enErrors from "./locales/en/errors.json";
+import ruErrors from "./locales/ru/errors.json";
+import esErrors from "./locales/es/errors.json";
 
 const LANG_KEY = "yanchess:lang";
 
@@ -27,11 +36,14 @@ void i18n
     fallbackLng: "en",
     defaultNS: "common",
     resources: {
-      en: { common: enCommon },
-      ru: { common: ruCommon },
-      es: { common: esCommon },
+      en: { common: enCommon, auth: enAuth, errors: enErrors },
+      ru: { common: ruCommon, auth: ruAuth, errors: ruErrors },
+      es: { common: esCommon, auth: esAuth, errors: esErrors },
     },
     interpolation: { escapeValue: false },
   });
+
+import { zodErrorMap } from "../lib/zodErrorMap";
+z.setErrorMap(zodErrorMap);
 
 export default i18n;

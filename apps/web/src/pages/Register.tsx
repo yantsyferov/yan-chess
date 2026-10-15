@@ -4,6 +4,8 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { registerSchema } from "@yanchess/shared";
 import type { RegisterInput } from "@yanchess/shared";
+import { useTranslation } from "react-i18next";
+import { translateZodMessage } from "../lib/zodErrorMap";
 import { Input } from "../components/ui/Input";
 import { PasswordInput } from "../components/ui/PasswordInput";
 import { Button } from "../components/ui/Button";
@@ -13,6 +15,7 @@ import * as authService from "../features/auth/authService";
 import type { RegisterConflictResponse } from "../features/auth/authService";
 
 export function Register(): JSX.Element {
+  const { t } = useTranslation("auth");
   const navigate = useNavigate();
   const [topError, setTopError] = useState<string | null>(null);
   const [showEmailTakenLoginLink, setShowEmailTakenLoginLink] = useState(false);
@@ -35,7 +38,7 @@ export function Register(): JSX.Element {
     try {
       response = await authService.register(data);
     } catch {
-      setTopError("Network error. Please try again.");
+      setTopError(t("register.networkError"));
       return;
     }
 
@@ -47,23 +50,23 @@ export function Register(): JSX.Element {
     if (response.status === 409) {
       const conflict = response.body as RegisterConflictResponse;
       if (conflict.code === "email_taken") {
-        setError("email", { message: "This email is already registered" });
+        setError("email", { message: t("register.emailTaken") });
         setShowEmailTakenLoginLink(true);
       } else if (conflict.code === "nickname_taken") {
-        setError("nickname", { message: "This nickname is already taken" });
+        setError("nickname", { message: t("register.nicknameTaken") });
       }
       return;
     }
 
-    setTopError("Something went wrong. Please try again later.");
+    setTopError(t("register.serverError"));
   });
 
   return (
     <AuthLayout
-      title="Sign up"
+      title={t("register.title")}
       footer={
         <Link to="/login" className="text-accent hover:underline">
-          Already have an account? Sign in
+          {t("register.alreadyHaveAccount")} {t("register.signInLink")}
         </Link>
       }
     >
@@ -71,35 +74,35 @@ export function Register(): JSX.Element {
         {topError && <Alert tone="danger">{topError}</Alert>}
         {showEmailTakenLoginLink && (
           <Alert tone="info">
-            This email is already registered.{" "}
+            {t("register.emailTaken")}{" "}
             <Link to="/login" className="text-accent underline">
-              Sign in
+              {t("register.signInToLogin")}
             </Link>
           </Alert>
         )}
         <Input
-          label="Email"
+          label={t("register.email")}
           type="email"
           {...register("email")}
-          error={errors.email?.message}
+          error={translateZodMessage(errors.email?.message)}
         />
         <Input
-          label="Nickname"
+          label={t("register.nickname")}
           {...register("nickname")}
-          error={errors.nickname?.message}
+          error={translateZodMessage(errors.nickname?.message)}
         />
         <PasswordInput
-          label="Password"
+          label={t("register.password")}
           {...register("password")}
-          error={errors.password?.message}
+          error={translateZodMessage(errors.password?.message)}
         />
         <PasswordInput
-          label="Confirm password"
+          label={t("register.confirmPassword")}
           {...register("confirmPassword")}
-          error={errors.confirmPassword?.message}
+          error={translateZodMessage(errors.confirmPassword?.message)}
         />
         <Button type="submit" isLoading={isSubmitting}>
-          Sign up
+          {t("register.submit")}
         </Button>
       </form>
     </AuthLayout>
