@@ -1,0 +1,19 @@
+{
+  "header": {
+    "appName": "YanChess",
+    "hotseat": "Hotseat",
+    "vsBot": "vs Bot",
+    "friends": "Amigos",
+    "profile": "Perfil",
+    "signIn": "Iniciar sesión",
+    "signUp": "Registrarse",
+    "signOut": "Cerrar sesión",
+    "menuAriaLabel": "Abrir menú",
+    "accountAriaLabel": "Abrir menú de cuenta"
+  },
+  "languages": {
+    "en": "English",
+    "ru": "Русский",
+    "es": "Español"
+  }
+}

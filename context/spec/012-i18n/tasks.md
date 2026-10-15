@@ -6,22 +6,22 @@ The app must remain runnable after every slice. Translation files start skeletal
 
 ---
 
-- [ ] **Slice 1: i18n foundation + translated Header + working switcher**
+- [x] **Slice 1: i18n foundation + translated Header + working switcher**
 
   > Install react-i18next, scaffold locale namespaces, add the Header language switcher with autodetect + localStorage persistence. Only Header + nav strings are translated — everything below the Header stays English for now (i18next falls back automatically).
 
-  - [ ] Add `react-i18next@^14`, `i18next@^23`, `i18next-browser-languagedetector@^8` to `apps/web/package.json` dependencies; run `pnpm install`; rebuild. **[Agent: react-frontend]**
-  - [ ] Create `packages/shared/src/types/lang.ts` exporting `type Lang = 'en' | 'ru' | 'es'` + `SUPPORTED_LANGS` tuple; re-export from `packages/shared/src/index.ts`; rebuild shared package. **[Agent: nestjs-backend]**
-  - [ ] Create `apps/web/src/i18n/index.ts` initializing i18next with the three locale bundles inlined; detection order localStorage → navigator.language mapped → en. Export the configured instance. **[Agent: react-frontend]**
-  - [ ] Create `apps/web/src/i18n/locales/{en,ru,es}/common.json` with Header + nav keys (`header.hotseat`, `header.vsBot`, `header.friends`, `header.profile`, `header.signIn`, `header.signUp`, `header.signOut`, `header.appName`, `header.menuAriaLabel`, and language names `languages.en`/`languages.ru`/`languages.es`). Translate en, ru, es. **[Agent: react-frontend]**
-  - [ ] Create `apps/web/src/i18n/locales/README.md` noting RU and ES are machine-assisted translations pending human review. **[Agent: react-frontend]**
-  - [ ] Create `apps/web/src/features/i18n/useLangStore.ts` — Zustand store with `{ current, setLang }`. `setLang` calls `i18n.changeLanguage`, writes `localStorage['yanchess:lang']`, no backend call yet (added in Slice 5). **[Agent: react-frontend]**
-  - [ ] Create `apps/web/src/features/i18n/LanguageSwitcher.tsx` — Radix dropdown trigger showing `EN`/`RU`/`ES`, items with endonyms + `Check` icon on active. Mount in `apps/web/src/components/ui/Header.tsx` as a sibling of `<ThemeToggle />`. **[Agent: react-frontend]**
-  - [ ] Replace inline strings in `apps/web/src/components/ui/Header.tsx` (and its mobile dropdown) with `t('common:header.*')` calls. **[Agent: react-frontend]**
-  - [ ] Add inline FOUC script in `apps/web/index.html` that reads `localStorage['yanchess:lang']`, maps `navigator.language` (`ru*`→`ru`, `es*`→`es`, else `en`), writes the key back if missing, and sets `document.documentElement.lang`. **[Agent: react-frontend]**
-  - [ ] Wrap `apps/web/src/main.tsx` root with `<I18nextProvider i18n={i18n}>` and ensure i18n is imported for its side effects. **[Agent: react-frontend]**
-  - [ ] Add `apps/web/src/features/i18n/__tests__/useLangStore.test.ts` — asserts `setLang` persists to localStorage and calls i18next changeLanguage. **[Agent: react-frontend]**
-  - [ ] Verify: `pnpm --filter web test -- --run` passes; `pnpm --filter web build` succeeds; dev-start the web app, drive it in a browser via Playwright MCP, open Header switcher, confirm switching EN/RU/ES changes nav text + persists after reload + autodetects RU on a browser whose navigator.language starts with "ru". Stop the dev server by PID when done; delete any screenshots or recordings produced. **[Agent: general-purpose]**
+  - [x] Add `react-i18next@^14`, `i18next@^23`, `i18next-browser-languagedetector@^8` to `apps/web/package.json` dependencies; run `pnpm install`; rebuild. **[Agent: react-frontend]**
+  - [x] Create `packages/shared/src/types/lang.ts` exporting `type Lang = 'en' | 'ru' | 'es'` + `SUPPORTED_LANGS` tuple; re-export from `packages/shared/src/index.ts`; rebuild shared package. **[Agent: nestjs-backend]**
+  - [x] Create `apps/web/src/i18n/index.ts` initializing i18next with the three locale bundles inlined; detection order localStorage → navigator.language mapped → en. Export the configured instance. **[Agent: react-frontend]**
+  - [x] Create `apps/web/src/i18n/locales/{en,ru,es}/common.json` with Header + nav keys (`header.hotseat`, `header.vsBot`, `header.friends`, `header.profile`, `header.signIn`, `header.signUp`, `header.signOut`, `header.appName`, `header.menuAriaLabel`, and language names `languages.en`/`languages.ru`/`languages.es`). Translate en, ru, es. **[Agent: react-frontend]**
+  - [x] Create `apps/web/src/i18n/locales/README.md` noting RU and ES are machine-assisted translations pending human review. **[Agent: react-frontend]**
+  - [x] Create `apps/web/src/features/i18n/useLangStore.ts` — Zustand store with `{ current, setLang }`. `setLang` calls `i18n.changeLanguage`, writes `localStorage['yanchess:lang']`, no backend call yet (added in Slice 5). **[Agent: react-frontend]**
+  - [x] Create `apps/web/src/features/i18n/LanguageSwitcher.tsx` — Radix dropdown trigger showing `EN`/`RU`/`ES`, items with endonyms + `Check` icon on active. Mount in `apps/web/src/components/ui/Header.tsx` as a sibling of `<ThemeToggle />`. **[Agent: react-frontend]**
+  - [x] Replace inline strings in `apps/web/src/components/ui/Header.tsx` (and its mobile dropdown) with `t('common:header.*')` calls. **[Agent: react-frontend]**
+  - [x] Add inline FOUC script in `apps/web/index.html` that reads `localStorage['yanchess:lang']`, maps `navigator.language` (`ru*`→`ru`, `es*`→`es`, else `en`), writes the key back if missing, and sets `document.documentElement.lang`. **[Agent: react-frontend]**
+  - [x] Wrap `apps/web/src/main.tsx` root with `<I18nextProvider i18n={i18n}>` and ensure i18n is imported for its side effects. **[Agent: react-frontend]**
+  - [x] Add `apps/web/src/features/i18n/__tests__/useLangStore.test.ts` — asserts `setLang` persists to localStorage and calls i18next changeLanguage. **[Agent: react-frontend]**
+  - [x] Verify: `pnpm --filter web test -- --run` passes; `pnpm --filter web build` succeeds; dev-start the web app, drive it in a browser via Playwright MCP, open Header switcher, confirm switching EN/RU/ES changes nav text + persists after reload + autodetects RU on a browser whose navigator.language starts with "ru". Stop the dev server by PID when done; delete any screenshots or recordings produced. **[Agent: general-purpose]**
 
 ---
 

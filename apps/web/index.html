@@ -23,6 +23,21 @@
   </head>
   <body>
     <div id="root"></div>
+    <!-- Synchronous language detection: runs before React to prevent flash of wrong language -->
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem('yanchess:lang');
+          var lang = stored
+            ? stored
+            : (navigator.language.indexOf('ru') === 0 ? 'ru'
+              : navigator.language.indexOf('es') === 0 ? 'es'
+              : 'en');
+          if (!stored) localStorage.setItem('yanchess:lang', lang);
+          document.documentElement.lang = lang;
+        } catch (_) {}
+      })();
+    </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

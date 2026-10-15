@@ -1,12 +1,14 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ChevronDown, Menu } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { useAuthStore } from "../../features/auth/useAuthStore";
 import * as authService from "../../features/auth/authService";
 import { useFriendsStore } from "../../features/friends/useFriendsStore";
 import { ThemeToggle } from "./ThemeToggle";
 import { Avatar } from "./Avatar";
 import { Button } from "./Button";
+import { LanguageSwitcher } from "../../features/i18n/LanguageSwitcher";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -16,6 +18,7 @@ import {
 } from "./DropdownMenu";
 
 export function Header(): JSX.Element {
+  const { t } = useTranslation("common");
   const user = useAuthStore((s) => s.user);
   const pendingRequestsCount = useFriendsStore((s) => s.pendingRequestsCount);
   const [scrolled, setScrolled] = useState(false);
@@ -47,26 +50,28 @@ export function Header(): JSX.Element {
       }`}
     >
       <Link to="/" className="font-semibold text-lg text-text-primary">
-        YanChess
+        {t("header.appName")}
       </Link>
       <div className="flex items-center gap-2">
         <Link to="/game" className="text-sm text-text-secondary hover:text-text-primary px-3 py-2">
-          Hotseat
+          {t("header.hotseat")}
         </Link>
         <Link to="/vs-bot" className="text-sm text-text-secondary hover:text-text-primary px-3 py-2">
-          vs Bot
+          {t("header.vsBot")}
         </Link>
         {user && (
           <Link to="/friends" className="text-sm text-text-secondary hover:text-text-primary px-3 py-2">
-            {pendingRequestsCount > 0 ? `Friends (${pendingRequestsCount})` : "Friends"}
+            {pendingRequestsCount > 0 ? `${t("header.friends")} (${pendingRequestsCount})` : t("header.friends")}
           </Link>
         )}
         <ThemeToggle />
+        <LanguageSwitcher />
         {user ? (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <button
                 type="button"
+                aria-label={t("header.accountAriaLabel")}
                 className="flex items-center gap-2 px-2 py-1 rounded-lg hover:bg-surface-elevated focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent"
               >
                 <Avatar nickname={user.nickname} size="sm" />
@@ -76,19 +81,19 @@ export function Header(): JSX.Element {
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
               <DropdownMenuItem asChild>
-                <Link to="/game">Hotseat</Link>
+                <Link to="/game">{t("header.hotseat")}</Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
-                <Link to="/vs-bot">vs Bot</Link>
+                <Link to="/vs-bot">{t("header.vsBot")}</Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
                 <Link to="/friends">
-                  {pendingRequestsCount > 0 ? `Friends (${pendingRequestsCount})` : "Friends"}
+                  {pendingRequestsCount > 0 ? `${t("header.friends")} (${pendingRequestsCount})` : t("header.friends")}
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem asChild>
-                <Link to="/profile">Profile</Link>
+                <Link to="/profile">{t("header.profile")}</Link>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem
@@ -96,7 +101,7 @@ export function Header(): JSX.Element {
                   void handleLogout();
                 }}
               >
-                Sign out
+                {t("header.signOut")}
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
@@ -108,11 +113,11 @@ export function Header(): JSX.Element {
                 to="/login"
                 className="text-sm text-text-secondary hover:text-text-primary px-3 py-2"
               >
-                Sign in
+                {t("header.signIn")}
               </Link>
               <Link to="/register">
                 <Button variant="primary" size="sm">
-                  Sign up
+                  {t("header.signUp")}
                 </Button>
               </Link>
             </div>
@@ -122,7 +127,7 @@ export function Header(): JSX.Element {
                 <DropdownMenuTrigger asChild>
                   <button
                     type="button"
-                    aria-label="Open menu"
+                    aria-label={t("header.menuAriaLabel")}
                     className="inline-flex items-center justify-center h-9 w-9 rounded-lg text-text-secondary hover:text-text-primary hover:bg-surface-elevated focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent transition-colors"
                   >
                     <Menu size={20} aria-hidden />
@@ -130,16 +135,16 @@ export function Header(): JSX.Element {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
                   <DropdownMenuItem asChild>
-                    <Link to="/game">Hotseat</Link>
+                    <Link to="/game">{t("header.hotseat")}</Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
-                    <Link to="/vs-bot">vs Bot</Link>
+                    <Link to="/vs-bot">{t("header.vsBot")}</Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
-                    <Link to="/login">Sign in</Link>
+                    <Link to="/login">{t("header.signIn")}</Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
-                    <Link to="/register">Sign up</Link>
+                    <Link to="/register">{t("header.signUp")}</Link>
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
