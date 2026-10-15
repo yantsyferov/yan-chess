@@ -65,11 +65,8 @@ describe("DI graph — module wiring invariants", () => {
       let output = "";
       try {
         output = execSync(
-          "grep -rn 'forwardRef' apps/api/src/modules/friends/ apps/api/src/modules/game/",
-          {
-            cwd: "/Users/yantsyferov/Desktop/YanChess",
-            encoding: "utf-8",
-          },
+          "grep -rn 'forwardRef' src/modules/friends/ src/modules/game/",
+          { encoding: "utf-8" },
         );
       } catch (e: any) {
         // grep exits with code 1 when no matches found — that is the success case
@@ -97,11 +94,8 @@ describe("DI graph — module wiring invariants", () => {
       let output = "";
       try {
         output = execSync(
-          "grep -rn 'forwardRef' apps/api/src/modules/matchmaking/ apps/api/src/modules/realtime/",
-          {
-            cwd: "/Users/yantsyferov/Desktop/YanChess",
-            encoding: "utf-8",
-          },
+          "grep -rn 'forwardRef' src/modules/matchmaking/ src/modules/realtime/",
+          { encoding: "utf-8" },
         );
       } catch (e: any) {
         if (e.status === 1) {
