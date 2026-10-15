@@ -100,16 +100,18 @@ fly secrets set COOKIE_SAMESITE=None \
 
 > **Verified domain:** When you add and verify a sending domain in Resend, change `MAIL_FROM` to `"YanChess <noreply@yourdomain.com>"` (re-run the command without `--stage` so the secret updates immediately).
 
-### Step 4 — Apply Prisma migrations against Neon (one-time)
+### Step 4 — Apply Prisma migrations (one-time, baseline)
 
-Fly's `release_command` for Prisma migrations is **currently commented out** in `fly.api.toml` because the production Docker image prunes `pnpm deploy --prod` → the Prisma CLI (a devDep) is not available in the runtime image. Workaround: run migrations manually from your laptop before each deploy that includes a new migration.
+For a brand-new Neon database you must apply the initial schema before the first API deploy. From repo root:
 
 ```bash
 DATABASE_URL="<the exact pooled Neon URL from Step 3>" \
   pnpm --filter api prisma migrate deploy
 ```
 
-Expected output: Prisma applies pending migrations OR reports `No pending migrations to apply`. See the Common Issues section for the follow-up fix path.
+Expected output: Prisma applies all 6 migrations, then reports success.
+
+**On subsequent deploys this step is NOT needed.** Fly's `release_command` in `fly.api.toml` runs `node_modules/.bin/prisma migrate deploy` automatically in a one-shot release machine before new app machines boot — if migrations fail, Fly aborts the deploy and the old machines keep running.
 
 ### Step 5 — First API deploy
 
@@ -253,9 +255,9 @@ Safari's Intelligent Tracking Prevention (ITP) blocks `SameSite=None` cookies se
 
 ---
 
-**Q: Where did `release_command` go and how do migrations run?**
+**Q: How do Prisma migrations run on deploy?**
 
-The `release_command = "pnpm --filter api prisma migrate deploy"` line in `fly.api.toml` is **commented out** (with a block comment explaining why). The runtime Docker image prunes devDependencies via `pnpm deploy --prod` → the Prisma CLI is NOT in the final image → Fly's release machine can't invoke it. **Current workaround:** run migrations manually from your laptop against the Neon DATABASE_URL before each `fly deploy` that includes a new migration (see Step 4). **Future fix:** either add `prisma` to runtime deps in `apps/api/package.json`, OR install it globally in the Dockerfile runtime stage via `RUN npm install -g prisma@<version>`. After the fix, uncomment the `release_command` line.
+`fly.api.toml` has `release_command = "node_modules/.bin/prisma migrate deploy"`. Fly runs this in a one-shot release machine before rolling new app machines — if it exits non-zero, Fly aborts the deploy and the old machines keep running. `prisma` CLI lives in `apps/api/dependencies` (not devDependencies) so `pnpm deploy --prod` includes it in the runtime image. See the Fly logs (`fly logs --app yanchess-api`) for migration output on each release.
 
 ---
 
@@ -363,11 +365,10 @@ Both custom and `.fly.dev` URLs route to the same Fly machines. Fly supports mul
 
 ### Known operational constraints
 
-1. **Prisma migrations not auto-applied by Fly.** `release_command` is commented out in `fly.api.toml` because Prisma CLI is pruned from the runtime image. Run `pnpm --filter api prisma migrate deploy` from laptop against the Neon URL before deploying any migration-bearing release. See the matching Common Issues entry for the fix path.
-2. **Single-region deployment.** All compute, DB, and Redis in EU. US / APAC users will see higher latency. Fix: deploy additional Fly machines in `iad` / `syd` regions (requires Neon multi-region + Upstash global DB — paid plans).
-3. **Cold start on first visit after idle.** `auto_stop_machines = "stop"` + `min_machines_running = 0` on both apps saves money but costs ~5-10 seconds on the first request after a quiet period. Set `min_machines_running = 1` to eliminate.
-4. **Safari cross-subdomain cookies.** `SameSite=None` cookies between `yan-chess.com` and `api.yan-chess.com` may be blocked by Safari ITP. Chrome / Firefox / Edge work fine. Fix (future spec): colocate web + API behind a reverse proxy so they share origin.
-5. **No automated backups beyond Neon's point-in-time restore.** Neon's free tier provides 24h PITR; Upstash provides snapshot-based backup. No off-platform mirror.
+1. **Single-region deployment.** All compute, DB, and Redis in EU. US / APAC users will see higher latency. Fix: deploy additional Fly machines in `iad` / `syd` regions (requires Neon multi-region + Upstash global DB — paid plans).
+2. **Cold start on first visit after idle.** `auto_stop_machines = "stop"` + `min_machines_running = 0` on both apps saves money but costs ~5-10 seconds on the first request after a quiet period. Set `min_machines_running = 1` to eliminate.
+3. **Safari cross-subdomain cookies.** `SameSite=None` cookies between `yan-chess.com` and `api.yan-chess.com` may be blocked by Safari ITP. Chrome / Firefox / Edge work fine. Fix (future spec): colocate web + API behind a reverse proxy so they share origin.
+4. **No automated backups beyond Neon's point-in-time restore.** Neon's free tier provides 24h PITR; Upstash provides snapshot-based backup. No off-platform mirror.
 
 ### Account access (recovery info)
 

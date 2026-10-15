@@ -60,7 +60,7 @@ If you ever find yourself writing `forwardRef(...)`, STOP — the dependency bel
 - `binaryTargets = ["native", "linux-musl-arm64-openssl-3.0.x", "linux-musl-openssl-3.0.x"]` — the two Alpine targets are for Docker/Fly deploy; dropping either breaks prod boot (spec 011).
 - Migrations live at `prisma/migrations/`. Current count: 6 (grep `ls prisma/migrations/`).
 - Dev: `pnpm --filter api prisma:migrate:dev` creates + applies. Prod: `prisma:migrate:deploy` applies only.
-- **Known issue:** Prisma CLI is a devDep. The runtime Docker image strips devDeps via `pnpm deploy --prod`, so **Fly `release_command` can't call it**. Migrations run manually from laptop against the Neon URL before each prod deploy. See `fly.api.toml` comment block above `[deploy]`.
+- **Deploy:** Fly `release_command = "node_modules/.bin/prisma migrate deploy"` applies pending migrations in a one-shot machine before new app machines boot. If the migration fails, Fly aborts the deploy and the old machines keep running. `prisma` lives in `apps/api/dependencies` so `pnpm deploy --prod` includes it in the runtime image. (Previously a devDep — fixed in post-spec-011 cleanup.)
 
 ---
 
