@@ -1,5 +1,7 @@
 # YanChess
 
+[![Deploy to Fly.io](https://github.com/yantsyferov/yan-chess/actions/workflows/deploy.yml/badge.svg)](https://github.com/yantsyferov/yan-chess/actions/workflows/deploy.yml)
+
 Chess platform MVP for amateur and club-level players. Play against the Stockfish bot, find a human opponent via matchmaking by rating, challenge friends directly, review your games.
 
 **🌐 Live:** [https://yan-chess.com](https://yan-chess.com)

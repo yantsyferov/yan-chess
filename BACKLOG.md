@@ -75,6 +75,8 @@ Items that were flagged `[ ]` in a functional-spec with a documented reason duri
 
 **Current state:** `fly.api.toml` has `release_command` commented out with a block comment explaining why. `pnpm deploy --prod` in `apps/api/Dockerfile` strips `prisma` (it's a devDep). Migrations currently run **manually from laptop** against the Neon URL before each prod deploy that includes a new migration.
 
+**Priority increased after CI/CD landing:** since GitHub Actions now triggers deploy on every push to main, a PR that adds a new migration + is merged will result in a prod container booting against an outdated schema → crash loop. Until this is fixed, any migration-touching PR MUST be preceded by a manual `prisma migrate deploy` from laptop (ideally in a separate commit, pushed first, so the schema is live before the code reaches prod).
+
 **Workaround (documented in `docs/DEPLOYMENT.md` Step 4):**
 ```bash
 DATABASE_URL="<neon pooled URL>" pnpm --filter api prisma migrate deploy
@@ -128,14 +130,6 @@ Deferred during spec 011 scoping. Shape:
 - **Uptime:** external pinger (Better Stack / UptimeRobot) on `/api/v1/health`.
 
 Trigger: first time a real user says "it broke" and we have no stack trace.
-
-### CI/CD pipeline
-
-Currently every deploy is manual from laptop (`fly deploy -c ...`). GitHub Actions workflow would:
-- On PR merge to main → run `pnpm typecheck` + `pnpm test` → if green, trigger `fly deploy` for both apps.
-- Secrets stored in GitHub Actions.
-
-Trigger: more than one developer OR deploys become frequent (>1/week).
 
 ### Multi-region deployment
 
