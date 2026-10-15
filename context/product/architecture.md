@@ -16,6 +16,13 @@
   - **Typography:** **Inter Variable** via `@fontsource-variable/inter@^5` — self-hosted, no requests to Google Fonts; fallback to `system-ui, sans-serif`.
   - _Alternatives:_ CSS Modules + hand-rolled tokens (loses the DX of utility classes); styled-components (runtime cost); PandaCSS/Vanilla-Extract (less mature ecosystem). The choice is fixed by spec `context/spec/002-visual-design-foundation/`.
   - _Why:_ Tailwind v4's CSS-variable-first model enables hot theme switching without re-rendering, produces static output with no runtime, and composes utility classes for glass/blur/shadow effects. Tokens live in a single file visible in DevTools.
+- **Frontend Internationalization:** **react-i18next (`^14`) + i18next (`^23`) + i18next-browser-languagedetector (`^8`)** _[Confirmed]_ — spec 012 (`apps/web/package.json`; locale bundles at `apps/web/src/i18n/locales/{en,ru,es}/{common,auth,game,history,friends,profile,errors}.json`; Zustand `useLangStore` at `apps/web/src/features/i18n/useLangStore.ts`; Radix dropdown `LanguageSwitcher.tsx` mounted in `Header.tsx`).
+  - **Supported languages:** English (baseline), Russian, Spanish. Fallback chain: user-chosen → `User.lang` from `/users/me` → `localStorage['yanchess:lang']` → `navigator.language` mapped (`ru*`→`ru`, `es*`→`es`, else `en`) → `en`.
+  - **Bundle strategy:** all three locales inlined at build time (~150 KB total JSON). No HTTP backend for lazy loading. Revisit if the bundle grows past 500 KB.
+  - **FOUC prevention:** sync inline script in `apps/web/index.html` sets `<html lang>` before React mounts — same pattern as the theme switcher.
+  - **Zod error-code migration:** validation schemas in `packages/shared/src/schemas/*` emit stable error codes via `params.i18nKey` (e.g. `password.too_short`, `nickname.invalid_chars`); frontend `errors` namespace maps codes → localized strings through a per-render adapter in `apps/web/src/lib/zodErrorMap.ts`.
+  - _Alternatives:_ FormatJS/react-intl (heavier bundle + ICU authoring overhead not justified for EN/RU/ES without complex plural edge cases).
+  - _Why:_ small core, hooks-first API, mature TS support, works offline, no server-side render dependency.
 - **Backend Framework:** **Node.js + TypeScript + NestJS** _[Confirmed]_ — specs 001-011 (`apps/api/package.json`: `@nestjs/core@^10.4`, `@nestjs/common`, `@nestjs/platform-express`, `@nestjs/websockets`, `@nestjs/schedule`; 12+ modules under `apps/api/src/modules/`; SWC builder via `nest-cli.json`).
   - _Alternatives:_ Go + Gin (faster for matchmaking), Python + FastAPI.
   - _Why:_ single language/types shared with the frontend, built-in WebSocket gateway support, modular architecture for future features (tournaments, puzzles).
@@ -41,9 +48,10 @@
   - _Stores:_ users, profiles, per-mode ratings, game history (PGN + metadata), friends/requests.
   - _Alternatives:_ MySQL, CockroachDB (if horizontal scalability is needed up front).
   - _Why:_ strict transactions for rating and friendship, rich SQL, JSONB for flexible fields (for example, future game analytics).
-- **ORM / Query Layer:** **Prisma** _[Confirmed]_ — specs 001-011 (`apps/api/prisma/schema.prisma` with 6 models + 3 enums; 6 migrations applied in both local `yanchess` DB and Neon prod DB; `binaryTargets = ["native", "linux-musl-arm64-openssl-3.0.x", "linux-musl-openssl-3.0.x"]` for Alpine Docker runtime; `@prisma/client@^5.22`).
+- **ORM / Query Layer:** **Prisma** _[Confirmed]_ — specs 001-012 (`apps/api/prisma/schema.prisma` with 6 models + 4 enums including `Lang { en ru es }`; 7 migrations applied in both local `yanchess` DB and Neon prod DB; `binaryTargets = ["native", "linux-musl-arm64-openssl-3.0.x", "linux-musl-openssl-3.0.x"]` for Alpine Docker runtime; `@prisma/client@^5.22` + `prisma@^5.22` CLI now a runtime dep so Fly `release_command` applies migrations on deploy).
   - _Alternatives:_ Drizzle, TypeORM, Kysely.
   - _Why:_ type-safe queries, migrations, good DX in a TS monorepo.
+  - **User.lang column:** nullable `Lang` enum column added by spec 012 (`20261015194525_add_user_lang`) persists each user's language preference for cross-device sync + localized emails. `NULL` means "no explicit choice recorded" — fall back to client-side detection / English.
 - **Realtime / Ephemeral State:** **Redis 7** _[Confirmed]_ — specs 004 + 007 + 011 (local via docker-compose `redis:7-alpine` + e2e DB index 1 for isolation per spec 009; prod via Upstash TLS `rediss://` endpoint; namespaces documented in `apps/api/CLAUDE.md`: `session:*`, `mm:*`, `game:*`, `user:activeGame:*`, `rematch:*`, `challenge:*`, `user:activeChallenge:*`, `rl:*`).
   - _Stores:_ matchmaking queue, active game sessions (position, clocks, whose turn), pub/sub between API instances to broadcast updates.
   - _Alternatives:_ KeyDB, Dragonfly, in-memory (unsuitable with >1 instance).
@@ -62,8 +70,11 @@
   - _Why:_ cheap, global regions (important for low realtime latency), WebSockets out of the box, built-in Postgres/Redis.
 - **Containerization:** **Docker** (multi-stage builds), **Docker Compose** for local development _[Confirmed]_ — spec 011 (`apps/api/Dockerfile`, `apps/web/Dockerfile`, `docker-compose.yml`).
 - **Orchestration:** Fly Machines for MVP; Kubernetes (EKS/GKE) as we grow _[Assumption]_
-- **CI/CD:** **GitHub Actions** _[Assumption]_
-  - _Pipeline:_ lint → typecheck → unit tests → e2e on preview environment → deploy to Fly.io.
+- **CI/CD:** **GitHub Actions** _[Confirmed]_ — post-spec-011 cleanup (`.github/workflows/ci.yml` + `deploy.yml` on `yantsyferov/yan-chess`; `FLY_API_TOKEN` org token in GitHub Secrets; CI badge in `README.md`).
+  - _Pipeline:_
+    - `ci.yml` on PR + non-main pushes: pnpm install (frozen lockfile) → shared build → `pnpm typecheck` → `pnpm --filter api test:unit` → `pnpm --filter web test -- --run`. Fast gate (~3 min).
+    - `deploy.yml` on push to `main` only (with `paths-ignore: **/*.md, docs/**, context/**, .gitignore, LICENSE` so doc-only commits don't deploy): same verify checks → parallel `flyctl deploy --remote-only` of `fly.api.toml` + `fly.web.toml`. `concurrency: cancel-in-progress: false` protects in-flight deploys.
+    - **E2E not yet wired into CI** — `pnpm --filter api test:e2e` requires Postgres + Redis service containers; added when first PR with external contributor needs it (BACKLOG).
 - **Environments:** `local` → `preview` (per-PR) → `staging` → `production` _[Assumption]_
 - **Secrets:** Fly.io secrets for all runtime config (13 secrets on `yanchess-api`; web has none — `VITE_API_URL` is baked at build time) _[Confirmed]_ — spec 011.
 - **CDN:** **Cloudflare** in front of the web client and static assets _[Assumption]_
@@ -77,7 +88,8 @@
   - **Primary:** email + password via an in-house service (argon2 for hashes, JWT + refresh) _[Confirmed]_ — spec 001 + 011 (`apps/api/src/modules/auth/`; argon2id used; prod `yanchess-api` running).
   - **OAuth (optional for MVP):** Google via standard OAuth 2.0 — `passport-google-oauth20` library or hand-rolled _[Assumption]_.
   - _Alternatives:_ managed providers (Clerk, Auth0, Supabase Auth) — faster to stand up but more expensive and offer less control over the player profile.
-- **Transactional Email (registration confirmation, password reset):** **Resend** _[Confirmed]_ — spec 011 (`apps/api/src/modules/mail/resend.mailer.ts`; verified domain `yan-chess.com` with DNS SPF/DKIM via GoDaddy; sender `YanChess <noreply@yan-chess.com>`; dev driver `DevOutboxMailer` writes JSON files to `apps/api/dev-outbox/` — env-branched on `MAIL_DRIVER`).
+- **Transactional Email (registration confirmation, password reset):** **Resend** _[Confirmed]_ — spec 011 + 012 (`apps/api/src/modules/mail/resend.mailer.ts`; verified domain `yan-chess.com` with DNS SPF/DKIM via GoDaddy; sender `YanChess <noreply@yan-chess.com>`; dev driver `DevOutboxMailer` writes JSON files to `apps/api/dev-outbox/` — env-branched on `MAIL_DRIVER`).
+  - **Localized templates:** each transactional email (verify-email, reset-password, resend-verify) has a dedicated template module under `apps/api/src/modules/mail/templates/*.ts` with a `Record<Lang, { subject, html }>` map. `AuthService` passes `user.lang ?? 'en'` at send time; unsupported lang → warn + fall back to `en` (spec 012).
   - _Alternatives:_ Postmark, SendGrid, AWS SES.
 - **Payments / Monetization:** **not in MVP** (see product-definition §3.2).
 
