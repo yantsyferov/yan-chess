@@ -13,15 +13,16 @@ primary_region = "fra"
   PORT     = "3000"
 
 [deploy]
-  # KNOWN ISSUE (spec 011 Slice 6): release_command requires prisma CLI (devDep)
-  # which is pruned by `pnpm deploy --prod` in apps/api/Dockerfile runtime stage.
-  # Enabling this line will cause `fly deploy` to fail during the release phase.
-  # For the first deploy, migrations were run manually from laptop against Neon.
-  # Follow-up: add prisma to runtime image via one of:
-  #   (a) `RUN npm install -g prisma@5.22.0` in the Dockerfile runtime stage
-  #   (b) move "prisma" from devDependencies to dependencies in apps/api/package.json
-  # After the fix, un-comment the line below.
-  # release_command = "pnpm --filter api prisma migrate deploy"
+  # Applies pending Prisma migrations before Fly rolls new machines.
+  # Fly aborts the deploy (old machines stay) if this exits non-zero,
+  # so a bad migration never ships broken code to prod.
+  #
+  # Command notes:
+  # - prisma CLI lives in apps/api/dependencies after the spec-011 cleanup,
+  #   so pnpm deploy --prod now copies it into /app/node_modules/.bin/prisma.
+  # - WORKDIR is /app (flat layout — pnpm deploy flattened the workspace),
+  #   so schema is auto-discovered at ./prisma/schema.prisma.
+  release_command = "node_modules/.bin/prisma migrate deploy"
 
 [http_service]
   internal_port       = 3000
