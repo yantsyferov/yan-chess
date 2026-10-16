@@ -103,6 +103,9 @@
 
   /* Pattern */
   --pattern-opacity: 0.03;
+
+  /* Layout */
+  --sidebar-width: 240px;
 }
 
 /* ─── Tailwind theme mapping ─────────────────────────────────────────────── */

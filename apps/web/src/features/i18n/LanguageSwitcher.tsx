@@ -21,7 +21,7 @@ export function LanguageSwitcher(): JSX.Element {
           type="button"
           className="inline-flex items-center justify-center h-9 px-2 rounded-lg text-xs font-semibold text-text-secondary hover:text-text-primary hover:bg-surface-elevated focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent transition-colors"
         >
-          {current.toUpperCase()}
+          {t(`languages.${current}`)}
         </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">

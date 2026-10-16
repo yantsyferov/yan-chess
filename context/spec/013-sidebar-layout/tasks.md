@@ -6,17 +6,17 @@ Agents available in this project (`.claude/agents/`): `react-frontend`, `nestjs-
 
 ---
 
-- [ ] **Slice 1: Language switcher shows full endonym + sidebar CSS token + new translation keys**
+- [x] **Slice 1: Language switcher shows full endonym + sidebar CSS token + new translation keys**
 
   > Smallest visible increment: the language switcher's closed state changes from "EN"/"RU"/"ES" to "English"/"Русский"/"Español" everywhere it appears today (still inside the current Header). Adds the full set of new translation keys and the `--sidebar-width` CSS token so later slices only edit components. Zero risk to Header, zero risk to routing.
 
-  - [ ] Add CSS variable `--sidebar-width: 240px` to `apps/web/src/styles/tokens.css` inside `:root` (both themes get the same value). **[Agent: react-frontend]**
-  - [ ] Add new keys to `apps/web/src/i18n/locales/en/common.json` under a new `sidebar` object: `play`, `settings`, `friends`, `chat`, `notifications`, `logout`, `theme`, `logoAriaLabel`, `openMenu`, `closeMenu`. English values: "Play", "Settings", "Friends", "Chat", "Notifications", "Sign out", "Theme", "YanChess home", "Open menu", "Close menu". **[Agent: react-frontend]**
-  - [ ] Add the same `sidebar.*` keys to `apps/web/src/i18n/locales/ru/common.json` — Russian values: "Играть", "Настройки", "Друзья", "Чат", "Уведомления", "Выйти", "Тема", "YanChess — на главную", "Открыть меню", "Закрыть меню". **[Agent: react-frontend]**
-  - [ ] Add the same `sidebar.*` keys to `apps/web/src/i18n/locales/es/common.json` — Spanish values: "Jugar", "Ajustes", "Amigos", "Chat", "Notificaciones", "Cerrar sesión", "Tema", "YanChess — inicio", "Abrir menú", "Cerrar menú". **[Agent: react-frontend]**
-  - [ ] Change `apps/web/src/features/i18n/LanguageSwitcher.tsx` trigger from `{current.toUpperCase()}` to `` {t(`languages.${current}`)} `` — single line change. **[Agent: react-frontend]**
-  - [ ] Add `apps/web/src/features/i18n/__tests__/LanguageSwitcher.endonym.test.tsx` — asserts trigger renders "English" when i18n language is `en`, "Русский" when `ru`, "Español" when `es`. RED-validate by temporarily reverting the one-line change back to `.toUpperCase()`. **[Agent: react-frontend]**
-  - [ ] Verify: `pnpm --filter web test -- --run src/features/i18n/__tests__/LanguageSwitcher.endonym.test.tsx` passes; `pnpm --filter web build` succeeds; dev-start web preview on port 4173, drive via Playwright MCP, confirm the current Header's language switcher trigger shows "English" (or the current locale's endonym) instead of "EN". Stop the preview server by its PID; delete any screenshots/recordings produced during the check. **[Agent: general-purpose]**
+  - [x] Add CSS variable `--sidebar-width: 240px` to `apps/web/src/styles/tokens.css` inside `:root` (both themes get the same value). **[Agent: react-frontend]**
+  - [x] Add new keys to `apps/web/src/i18n/locales/en/common.json` under a new `sidebar` object: `play`, `settings`, `friends`, `chat`, `notifications`, `logout`, `theme`, `logoAriaLabel`, `openMenu`, `closeMenu`. English values: "Play", "Settings", "Friends", "Chat", "Notifications", "Sign out", "Theme", "YanChess home", "Open menu", "Close menu". **[Agent: react-frontend]**
+  - [x] Add the same `sidebar.*` keys to `apps/web/src/i18n/locales/ru/common.json` — Russian values: "Играть", "Настройки", "Друзья", "Чат", "Уведомления", "Выйти", "Тема", "YanChess — на главную", "Открыть меню", "Закрыть меню". **[Agent: react-frontend]**
+  - [x] Add the same `sidebar.*` keys to `apps/web/src/i18n/locales/es/common.json` — Spanish values: "Jugar", "Ajustes", "Amigos", "Chat", "Notificaciones", "Cerrar sesión", "Tema", "YanChess — inicio", "Abrir menú", "Cerrar menú". **[Agent: react-frontend]**
+  - [x] Change `apps/web/src/features/i18n/LanguageSwitcher.tsx` trigger from `{current.toUpperCase()}` to `` {t(`languages.${current}`)} `` — single line change. **[Agent: react-frontend]**
+  - [x] Add `apps/web/src/features/i18n/__tests__/LanguageSwitcher.endonym.test.tsx` — asserts trigger renders "English" when i18n language is `en`, "Русский" when `ru`, "Español" when `es`. RED-validate by temporarily reverting the one-line change back to `.toUpperCase()`. **[Agent: react-frontend]**
+  - [x] Verify: `pnpm --filter web test -- --run src/features/i18n/__tests__/LanguageSwitcher.endonym.test.tsx` passes; `pnpm --filter web build` succeeds; dev-start web preview on port 4173, drive via Playwright MCP, confirm the current Header's language switcher trigger shows "English" (or the current locale's endonym) instead of "EN". Stop the preview server by its PID; delete any screenshots/recordings produced during the check. **[Agent: general-purpose]**
 
 ---
 
