@@ -118,6 +118,16 @@
         "rated": "Рейтинговая",
         "casual": "Нерейтинговая"
       }
+    },
+    "friend": {
+      "friendsListTitle": "Ваши друзья",
+      "emptyState": "Пока нет друзей — добавьте их на странице Друзья.",
+      "challengeButton": "Вызвать",
+      "backToList": "Назад к списку друзей",
+      "sendChallenge": "Отправить вызов",
+      "challengeLink": "Ссылка на вызов",
+      "challengeLinkComingSoon": "Ссылка для шейринга скоро появится",
+      "challengeSent": "Вызов отправлен"
     }
   },
   "history": {

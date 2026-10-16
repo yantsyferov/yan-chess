@@ -17,6 +17,7 @@ import { FriendsNotificationLayer } from "./features/friends/FriendsNotification
 const Game = lazy(() => import("./pages/Game"));
 const PlayHub = lazy(() => import("./pages/PlayHub").then((m) => ({ default: m.PlayHub })));
 const PlayOnline = lazy(() => import("./pages/PlayOnline").then((m) => ({ default: m.PlayOnline })));
+const PlayFriend = lazy(() => import("./pages/PlayFriend").then((m) => ({ default: m.PlayFriend })));
 const VsBot = lazy(() => import("./pages/VsBot").then((m) => ({ default: m.VsBot })));
 const HistoryReplay = lazy(() =>
   import("./pages/HistoryReplay").then((m) => ({ default: m.HistoryReplay })),
@@ -104,6 +105,14 @@ export function AppRoutes(): JSX.Element {
           element={
             <Suspense fallback={SUSPENSE_FALLBACK}>
               <PlayOnline />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/play/friend"
+          element={
+            <Suspense fallback={SUSPENSE_FALLBACK}>
+              <PlayFriend />
             </Suspense>
           }
         />

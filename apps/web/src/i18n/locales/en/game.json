@@ -118,6 +118,16 @@
         "rated": "Rated",
         "casual": "Casual"
       }
+    },
+    "friend": {
+      "friendsListTitle": "Your Friends",
+      "emptyState": "No friends yet — add some from the Friends page.",
+      "challengeButton": "Challenge",
+      "backToList": "Back to friends list",
+      "sendChallenge": "Send challenge",
+      "challengeLink": "Challenge link",
+      "challengeLinkComingSoon": "Shareable link coming soon",
+      "challengeSent": "Challenge sent"
     }
   },
   "history": {

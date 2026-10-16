@@ -118,6 +118,16 @@
         "rated": "Clasificatoria",
         "casual": "Amistosa"
       }
+    },
+    "friend": {
+      "friendsListTitle": "Tus amigos",
+      "emptyState": "Aún no tienes amigos — añade algunos desde la página de Amigos.",
+      "challengeButton": "Desafiar",
+      "backToList": "Volver a la lista de amigos",
+      "sendChallenge": "Enviar desafío",
+      "challengeLink": "Enlace del desafío",
+      "challengeLinkComingSoon": "Enlace compartible próximamente",
+      "challengeSent": "Desafío enviado"
     }
   },
   "history": {
