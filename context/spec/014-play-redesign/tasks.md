@@ -35,16 +35,16 @@ Agents: `react-frontend`, `nestjs-backend`, `postgres-redis-data`, `testing-expe
 
 ---
 
-- [ ] **Slice 3: Challenge flow carries isRated end-to-end**
+- [x] **Slice 3: Challenge flow carries isRated end-to-end**
 
   > ChallengeSendPayload + ChallengeReceivedPayload carry isRated. ChallengeService stores it in Redis + passes to createGame on accept. Fallback `isRated=true` for in-flight challenges at deploy time.
 
-  - [ ] Amend `apps/api/src/modules/friends/challenge.service.ts` — `ChallengeRecord` interface gains `isRated: boolean`; `sendChallenge(body)` reads `body.isRated` + writes `challenge:{challengeId}` hash field `isRated: "true"/"false"`; `resolveAccept` reads with `?? "true"` fallback, calls `createGame(..., isRated)`. **[Agent: nestjs-backend]**
-  - [ ] Amend `apps/web/src/features/friends/useFriendsStore.ts` — `sendChallenge({ targetUserId, mode, color, isRated })` sends new field over socket. **[Agent: react-frontend]**
-  - [ ] Amend `apps/web/src/features/friends/ChallengeModal.tsx` — add rated/unrated segmented control (default "Rated"); include `isRated` in `sendChallenge` call; localize new label via `game.json` keys. **[Agent: react-frontend]**
-  - [ ] Amend `apps/web/src/features/friends/ChallengeToast.tsx` (or wherever incoming challenge renders) — show "Rated" / "Casual" badge from `ChallengeReceivedPayload.isRated`. **[Agent: react-frontend]**
-  - [ ] Add `apps/api/test/e2e/challenge-rated.e2e.spec.ts` — sendChallenge isRated=false → accept → game isRated=false + history row isRated=false. **[Agent: nestjs-backend]**
-  - [ ] Verify: `pnpm --filter api test:e2e` + `pnpm --filter web test -- --run` green. Dev-start, from /friends page send a casual challenge to a friend → confirm friend sees "Casual" badge in incoming toast. Stop services, delete ephemeral artifacts. **[Agent: general-purpose]**
+  - [x] Amend `apps/api/src/modules/friends/challenge.service.ts` — `ChallengeRecord` interface gains `isRated: boolean`; `sendChallenge(body)` reads `body.isRated` + writes `challenge:{challengeId}` hash field `isRated: "true"/"false"`; `resolveAccept` reads with `?? "true"` fallback, calls `createGame(..., isRated)`. **[Agent: nestjs-backend]**
+  - [x] Amend `apps/web/src/features/friends/useFriendsStore.ts` — `sendChallenge({ targetUserId, mode, color, isRated })` sends new field over socket. **[Agent: react-frontend]**
+  - [x] Amend `apps/web/src/features/friends/ChallengeModal.tsx` — add rated/unrated segmented control (default "Rated"); include `isRated` in `sendChallenge` call; localize new label via `game.json` keys. **[Agent: react-frontend]**
+  - [x] Amend `apps/web/src/features/friends/ChallengeToast.tsx` (or wherever incoming challenge renders) — show "Rated" / "Casual" badge from `ChallengeReceivedPayload.isRated`. **[Agent: react-frontend]**
+  - [x] Add `apps/api/test/e2e/challenge-rated.e2e.spec.ts` — sendChallenge isRated=false → accept → game isRated=false + history row isRated=false. **[Agent: nestjs-backend]**
+  - [x] Verify: `pnpm --filter api test:e2e` + `pnpm --filter web test -- --run` green. Dev-start, from /friends page send a casual challenge to a friend → confirm friend sees "Casual" badge in incoming toast. Stop services, delete ephemeral artifacts. **[Agent: general-purpose]**
 
 ---
 

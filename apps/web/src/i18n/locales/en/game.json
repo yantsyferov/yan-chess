@@ -90,6 +90,19 @@
       "blackClock": "Black's clock"
     }
   },
+  "play": {
+    "online": {
+      "rated": {
+        "label": "Game type",
+        "rated": "Rated",
+        "casual": "Casual"
+      }
+    }
+  },
+  "history": {
+    "ratedBadge": "Rated",
+    "casualBadge": "Casual"
+  },
   "online": {
     "loadingGame": "Loading game...",
     "drawDeclined": "Draw offer declined.",

@@ -18,6 +18,7 @@ export interface ChallengeRecord {
   targetId: string;
   mode: Mode;
   color: ChallengeColor;
+  isRated: boolean;
   createdAt: number;
   timeoutAt: number;
 }
@@ -54,7 +55,7 @@ export class ChallengeService {
     myNickname: string,
     body: ChallengeSendPayload,
   ): Promise<ChallengeSendResult> {
-    const { targetUserId, mode, color } = body;
+    const { targetUserId, mode, color, isRated } = body;
 
     // 1. Reject self
     if (targetUserId === myUserId) {
@@ -124,6 +125,7 @@ export class ChallengeService {
       targetId: targetUserId,
       mode,
       color,
+      isRated: isRated ? "true" : "false",
       createdAt,
       timeoutAt,
     });
@@ -138,6 +140,7 @@ export class ChallengeService {
       challengerNickname: myNickname,
       mode,
       color,
+      isRated,
       timeoutAt,
     });
 
@@ -158,6 +161,7 @@ export class ChallengeService {
       targetId: data["targetId"],
       mode: data["mode"] as Mode,
       color: data["color"] as ChallengeColor,
+      isRated: (data["isRated"] ?? "true") !== "false",
       createdAt: Number(data["createdAt"]),
       timeoutAt: Number(data["timeoutAt"]),
     };
@@ -173,6 +177,7 @@ export class ChallengeService {
     const targetId = data["targetId"];
     const mode = data["mode"] as Mode;
     const color = data["color"] as ChallengeColor;
+    const isRated = (data["isRated"] ?? "true") !== "false";
 
     // Roll color if random
     let whiteId: string;
@@ -195,7 +200,7 @@ export class ChallengeService {
       blackId = challengerId;
     }
 
-    const createdGame: CreatedGame = await this.gameService.createGame(whiteId, blackId, mode, true);
+    const createdGame: CreatedGame = await this.gameService.createGame(whiteId, blackId, mode, isRated);
     const { gameId, timeControlMs, fen, sideToMove, serverNow } = createdGame;
 
     // Join both players to game room on /play namespace

@@ -90,6 +90,19 @@
       "blackClock": "Reloj de negras"
     }
   },
+  "play": {
+    "online": {
+      "rated": {
+        "label": "Tipo de partida",
+        "rated": "Clasificatoria",
+        "casual": "Amistosa"
+      }
+    }
+  },
+  "history": {
+    "ratedBadge": "Clasificatoria",
+    "casualBadge": "Amistosa"
+  },
   "online": {
     "loadingGame": "Cargando partida...",
     "drawDeclined": "Oferta de tablas rechazada.",

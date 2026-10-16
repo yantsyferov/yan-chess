@@ -68,18 +68,21 @@ function AutoCloseContent({
 
 export function ChallengeModal(): JSX.Element | null {
   const { t } = useTranslation("friends");
+  const { t: tGame } = useTranslation("game");
   const outboundChallenge = useFriendsStore((s) => s.outboundChallenge);
   const sendChallenge = useFriendsStore((s) => s.sendChallenge);
   const cancelOutboundChallenge = useFriendsStore((s) => s.cancelOutboundChallenge);
 
   const [localMode, setLocalMode] = useState<Mode>("Blitz");
   const [localColor, setLocalColor] = useState<ChallengeColor>("white");
+  const [localIsRated, setLocalIsRated] = useState<boolean>(true);
 
   // Reset local state when modal opens fresh (new challenge target).
   useEffect(() => {
     if (outboundChallenge !== null && outboundChallenge.sentAt === 0) {
       setLocalMode("Blitz");
       setLocalColor("white");
+      setLocalIsRated(true);
     }
   }, [outboundChallenge?.targetUserId]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -99,7 +102,7 @@ export function ChallengeModal(): JSX.Element | null {
   }
 
   function handleSend(): void {
-    sendChallenge(localMode, localColor);
+    sendChallenge(localMode, localColor, localIsRated);
   }
 
   return (
@@ -164,6 +167,28 @@ export function ChallengeModal(): JSX.Element | null {
                     ].join(" ")}
                   >
                     {label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Rated / Casual selector */}
+            <div className="mt-4">
+              <p className="text-xs text-text-muted mb-2 uppercase tracking-wide">{tGame("play.online.rated.label")}</p>
+              <div className="grid grid-cols-2 gap-2">
+                {([true, false] as const).map((rated) => (
+                  <button
+                    key={String(rated)}
+                    type="button"
+                    onClick={() => setLocalIsRated(rated)}
+                    className={[
+                      "px-3 py-2 rounded-lg text-sm font-medium border transition-colors",
+                      localIsRated === rated
+                        ? "bg-accent text-text-inverse border-accent"
+                        : "bg-transparent border-border-subtle text-text-secondary hover:border-border-strong hover:text-text-primary",
+                    ].join(" ")}
+                  >
+                    {rated ? tGame("play.online.rated.rated") : tGame("play.online.rated.casual")}
                   </button>
                 ))}
               </div>

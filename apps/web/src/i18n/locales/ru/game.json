@@ -90,6 +90,19 @@
       "blackClock": "Часы чёрных"
     }
   },
+  "play": {
+    "online": {
+      "rated": {
+        "label": "Тип партии",
+        "rated": "Рейтинговая",
+        "casual": "Нерейтинговая"
+      }
+    }
+  },
+  "history": {
+    "ratedBadge": "Рейтинговая",
+    "casualBadge": "Нерейтинговая"
+  },
   "online": {
     "loadingGame": "Загрузка партии...",
     "drawDeclined": "Предложение ничьей отклонено.",

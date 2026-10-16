@@ -33,6 +33,7 @@ interface OutboundChallenge {
   targetNickname: string;
   mode: Mode;
   color: ChallengeColor;
+  isRated: boolean;
   challengeId: string | null;
   sentAt: number;
   expiresAt: number;
@@ -45,6 +46,7 @@ interface InboundChallenge {
   challengerNickname: string;
   mode: Mode;
   color: ChallengeColor;
+  isRated: boolean;
   expiresAt: number;
 }
 
@@ -78,7 +80,7 @@ interface FriendsState {
   unfriend: (friendUserId: string) => Promise<void>;
 
   openChallenge: (targetUserId: string, targetNickname: string) => void;
-  sendChallenge: (mode: Mode, color: ChallengeColor) => void;
+  sendChallenge: (mode: Mode, color: ChallengeColor, isRated: boolean) => void;
   cancelOutboundChallenge: () => void;
   respondInboundChallenge: (accept: boolean) => void;
 }
@@ -216,6 +218,7 @@ export const useFriendsStore = create<FriendsState>((set, get) => ({
           challengerNickname: payload.challengerNickname,
           mode: payload.mode,
           color: payload.color,
+          isRated: payload.isRated,
           expiresAt: payload.timeoutAt,
         },
       });
@@ -286,6 +289,7 @@ export const useFriendsStore = create<FriendsState>((set, get) => ({
         targetNickname,
         mode: "Blitz",
         color: "white",
+        isRated: true,
         challengeId: null,
         sentAt: 0,
         expiresAt: 0,
@@ -293,17 +297,18 @@ export const useFriendsStore = create<FriendsState>((set, get) => ({
     });
   },
 
-  sendChallenge(mode: Mode, color: ChallengeColor): void {
+  sendChallenge(mode: Mode, color: ChallengeColor, isRated: boolean): void {
     const { outboundChallenge } = get();
     if (outboundChallenge === null) return;
     useOnlineGameStore.getState().markPendingNavigate();
     set({
-      outboundChallenge: { ...outboundChallenge, mode, color, sentAt: Date.now() },
+      outboundChallenge: { ...outboundChallenge, mode, color, isRated, sentAt: Date.now() },
     });
     getFriendsSocket().emit("challenge.send", {
       targetUserId: outboundChallenge.targetUserId,
       mode,
       color,
+      isRated,
     });
   },
 
