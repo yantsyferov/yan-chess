@@ -69,13 +69,13 @@ Agents: `react-frontend`, `nestjs-backend`, `postgres-redis-data`, `testing-expe
 
 ---
 
-- [ ] **Slice 6: Friends popup**
+- [x] **Slice 6: Friends popup**
 
   > Clicking Friends icon in sidebar opens popup with up to 10 friends + "Open full Friends page" link. Empty state when 0 friends.
 
-  - [ ] Create `apps/web/src/features/sidebar-popups/FriendsPopup.tsx` — reads `useFriendsStore(s => s.friends)`. Renders header "Friends (<count>)". List up to 10 rows (avatar + nickname + online indicator). Empty state with "No friends yet" + "Find friends" button → /friends. Bottom link "Open full Friends page" → /friends. **[Agent: react-frontend]**
-  - [ ] Amend `SidebarSignedInBottom.tsx` — wrap Friends icon with SidebarPopup containing FriendsPopup. **[Agent: react-frontend]**
-  - [ ] Add i18n keys to `common.json` — `popups.friends.{title,countLabel,emptyTitle,emptyBody,findFriendsButton,openFullPage}`. **[Agent: react-frontend]**
+  - [x] Create `apps/web/src/features/sidebar-popups/FriendsPopup.tsx` — reads `useFriendsStore(s => s.friends)`. Renders header "Friends (<count>)". List up to 10 rows (avatar + nickname + online indicator). Empty state with "No friends yet" + "Find friends" button → /friends. Bottom link "Open full Friends page" → /friends. **[Agent: react-frontend]**
+  - [x] Amend `SidebarSignedInBottom.tsx` — wrap Friends icon with SidebarPopup containing FriendsPopup. **[Agent: react-frontend]**
+  - [x] Add i18n keys to `common.json` — `popups.friends.{title,countLabel,emptyTitle,emptyBody,findFriendsButton,openFullPage}`. **[Agent: react-frontend]**
   - [ ] Add `apps/web/src/features/sidebar-popups/__tests__/FriendsPopup.test.tsx` — list rendering with mocked friends; empty state when friends=[]; 10-row cap when friends=15; link to /friends renders. RED validate empty state. **[Agent: react-frontend]**
   - [ ] Verify: narrow test passes; dev-start, sign in as alice, click Friends icon → popup with bob visible + "Open full Friends page" link. Stop preview. **[Agent: general-purpose]**
 

@@ -65,6 +65,14 @@
       "language": "Idioma",
       "theme": "Tema",
       "signOut": "Cerrar sesión"
+    },
+    "friends": {
+      "title": "Amigos",
+      "countLabel": "{{count}} en total",
+      "emptyTitle": "Aún no tienes amigos",
+      "emptyBody": "Encuentra y añade amigos para verlos aquí.",
+      "findFriendsButton": "Buscar amigos",
+      "openFullPage": "Abrir página de Amigos"
     }
   },
   "notFound": {

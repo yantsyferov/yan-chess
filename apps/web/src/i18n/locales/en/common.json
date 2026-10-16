@@ -65,6 +65,14 @@
       "language": "Language",
       "theme": "Theme",
       "signOut": "Sign out"
+    },
+    "friends": {
+      "title": "Friends",
+      "countLabel": "{{count}} total",
+      "emptyTitle": "No friends yet",
+      "emptyBody": "Find and add friends to see them here.",
+      "findFriendsButton": "Find friends",
+      "openFullPage": "Open full Friends page"
     }
   },
   "notFound": {

@@ -65,6 +65,14 @@
       "language": "Язык",
       "theme": "Тема",
       "signOut": "Выйти"
+    },
+    "friends": {
+      "title": "Друзья",
+      "countLabel": "всего {{count}}",
+      "emptyTitle": "Пока нет друзей",
+      "emptyBody": "Найдите и добавьте друзей, чтобы увидеть их здесь.",
+      "findFriendsButton": "Найти друзей",
+      "openFullPage": "Открыть страницу Друзья"
     }
   },
   "notFound": {

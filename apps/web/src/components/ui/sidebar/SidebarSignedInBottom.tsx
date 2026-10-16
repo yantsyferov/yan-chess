@@ -7,7 +7,7 @@ import { Avatar } from "../Avatar";
 import { IconButton } from "../IconButton";
 import { SidebarPopup } from "../../../features/sidebar-popups/SidebarPopup";
 import { SettingsPopup } from "../../../features/sidebar-popups/SettingsPopup";
-import { FriendsPopupStub } from "../../../features/sidebar-popups/FriendsPopupStub";
+import { FriendsPopup } from "../../../features/sidebar-popups/FriendsPopup";
 import { ChatPopupStub } from "../../../features/sidebar-popups/ChatPopupStub";
 import { NotificationsPopupStub } from "../../../features/sidebar-popups/NotificationsPopupStub";
 
@@ -57,7 +57,7 @@ export function SidebarSignedInBottom(): JSX.Element {
               </IconButton>
             }
           >
-            <FriendsPopupStub />
+            <FriendsPopup />
           </SidebarPopup>
           {pendingRequestsCount > 0 && (
             <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-accent text-[10px] font-bold text-white pointer-events-none">
