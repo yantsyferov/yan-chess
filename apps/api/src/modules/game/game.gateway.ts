@@ -233,13 +233,14 @@ export class GameGateway implements OnGatewayConnection, OnGatewayDisconnect, On
   @SubscribeMessage("queue.join")
   async handleQueueJoin(
     @ConnectedSocket() client: Socket,
-    @MessageBody() body: { mode: unknown },
+    @MessageBody() body: { mode: unknown; isRated?: unknown },
   ): Promise<void> {
     const userId: string = client.data["userId"] as string;
     const nickname: string = client.data["nickname"] as string;
     const mode = this.validateMode(body?.mode);
-    const { since } = await this.matchmakingService.joinQueue(userId, nickname, mode);
-    this.server.to(`user:${userId}`).emit("queue.joined", { mode, since });
+    const isRated = body?.isRated !== false;
+    const { since } = await this.matchmakingService.joinQueue(userId, nickname, mode, isRated);
+    this.server.to(`user:${userId}`).emit("queue.joined", { mode, since, isRated });
   }
 
   @SubscribeMessage("queue.leave")

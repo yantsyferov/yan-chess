@@ -44,6 +44,7 @@ async function registerVerifyLoginWithLang(
     nickname,
     password: "Secret123",
     confirmPassword: "Secret123",
+    country: "US",
   };
   if (lang) payload["lang"] = lang;
 

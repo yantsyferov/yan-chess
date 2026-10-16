@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { useLocation } from "react-router-dom";
+import { Toaster } from "sonner";
 import { Sidebar } from "./Sidebar";
 import { SidebarMobileDrawer } from "./sidebar/SidebarMobileDrawer";
 
@@ -18,16 +19,22 @@ export function AppShell({ children }: { children: ReactNode }): JSX.Element {
   );
 
   if (hideChrome) {
-    return <main className="min-h-screen">{children}</main>;
+    return (
+      <>
+        <main className="min-h-screen">{children}</main>
+        <Toaster position="top-right" richColors />
+      </>
+    );
   }
 
   return (
-    <div className="flex min-h-screen">
+    <div className="flex h-screen overflow-hidden">
       <div className="hidden md:flex">
         <Sidebar />
       </div>
       <SidebarMobileDrawer />
       <main className="flex-1 overflow-y-auto">{children}</main>
+      <Toaster position="top-right" richColors />
     </div>
   );
 }

@@ -109,7 +109,7 @@ describe("FriendsService.sendRequest", () => {
 
   it("creates a pending row and returns { status: 'pending' } when no existing friendship", async () => {
     prisma.friendship.findUnique.mockResolvedValue(null);
-    prisma.user.findUnique = vi.fn().mockResolvedValue({ nickname: "Alice" });
+    prisma.user.findUnique = vi.fn().mockResolvedValue({ nickname: "Alice", country: null });
     prisma.friendship.create.mockResolvedValue(makeFriendship({ initiatedBy: "aaa" }));
 
     const result = await svc.sendRequest("aaa", "bbb");
@@ -126,8 +126,8 @@ describe("FriendsService.sendRequest", () => {
     // target ("bbb") sent a request first — initiatedBy is "bbb"
     prisma.friendship.findUnique.mockResolvedValue({
       ...makeFriendship({ userAId: "aaa", userBId: "bbb", status: FriendshipStatus.pending, initiatedBy: "bbb" }),
-      userA: { id: "aaa", nickname: "Alice" },
-      userB: { id: "bbb", nickname: "Bob" },
+      userA: { id: "aaa", nickname: "Alice", country: null },
+      userB: { id: "bbb", nickname: "Bob", country: null },
     });
     prisma.friendship.update.mockResolvedValue(
       makeFriendship({ status: FriendshipStatus.accepted }),

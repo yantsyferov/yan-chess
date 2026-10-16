@@ -53,6 +53,36 @@
     "openMenu": "Открыть меню",
     "closeMenu": "Закрыть меню"
   },
+  "country": {
+    "placeholder": "Выберите страну",
+    "international": "Международный",
+    "searchPlaceholder": "Поиск страны...",
+    "whiteFlag": "Страна не выбрана"
+  },
+  "popups": {
+    "settings": {
+      "title": "Настройки",
+      "language": "Язык",
+      "theme": "Тема",
+      "signOut": "Выйти"
+    },
+    "friends": {
+      "title": "Друзья",
+      "countLabel": "всего {{count}}",
+      "emptyTitle": "Пока нет друзей",
+      "emptyBody": "Найдите и добавьте друзей, чтобы увидеть их здесь.",
+      "findFriendsButton": "Найти друзей",
+      "openFullPage": "Открыть страницу Друзья"
+    },
+    "chat": {
+      "title": "Чат скоро появится",
+      "description": "Личные сообщения между друзьями в дорожной карте."
+    },
+    "notifications": {
+      "title": "Уведомления",
+      "emptyState": "Всё прочитано."
+    }
+  },
   "notFound": {
     "title": "Страница не найдена",
     "body": "Запрошенная страница не существует.",

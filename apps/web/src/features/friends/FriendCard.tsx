@@ -17,6 +17,7 @@ import {
 } from "../../components/ui/Dialog";
 import { Button } from "../../components/ui/Button";
 import { useFriendsStore } from "./useFriendsStore";
+import { UserFlag } from "../profile/UserFlag";
 import { useOnlineGameStore } from "../online/useOnlineGameStore";
 
 interface FriendCardProps {
@@ -60,7 +61,7 @@ export function FriendCard({ item }: FriendCardProps): JSX.Element {
             aria-hidden="true"
           />
           <div className="flex flex-col gap-0.5">
-            <span className="text-sm font-medium text-text-primary">{item.nickname}</span>
+            <span className="text-sm font-medium text-text-primary">{item.nickname}<UserFlag country={item.country} className="ml-1" /></span>
             <span className="text-xs text-text-muted">{t("friends.blitzRating", { rating: item.blitzRating })}</span>
           </div>
         </div>

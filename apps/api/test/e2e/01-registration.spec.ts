@@ -19,6 +19,7 @@ const VALID = {
   nickname: "alice_42",
   password: "Secret123",
   confirmPassword: "Secret123",
+  country: "US",
 };
 
 describe("[@spec:001-registration-and-login][@regression] §2.1 Registration", () => {

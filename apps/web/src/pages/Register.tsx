@@ -12,6 +12,7 @@ import { PasswordInput } from "../components/ui/PasswordInput";
 import { Button } from "../components/ui/Button";
 import { Alert } from "../components/ui/Alert";
 import { AuthLayout } from "../components/ui/AuthLayout";
+import { CountryPicker } from "../features/profile/CountryPicker";
 import * as authService from "../features/auth/authService";
 import type { RegisterConflictResponse } from "../features/auth/authService";
 
@@ -20,16 +21,23 @@ export function Register(): JSX.Element {
   const navigate = useNavigate();
   const [topError, setTopError] = useState<string | null>(null);
   const [showEmailTakenLoginLink, setShowEmailTakenLoginLink] = useState(false);
+  const [country, setCountry] = useState<string | null>(null);
 
   const {
     register,
     handleSubmit,
     setError,
+    setValue,
     formState: { errors, isSubmitting },
   } = useForm<RegisterInput>({
     resolver: zodResolver(registerSchema),
-    defaultValues: { email: "", nickname: "", password: "", confirmPassword: "" },
+    defaultValues: { email: "", nickname: "", password: "", confirmPassword: "", country: "" },
   });
+
+  const handleCountryChange = (code: string) => {
+    setCountry(code);
+    setValue("country", code, { shouldValidate: false });
+  };
 
   const onSubmit = handleSubmit(async (data) => {
     setTopError(null);
@@ -102,7 +110,13 @@ export function Register(): JSX.Element {
           {...register("confirmPassword")}
           error={translateZodMessage(errors.confirmPassword?.message)}
         />
-        <Button type="submit" isLoading={isSubmitting}>
+        <div className="flex flex-col gap-1">
+          <label className="text-sm font-medium text-text-primary">
+            {t("register.country.label")}
+          </label>
+          <CountryPicker value={country} onChange={handleCountryChange} />
+        </div>
+        <Button type="submit" isLoading={isSubmitting} disabled={country === null || isSubmitting}>
           {t("register.submit")}
         </Button>
       </form>

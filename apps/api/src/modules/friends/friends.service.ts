@@ -44,6 +44,7 @@ export class FriendsService {
           select: {
             id: true,
             nickname: true,
+            country: true,
             ratings: { where: { mode: "Blitz" }, select: { rating: true } },
           },
         },
@@ -51,6 +52,7 @@ export class FriendsService {
           select: {
             id: true,
             nickname: true,
+            country: true,
             ratings: { where: { mode: "Blitz" }, select: { rating: true } },
           },
         },
@@ -64,6 +66,7 @@ export class FriendsService {
       return {
         userId: friend.id,
         nickname: friend.nickname,
+        country: friend.country ?? null,
         blitzRating,
         friendedAt,
       };
@@ -86,8 +89,8 @@ export class FriendsService {
         OR: [{ userAId: myUserId }, { userBId: myUserId }],
       },
       include: {
-        userA: { select: { id: true, nickname: true } },
-        userB: { select: { id: true, nickname: true } },
+        userA: { select: { id: true, nickname: true, country: true } },
+        userB: { select: { id: true, nickname: true, country: true } },
       },
     });
 
@@ -97,6 +100,7 @@ export class FriendsService {
         friendshipId: f.id,
         requesterUserId: requester.id,
         requesterNickname: requester.nickname,
+        requesterCountry: requester.country ?? null,
         createdAt: f.createdAt.toISOString(),
       };
     });
@@ -120,6 +124,7 @@ export class FriendsService {
       select: {
         id: true,
         nickname: true,
+        country: true,
         ratings: { where: { mode: "Blitz" }, select: { rating: true } },
       },
     });
@@ -151,21 +156,23 @@ export class FriendsService {
       const f = friendshipMap.get(u.id);
       const blitzRating = u.ratings[0]?.rating ?? FALLBACK_BLITZ_RATING;
 
+      const country = u.country ?? null;
+
       if (!f) {
-        return { userId: u.id, nickname: u.nickname, blitzRating, relationship: "none" as const, friendshipId: null };
+        return { userId: u.id, nickname: u.nickname, country, blitzRating, relationship: "none" as const, friendshipId: null };
       }
 
       if (f.status === FriendshipStatus.accepted) {
-        return { userId: u.id, nickname: u.nickname, blitzRating, relationship: "friend" as const, friendshipId: null };
+        return { userId: u.id, nickname: u.nickname, country, blitzRating, relationship: "friend" as const, friendshipId: null };
       }
 
       // pending
       if (f.initiatedBy === myUserId) {
-        return { userId: u.id, nickname: u.nickname, blitzRating, relationship: "pending_outbound" as const, friendshipId: null };
+        return { userId: u.id, nickname: u.nickname, country, blitzRating, relationship: "pending_outbound" as const, friendshipId: null };
       }
 
       // pending inbound
-      return { userId: u.id, nickname: u.nickname, blitzRating, relationship: "pending_inbound" as const, friendshipId: f.id };
+      return { userId: u.id, nickname: u.nickname, country, blitzRating, relationship: "pending_inbound" as const, friendshipId: f.id };
     });
 
     return { results };
@@ -181,8 +188,8 @@ export class FriendsService {
     const existing = await this.prisma.friendship.findUnique({
       where: { userAId_userBId: { userAId, userBId } },
       include: {
-        userA: { select: { id: true, nickname: true } },
-        userB: { select: { id: true, nickname: true } },
+        userA: { select: { id: true, nickname: true, country: true } },
+        userB: { select: { id: true, nickname: true, country: true } },
       },
     });
 
@@ -209,11 +216,13 @@ export class FriendsService {
         friendshipId: updated.id,
         friendUserId: myUserId,
         friendNickname: myUser.nickname,
+        friendCountry: myUser.country ?? null,
       };
       const toMe: FriendAcceptedPayload = {
         friendshipId: updated.id,
         friendUserId: targetUserId,
         friendNickname: targetUser.nickname,
+        friendCountry: targetUser.country ?? null,
       };
       this.realtime.toUser(targetUserId, "friends").emit("friend.accepted", toTarget);
       this.realtime.toUser(myUserId, "friends").emit("friend.accepted", toMe);
@@ -221,10 +230,10 @@ export class FriendsService {
       return { status: "accepted", friendshipId: updated.id };
     }
 
-    // Fetch requester's nickname for the emitted payload
+    // Fetch requester's nickname + country for the emitted payload
     const myUser = await this.prisma.user.findUnique({
       where: { id: myUserId },
-      select: { nickname: true },
+      select: { nickname: true, country: true },
     });
 
     const created = await this.prisma.friendship.create({
@@ -236,6 +245,7 @@ export class FriendsService {
       friendshipId: created.id,
       requesterUserId: myUserId,
       requesterNickname: myUser?.nickname ?? myUserId,
+      requesterCountry: myUser?.country ?? null,
     };
     this.realtime.toUser(targetUserId, "friends").emit("friend.requested", requestedPayload);
 
@@ -246,8 +256,8 @@ export class FriendsService {
     const f = await this.prisma.friendship.findUnique({
       where: { id: friendshipId },
       include: {
-        userA: { select: { id: true, nickname: true } },
-        userB: { select: { id: true, nickname: true } },
+        userA: { select: { id: true, nickname: true, country: true } },
+        userB: { select: { id: true, nickname: true, country: true } },
       },
     });
 
@@ -279,11 +289,13 @@ export class FriendsService {
       friendshipId,
       friendUserId: myUserId,
       friendNickname: myUser.nickname,
+      friendCountry: myUser.country ?? null,
     };
     const toMe: FriendAcceptedPayload = {
       friendshipId,
       friendUserId: initiatorId,
       friendNickname: initiatorUser.nickname,
+      friendCountry: initiatorUser.country ?? null,
     };
     this.realtime.toUser(initiatorId, "friends").emit("friend.accepted", toInitiator);
     this.realtime.toUser(myUserId, "friends").emit("friend.accepted", toMe);

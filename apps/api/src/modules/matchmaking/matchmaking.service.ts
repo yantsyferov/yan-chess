@@ -9,11 +9,12 @@ import { GameService } from "../game/game.service";
 const FALLBACK_RATING = 1500;
 const ENTRY_TTL_SEC = 300;
 const MODES: Mode[] = ["Bullet", "Blitz", "Rapid", "Classical"];
+const RATED_FLAGS = [true, false] as const;
 
 /** Atomic Lua: removes both players from the searching set, the sorted queue, and their entries.
  *  Returns the number of SREM + ZREM elements removed (max 4: 2 from SREM + 2 from ZREM).
  *  KEYS[1] = mm:users:searching
- *  KEYS[2] = mm:queue:{mode}
+ *  KEYS[2] = mm:queue:{mode}:{rated|unrated}
  *  KEYS[3] = mm:entry:{userId}
  *  KEYS[4] = mm:entry:{opponentId}
  *  ARGV[1] = userId
@@ -39,7 +40,7 @@ export class MatchmakingService {
     private readonly gameService: GameService,
   ) {}
 
-  async joinQueue(userId: string, nickname: string, mode: Mode): Promise<{ since: number }> {
+  async joinQueue(userId: string, nickname: string, mode: Mode, isRated = true): Promise<{ since: number }> {
     const ratingRow = await this.prisma.ratingByMode.findUnique({
       where: { userId_mode: { userId, mode } },
       select: { rating: true },
@@ -55,17 +56,19 @@ export class MatchmakingService {
       return { since };
     }
 
+    const queueKey = isRated ? `mm:queue:${mode}:rated` : `mm:queue:${mode}:unrated`;
     const now = Date.now();
-    await this.redis.raw.zadd(`mm:queue:${mode}`, rating, userId);
+    await this.redis.raw.zadd(queueKey, rating, userId);
     await this.redis.hset(`mm:entry:${userId}`, {
       mode,
       rating,
       nickname,
       joinedAt: now,
+      isRated: isRated ? "true" : "false",
     });
     await this.redis.expire(`mm:entry:${userId}`, ENTRY_TTL_SEC);
 
-    this.logger.log(`User ${userId} joined queue mode=${mode} rating=${rating}`);
+    this.logger.log(`User ${userId} joined queue mode=${mode} rated=${isRated} rating=${rating}`);
     return { since: now };
   }
 
@@ -78,13 +81,16 @@ export class MatchmakingService {
       return;
     }
 
+    const isRated = entry["isRated"] !== "false";
+    const queueKey = isRated ? `mm:queue:${mode}:rated` : `mm:queue:${mode}:unrated`;
+
     const multi = this.redis.raw.multi();
     multi.srem("mm:users:searching", userId);
-    multi.zrem(`mm:queue:${mode}`, userId);
+    multi.zrem(queueKey, userId);
     multi.del(`mm:entry:${userId}`);
     await multi.exec();
 
-    this.logger.log(`User ${userId} left queue mode=${mode}`);
+    this.logger.log(`User ${userId} left queue mode=${mode} rated=${isRated}`);
   }
 
   async getQueueEntry(userId: string): Promise<{ mode: Mode; since: number } | null> {
@@ -101,17 +107,20 @@ export class MatchmakingService {
   @Interval(1000)
   async runPairingCycle(): Promise<void> {
     for (const mode of MODES) {
-      try {
-        await this.pairOneInMode(mode);
-      } catch (err: unknown) {
-        this.logger.error(`Pairing cycle error mode=${mode}: ${String(err)}`);
+      for (const isRated of RATED_FLAGS) {
+        try {
+          await this.pairOneInMode(mode, isRated);
+        } catch (err: unknown) {
+          this.logger.error(`Pairing cycle error mode=${mode} rated=${isRated}: ${String(err)}`);
+        }
       }
     }
   }
 
-  private async pairOneInMode(mode: Mode): Promise<void> {
+  private async pairOneInMode(mode: Mode, isRated: boolean): Promise<void> {
+    const queueKey = isRated ? `mm:queue:${mode}:rated` : `mm:queue:${mode}:unrated`;
     // Returns [member, score, member, score, ...]
-    const raw = await this.redis.raw.zrange(`mm:queue:${mode}`, 0, -1, "WITHSCORES");
+    const raw = await this.redis.raw.zrange(queueKey, 0, -1, "WITHSCORES");
     if (raw.length < 4) return; // Need at least 2 entries (4 elements)
 
     // Build a list of {userId, score (rating)} from alternating raw entries
@@ -137,7 +146,7 @@ export class MatchmakingService {
       const maxScore = rating + safeDelta;
 
       const eligibleRaw = await this.redis.raw.zrangebyscore(
-        `mm:queue:${mode}`,
+        queueKey,
         minScore,
         maxScore,
       );
@@ -165,7 +174,7 @@ export class MatchmakingService {
         PAIR_SCRIPT,
         4,
         "mm:users:searching",
-        `mm:queue:${mode}`,
+        queueKey,
         `mm:entry:${userId}`,
         `mm:entry:${opponentId}`,
         userId,
@@ -183,7 +192,7 @@ export class MatchmakingService {
         Math.random() < 0.5 ? [userId, opponentId] : [opponentId, userId];
 
       // Create game record
-      const game = await this.gameService.createGame(whiteId, blackId, mode);
+      const game = await this.gameService.createGame(whiteId, blackId, mode, isRated);
       const { gameId, timeControlMs, fen, sideToMove, serverNow } = game;
       const whiteClockMs = timeControlMs;
       const blackClockMs = timeControlMs;

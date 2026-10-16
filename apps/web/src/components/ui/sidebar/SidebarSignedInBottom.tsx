@@ -1,24 +1,21 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Settings, Users, MessageSquare, Bell, LogOut } from "lucide-react";
+import { Settings, Users, MessageSquare, Bell } from "lucide-react";
 import { useAuthStore } from "../../../features/auth/useAuthStore";
-import * as authService from "../../../features/auth/authService";
 import { useFriendsStore } from "../../../features/friends/useFriendsStore";
 import { Avatar } from "../Avatar";
+import { UserFlag } from "../../../features/profile/UserFlag";
 import { IconButton } from "../IconButton";
-import { ThemeToggle } from "../ThemeToggle";
-import { LanguageSwitcher } from "../../../features/i18n/LanguageSwitcher";
+import { SidebarPopup } from "../../../features/sidebar-popups/SidebarPopup";
+import { SettingsPopup } from "../../../features/sidebar-popups/SettingsPopup";
+import { FriendsPopup } from "../../../features/sidebar-popups/FriendsPopup";
+import { ChatPopup } from "../../../features/sidebar-popups/ChatPopup";
+import { NotificationsPopup } from "../../../features/sidebar-popups/NotificationsPopup";
 
 export function SidebarSignedInBottom(): JSX.Element {
   const { t } = useTranslation("common");
   const user = useAuthStore((s) => s.user);
   const pendingRequestsCount = useFriendsStore((s) => s.pendingRequestsCount);
-  const navigate = useNavigate();
-
-  async function handleLogout(): Promise<void> {
-    await authService.logout();
-    void navigate("/login", { replace: true });
-  }
 
   if (!user) return <></>;
 
@@ -30,27 +27,40 @@ export function SidebarSignedInBottom(): JSX.Element {
       >
         <Avatar nickname={user.nickname} size="sm" />
         <span className="text-sm text-text-primary truncate">{user.nickname}</span>
+        <UserFlag country={user.country ?? null} className="ml-1" />
       </Link>
 
       <div className="flex items-center gap-1">
-        <IconButton
-          label={t("sidebar.settings")}
-          variant="ghost"
-          size="sm"
-          onClick={() => {}}
+        <SidebarPopup
+          id="settings"
+          trigger={
+            <IconButton
+              label={t("sidebar.settings")}
+              variant="ghost"
+              size="sm"
+            >
+              <Settings size={18} aria-hidden />
+            </IconButton>
+          }
         >
-          <Settings size={18} aria-hidden />
-        </IconButton>
+          <SettingsPopup />
+        </SidebarPopup>
 
         <div className="relative">
-          <IconButton
-            label={t("sidebar.friends")}
-            variant="ghost"
-            size="sm"
-            onClick={() => {}}
+          <SidebarPopup
+            id="friends"
+            trigger={
+              <IconButton
+                label={t("sidebar.friends")}
+                variant="ghost"
+                size="sm"
+              >
+                <Users size={18} aria-hidden />
+              </IconButton>
+            }
           >
-            <Users size={18} aria-hidden />
-          </IconButton>
+            <FriendsPopup />
+          </SidebarPopup>
           {pendingRequestsCount > 0 && (
             <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-accent text-[10px] font-bold text-white pointer-events-none">
               {pendingRequestsCount}
@@ -58,38 +68,35 @@ export function SidebarSignedInBottom(): JSX.Element {
           )}
         </div>
 
-        <IconButton
-          label={t("sidebar.chat")}
-          variant="ghost"
-          size="sm"
-          className="opacity-50 cursor-not-allowed pointer-events-none"
+        <SidebarPopup
+          id="chat"
+          trigger={
+            <IconButton
+              label={t("sidebar.chat")}
+              variant="ghost"
+              size="sm"
+            >
+              <MessageSquare size={18} aria-hidden />
+            </IconButton>
+          }
         >
-          <MessageSquare size={18} aria-hidden />
-        </IconButton>
+          <ChatPopup />
+        </SidebarPopup>
 
-        <IconButton
-          label={t("sidebar.notifications")}
-          variant="ghost"
-          size="sm"
-          onClick={() => {}}
+        <SidebarPopup
+          id="notifications"
+          trigger={
+            <IconButton
+              label={t("sidebar.notifications")}
+              variant="ghost"
+              size="sm"
+            >
+              <Bell size={18} aria-hidden />
+            </IconButton>
+          }
         >
-          <Bell size={18} aria-hidden />
-        </IconButton>
-
-        {/* REMOVED in spec 015 — moved to Settings popup */}
-        <IconButton
-          label={t("sidebar.logout")}
-          variant="ghost"
-          size="sm"
-          onClick={() => { void handleLogout(); }}
-        >
-          <LogOut size={18} aria-hidden />
-        </IconButton>
-      </div>
-
-      <div className="flex items-center gap-2">
-        <ThemeToggle />
-        <LanguageSwitcher />
+          <NotificationsPopup />
+        </SidebarPopup>
       </div>
     </div>
   );

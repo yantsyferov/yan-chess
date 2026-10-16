@@ -53,6 +53,36 @@
     "openMenu": "Open menu",
     "closeMenu": "Close menu"
   },
+  "country": {
+    "placeholder": "Select country",
+    "international": "International",
+    "searchPlaceholder": "Search country...",
+    "whiteFlag": "No country selected"
+  },
+  "popups": {
+    "settings": {
+      "title": "Settings",
+      "language": "Language",
+      "theme": "Theme",
+      "signOut": "Sign out"
+    },
+    "friends": {
+      "title": "Friends",
+      "countLabel": "{{count}} total",
+      "emptyTitle": "No friends yet",
+      "emptyBody": "Find and add friends to see them here.",
+      "findFriendsButton": "Find friends",
+      "openFullPage": "Open full Friends page"
+    },
+    "chat": {
+      "title": "Chat coming soon",
+      "description": "Direct messages between friends are on the roadmap."
+    },
+    "notifications": {
+      "title": "Notifications",
+      "emptyState": "You're all caught up."
+    }
+  },
   "notFound": {
     "title": "Page not found",
     "body": "The page you are looking for does not exist.",

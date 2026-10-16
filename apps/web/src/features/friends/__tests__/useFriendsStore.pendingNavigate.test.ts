@@ -66,6 +66,7 @@ const OUTBOUND_FIXTURE = {
   targetNickname: "bob",
   mode: "Blitz" as const,
   color: "white" as const,
+  isRated: true,
   challengeId: "ch-001",
   sentAt: Date.now(),
   expiresAt: Date.now() + 30_000,
@@ -75,8 +76,10 @@ const INBOUND_FIXTURE = {
   challengeId: "ch-in-001",
   challengerUserId: "user-alice",
   challengerNickname: "alice",
+  challengerCountry: null,
   mode: "Blitz" as const,
   color: "white" as const,
+  isRated: true,
   expiresAt: Date.now() + 30_000,
 };
 
@@ -104,7 +107,7 @@ describe("useFriendsStore – pendingNavigate wiring", () => {
     // Precondition: an open outbound challenge exists in the store.
     useFriendsStore.setState({ outboundChallenge: { ...OUTBOUND_FIXTURE, challengeId: null, sentAt: 0, expiresAt: 0 } });
 
-    useFriendsStore.getState().sendChallenge("Blitz", "white");
+    useFriendsStore.getState().sendChallenge("Blitz", "white", true);
 
     expect(useOnlineGameStore.getState().pendingNavigate).toBe(true);
   });
@@ -171,7 +174,7 @@ describe("useFriendsStore – pendingNavigate wiring", () => {
 
   it("negative: sendChallenge() is a no-op (no mark) when outboundChallenge is null", () => {
     useFriendsStore.setState({ outboundChallenge: null });
-    useFriendsStore.getState().sendChallenge("Blitz", "white");
+    useFriendsStore.getState().sendChallenge("Blitz", "white", true);
     // pendingNavigate must not have been set.
     expect(useOnlineGameStore.getState().pendingNavigate).toBe(false);
   });

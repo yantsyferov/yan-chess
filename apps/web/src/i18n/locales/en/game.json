@@ -90,6 +90,50 @@
       "blackClock": "Black's clock"
     }
   },
+  "play": {
+    "hub": {
+      "title": "How do you want to play?"
+    },
+    "modeCard": {
+      "online": {
+        "title": "Online",
+        "description": "Find a human opponent at your level."
+      },
+      "ai": {
+        "title": "vs Bot",
+        "description": "Train against the computer."
+      },
+      "friend": {
+        "title": "vs Friend",
+        "description": "Challenge a friend to a game."
+      },
+      "hotseat": {
+        "title": "vs Human on this computer",
+        "description": "Two players, one board."
+      }
+    },
+    "online": {
+      "rated": {
+        "label": "Game type",
+        "rated": "Rated",
+        "casual": "Casual"
+      }
+    },
+    "friend": {
+      "friendsListTitle": "Your Friends",
+      "emptyState": "No friends yet — add some from the Friends page.",
+      "challengeButton": "Challenge",
+      "backToList": "Back to friends list",
+      "sendChallenge": "Send challenge",
+      "challengeLink": "Challenge link",
+      "challengeLinkComingSoon": "Shareable link coming soon",
+      "challengeSent": "Challenge sent"
+    }
+  },
+  "history": {
+    "ratedBadge": "Rated",
+    "casualBadge": "Casual"
+  },
   "online": {
     "loadingGame": "Loading game...",
     "drawDeclined": "Draw offer declined.",

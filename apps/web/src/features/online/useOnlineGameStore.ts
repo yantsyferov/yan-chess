@@ -13,6 +13,7 @@ interface Opponent {
   nickname: string;
   rating: number;
   online: boolean;
+  country?: string | null;
 }
 
 interface OnlineGameState {

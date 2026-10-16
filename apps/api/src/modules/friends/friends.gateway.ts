@@ -36,6 +36,7 @@ const ChallengeSendSchema = z.object({
   targetUserId: z.string().uuid(),
   mode: ModeSchema,
   color: ChallengeColorSchema,
+  isRated: z.boolean().default(true),
 });
 
 const ChallengeRespondSchema = z.object({

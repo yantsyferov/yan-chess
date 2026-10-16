@@ -29,6 +29,7 @@ export const registerSchema = z
     password: passwordSchema,
     confirmPassword: z.string(),
     lang: z.enum(SUPPORTED_LANGS).optional(),
+    country: z.string().length(2, { message: "country.required", params: { i18nKey: "country.required" } } as never),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "password.confirmation_mismatch",

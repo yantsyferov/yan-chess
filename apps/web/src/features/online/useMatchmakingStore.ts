@@ -10,7 +10,7 @@ interface MatchmakingState {
   phase: Phase;
   mode: Mode | null;
   since: number | null;
-  joinQueue(mode: Mode): void;
+  joinQueue(mode: Mode, isRated?: boolean): void;
   leaveQueue(): void;
 }
 
@@ -18,10 +18,10 @@ export const useMatchmakingStore = create<MatchmakingState>((set) => ({
   phase: "idle",
   mode: null,
   since: null,
-  joinQueue(mode: Mode): void {
+  joinQueue(mode: Mode, isRated = true): void {
     useOnlineGameStore.getState().markPendingNavigate();
     const sock = getSocket();
-    sock.emit("queue.join", { mode });
+    sock.emit("queue.join", { mode, isRated });
     set({ phase: "searching", mode, since: Date.now() });
   },
   leaveQueue(): void {

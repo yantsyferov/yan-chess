@@ -90,6 +90,50 @@
       "blackClock": "Часы чёрных"
     }
   },
+  "play": {
+    "hub": {
+      "title": "Как хотите играть?"
+    },
+    "modeCard": {
+      "online": {
+        "title": "Онлайн",
+        "description": "Найдите соперника вашего уровня."
+      },
+      "ai": {
+        "title": "Против бота",
+        "description": "Тренировка против компьютера."
+      },
+      "friend": {
+        "title": "Против друга",
+        "description": "Вызовите друга на партию."
+      },
+      "hotseat": {
+        "title": "Против человека на этом компьютере",
+        "description": "Два игрока, одна доска."
+      }
+    },
+    "online": {
+      "rated": {
+        "label": "Тип партии",
+        "rated": "Рейтинговая",
+        "casual": "Нерейтинговая"
+      }
+    },
+    "friend": {
+      "friendsListTitle": "Ваши друзья",
+      "emptyState": "Пока нет друзей — добавьте их на странице Друзья.",
+      "challengeButton": "Вызвать",
+      "backToList": "Назад к списку друзей",
+      "sendChallenge": "Отправить вызов",
+      "challengeLink": "Ссылка на вызов",
+      "challengeLinkComingSoon": "Ссылка для шейринга скоро появится",
+      "challengeSent": "Вызов отправлен"
+    }
+  },
+  "history": {
+    "ratedBadge": "Рейтинговая",
+    "casualBadge": "Нерейтинговая"
+  },
   "online": {
     "loadingGame": "Загрузка партии...",
     "drawDeclined": "Предложение ничьей отклонено.",

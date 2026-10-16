@@ -2,9 +2,10 @@
 // @spec: 006-game-history
 // @regression
 
-import { describe, it, expect, vi } from "vitest";
+import { describe, it, expect, vi, afterAll } from "vitest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import i18n from "../../../i18n";
 import { MemoryRouter } from "react-router-dom";
 import type { GameListItem } from "@yanchess/shared";
 
@@ -22,12 +23,13 @@ function makeItem(overrides: Partial<GameListItem> = {}): GameListItem {
     gameId: "game-abc",
     mode: "Blitz",
     playerColor: "white",
-    opponent: { nickname: "bob", ratingAfter: 1484 },
+    opponent: { nickname: "bob", country: null, ratingAfter: 1484 },
     result: "win",
     endReason: "resignation",
     ratingBefore: 1500,
     ratingAfter: 1516,
     ratingDelta: 16,
+    isRated: true,
     startedAt: "2026-10-11T18:00:00.000Z",
     endedAt: "2026-10-11T18:05:00.000Z",
     ...overrides,
@@ -85,7 +87,7 @@ describe("GameRow", () => {
   });
 
   it("@regression shows opponent nickname and rating", () => {
-    wrap(makeItem({ opponent: { nickname: "charlie", ratingAfter: 1600 } }));
+    wrap(makeItem({ opponent: { nickname: "charlie", country: null, ratingAfter: 1600 } }));
     expect(screen.getByText(/charlie/)).toBeInTheDocument();
     expect(screen.getByText(/1600/)).toBeInTheDocument();
   });
@@ -115,5 +117,31 @@ describe("GameRow", () => {
     await user.click(link);
     // Link handles navigation via href; navigate() should NOT be called
     expect(mockNavigate).not.toHaveBeenCalled();
+  });
+
+  // @spec: 014-play-redesign
+  describe("Rated/Casual badge", () => {
+    afterAll(() => {
+      void i18n.changeLanguage("en");
+    });
+
+    it("isRated=true shows Rated badge and not Casual badge", () => {
+      wrap(makeItem({ isRated: true }));
+      expect(screen.getByText("Rated")).toBeInTheDocument();
+      expect(screen.queryByText("Casual")).not.toBeInTheDocument();
+    });
+
+    it("isRated=false shows Casual badge and not Rated badge", () => {
+      wrap(makeItem({ isRated: false }));
+      expect(screen.getByText("Casual")).toBeInTheDocument();
+      expect(screen.queryByText("Rated")).not.toBeInTheDocument();
+    });
+
+    it("badge text matches Russian locale", () => {
+      i18n.changeLanguage("ru");
+      wrap(makeItem({ isRated: true }));
+      expect(screen.getByText("Рейтинговая")).toBeInTheDocument();
+      expect(screen.queryByText("Нерейтинговая")).not.toBeInTheDocument();
+    });
   });
 });

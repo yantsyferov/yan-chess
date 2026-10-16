@@ -23,9 +23,10 @@ function isMode(value: unknown): value is Mode {
   return typeof value === "string" && VALID_MODES.has(value as Mode);
 }
 
-export function Play(): JSX.Element {
+export function PlayOnline(): JSX.Element {
   const { t } = useTranslation("common");
   const [isConnected, setIsConnected] = useState<boolean>(false);
+  const [isRated, setIsRated] = useState<boolean>(true);
 
   const matchmakingPhase = useMatchmakingStore((s) => s.phase);
   const joinQueue = useMatchmakingStore((s) => s.joinQueue);
@@ -59,7 +60,6 @@ export function Play(): JSX.Element {
     const onConnect = (): void => setIsConnected(true);
     const onDisconnect = (): void => setIsConnected(false);
 
-    // Reflect current state immediately (socket may already be connected)
     setIsConnected(sock.connected);
 
     sock.on("connect", onConnect);
@@ -68,7 +68,6 @@ export function Play(): JSX.Element {
     return (): void => {
       sock.off("connect", onConnect);
       sock.off("disconnect", onDisconnect);
-      // Do NOT disconnect — socket is a singleton for the tab's lifetime
     };
   }, []);
 
@@ -80,7 +79,6 @@ export function Play(): JSX.Element {
     } else {
       setMode("Blitz");
     }
-    // Run only on mount
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -116,10 +114,42 @@ export function Play(): JSX.Element {
         </Card>
 
         <Card variant="glass" padding="md">
-          <p className="text-text-secondary text-sm text-center">
-            {t("play.yourRating")}{" "}
-            <span className="text-text-primary font-semibold">{displayRating}</span>
-          </p>
+          <div className="flex flex-col gap-3">
+            <p className="text-text-secondary text-sm text-center">
+              {t("play.yourRating")}{" "}
+              <span className="text-text-primary font-semibold">{displayRating}</span>
+            </p>
+
+            <div className="flex flex-col items-center gap-2">
+              <span className="text-text-secondary text-sm">
+                {t("play.online.rated.label")}
+              </span>
+              <div className="flex rounded-md overflow-hidden border border-border">
+                <button
+                  type="button"
+                  className={`px-4 py-1.5 text-sm font-medium transition-colors ${
+                    isRated
+                      ? "bg-accent text-white"
+                      : "bg-transparent text-text-secondary hover:text-text-primary"
+                  }`}
+                  onClick={() => setIsRated(true)}
+                >
+                  {t("play.online.rated.rated")}
+                </button>
+                <button
+                  type="button"
+                  className={`px-4 py-1.5 text-sm font-medium transition-colors ${
+                    !isRated
+                      ? "bg-accent text-white"
+                      : "bg-transparent text-text-secondary hover:text-text-primary"
+                  }`}
+                  onClick={() => setIsRated(false)}
+                >
+                  {t("play.online.rated.casual")}
+                </button>
+              </div>
+            </div>
+          </div>
         </Card>
 
         <div className="flex justify-center">
@@ -128,7 +158,7 @@ export function Play(): JSX.Element {
             size="lg"
             onClick={() => {
               if (selectedMode !== null) {
-                joinQueue(selectedMode);
+                joinQueue(selectedMode, isRated);
               }
             }}
           >

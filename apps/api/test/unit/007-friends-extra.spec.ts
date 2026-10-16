@@ -110,7 +110,7 @@ describe("[@spec:007-friends][@regression] FriendsService.search relationship ma
 
   it("@regression returns 'none' for a user with no friendship row", async () => {
     prisma.user.findMany.mockResolvedValue([
-      { id: "bbb", nickname: "bob", ratings: [{ rating: 1500 }] },
+      { id: "bbb", nickname: "bob", country: null, ratings: [{ rating: 1500 }] },
     ]);
     prisma.friendship.findMany.mockResolvedValue([]);
 
@@ -121,7 +121,7 @@ describe("[@spec:007-friends][@regression] FriendsService.search relationship ma
 
   it("@regression returns 'pending_outbound' when I initiated the pending request", async () => {
     prisma.user.findMany.mockResolvedValue([
-      { id: "bbb", nickname: "bob", ratings: [] },
+      { id: "bbb", nickname: "bob", country: null, ratings: [] },
     ]);
     prisma.friendship.findMany.mockResolvedValue([
       {
@@ -139,7 +139,7 @@ describe("[@spec:007-friends][@regression] FriendsService.search relationship ma
 
   it("@regression returns 'pending_inbound' when target initiated the pending request (not me)", async () => {
     prisma.user.findMany.mockResolvedValue([
-      { id: "bbb", nickname: "bob", ratings: [] },
+      { id: "bbb", nickname: "bob", country: null, ratings: [] },
     ]);
     prisma.friendship.findMany.mockResolvedValue([
       {
@@ -159,7 +159,7 @@ describe("[@spec:007-friends][@regression] FriendsService.search relationship ma
 
   it("@regression returns 'friend' for an accepted friendship", async () => {
     prisma.user.findMany.mockResolvedValue([
-      { id: "bbb", nickname: "bob", ratings: [] },
+      { id: "bbb", nickname: "bob", country: null, ratings: [] },
     ]);
     prisma.friendship.findMany.mockResolvedValue([
       {
@@ -212,8 +212,8 @@ describe("[@spec:007-friends][@regression] FriendsService.acceptRequest access c
       userBId: "bbb",
       status: FriendshipStatus.pending,
       initiatedBy: "aaa",
-      userA: { id: "aaa", nickname: "alice" },
-      userB: { id: "bbb", nickname: "bob" },
+      userA: { id: "aaa", nickname: "alice", country: null },
+      userB: { id: "bbb", nickname: "bob", country: null },
     });
 
     await expect(svc.acceptRequest("aaa", "f-1")).rejects.toBeInstanceOf(ForbiddenException);
@@ -226,8 +226,8 @@ describe("[@spec:007-friends][@regression] FriendsService.acceptRequest access c
       userBId: "bbb",
       status: FriendshipStatus.pending,
       initiatedBy: "aaa",
-      userA: { id: "aaa", nickname: "alice" },
-      userB: { id: "bbb", nickname: "bob" },
+      userA: { id: "aaa", nickname: "alice", country: null },
+      userB: { id: "bbb", nickname: "bob", country: null },
     });
 
     await expect(svc.acceptRequest("ccc", "f-1")).rejects.toBeInstanceOf(ForbiddenException);

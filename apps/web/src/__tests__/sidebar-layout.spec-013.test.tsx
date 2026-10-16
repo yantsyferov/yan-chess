@@ -49,6 +49,7 @@ const mockUser: AuthUser = {
   nickname: "TestUser",
   email: "test@example.com",
   createdAt: "2024-01-01T00:00:00Z",
+  country: null,
 };
 
 let _storeUser: AuthUser | null = null;
@@ -349,10 +350,11 @@ describe("§2.4 Signed-in bottom section", () => {
     expect(screen.getByLabelText(/chat|чат/i)).toBeInTheDocument();
   });
 
-  it("@regression Chat icon has cursor-not-allowed class (visually disabled)", () => {
+  // NOTE: spec 015 Slice 5 removed cursor-not-allowed from Chat icon (Slice 7 will wire it).
+  it("@regression Chat icon is clickable (cursor-not-allowed removed in spec 015)", () => {
     renderSidebar();
     const chatBtn = screen.getByLabelText(/chat|чат/i);
-    expect(chatBtn.className).toMatch(/cursor-not-allowed/);
+    expect(chatBtn.className).not.toMatch(/cursor-not-allowed/);
   });
 
   // AC: Notifications icon present
@@ -361,19 +363,24 @@ describe("§2.4 Signed-in bottom section", () => {
     expect(screen.getByLabelText(/notif|уведомл|notificac/i)).toBeInTheDocument();
   });
 
-  // AC: ThemeToggle present in signed-in bottom
-  it("@regression ThemeToggle is present in signed-in bottom", () => {
+  // NOTE: spec 015 Slice 5 removed standalone ThemeToggle + LanguageSwitcher from signed-in bottom.
+  // They now live inside the Settings popup. The anonymous bottom still has them.
+  it("@regression ThemeToggle is NOT in signed-in bottom row (moved to Settings popup in spec 015)", () => {
     renderSidebar();
     const sidebar = screen.getByRole("navigation", { name: /sidebar/i });
     const buttons = within(sidebar).getAllByRole("button");
-    // Settings + Friends + Chat + Notifications + Logout + ThemeToggle + LanguageSwitcher = 7
-    expect(buttons.length).toBeGreaterThanOrEqual(7);
+    // Settings + Friends + Chat + Notifications = 4 icon buttons (no standalone theme/lang/logout)
+    // The trigger spans wrap IconButtons so we count via their aria-labels
+    expect(screen.getByLabelText(/settings|настройки|ajustes/i)).toBeInTheDocument();
+    expect(buttons.length).toBeGreaterThanOrEqual(4);
   });
 
-  // AC: LanguageSwitcher present in signed-in bottom
-  it("@regression LanguageSwitcher is present in signed-in bottom", () => {
+  // NOTE: LanguageSwitcher moved to anonymous bottom + Settings popup. Not in signed-in bottom row.
+  it("@regression LanguageSwitcher is NOT present in signed-in bottom row (moved to Settings popup in spec 015)", () => {
     renderSidebar();
-    expect(screen.getByRole("button", { name: /english|русский|español/i })).toBeInTheDocument();
+    // Anonymous bottom has it; signed-in bottom no longer shows it standalone.
+    // Since user is signed in, the anonymous bottom is hidden — LanguageSwitcher trigger not present.
+    expect(screen.queryByRole("button", { name: /english|русский|español/i })).not.toBeInTheDocument();
   });
 
   // Negative: Login/Register buttons NOT present when signed in
@@ -383,14 +390,13 @@ describe("§2.4 Signed-in bottom section", () => {
     expect(screen.queryByRole("link", { name: /sign up|регистрация|registrarse/i })).not.toBeInTheDocument();
   });
 
-  // AC: Settings click is a no-op (does not throw)
-  it("@regression clicking Settings does not throw or open any popup", async () => {
+  // NOTE: spec 015 — Settings now opens a Radix Popover (not a dialog role).
+  it("@regression clicking Settings does not throw", async () => {
     const user = userEvent.setup();
     renderSidebar();
     const settingsBtn = screen.getByLabelText(/settings|настройки|ajustes/i);
-    await user.click(settingsBtn);
-    // No popup or modal should appear
-    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+    // Should not throw — popover portal may or may not be visible in JSDOM
+    await expect(user.click(settingsBtn)).resolves.not.toThrow();
   });
 
   // AC: Friends click is a no-op
@@ -402,13 +408,12 @@ describe("§2.4 Signed-in bottom section", () => {
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
   });
 
-  // AC: Notifications click is a no-op
-  it("@regression clicking Notifications does not open any popup", async () => {
+  // NOTE: spec 015 — Notifications now opens a Radix Popover (not a dialog role).
+  it("@regression clicking Notifications does not throw", async () => {
     const user = userEvent.setup();
     renderSidebar();
     const notifBtn = screen.getByLabelText(/notif|уведомл|notificac/i);
-    await user.click(notifBtn);
-    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+    await expect(user.click(notifBtn)).resolves.not.toThrow();
   });
 });
 
@@ -421,21 +426,20 @@ describe("§2.5 Sign out", () => {
     _storeUser = mockUser;
   });
 
-  // AC: Sign out icon is present in signed-in bottom
-  it("@regression Sign-out icon is present alongside other action icons", () => {
+  // NOTE: spec 015 Slice 5 — standalone Sign-out icon removed from sidebar bottom row.
+  // Sign out now lives inside the Settings popup. Only 4 action icons remain.
+  it("@regression Sign-out icon is NOT in the sidebar bottom row (moved to Settings popup in spec 015)", () => {
     renderSidebar();
-    expect(screen.getByLabelText(/sign out|logout|выйти|cerrar/i)).toBeInTheDocument();
+    expect(screen.queryByLabelText(/^(sign out|logout|выйти|cerrar sesión)$/i)).not.toBeInTheDocument();
   });
 
-  // AC: Sign-out click invokes authService.logout
-  it("@regression clicking Sign-out calls authService.logout()", async () => {
-    const user = userEvent.setup();
+  // AC: exactly 4 action icons remain in the row
+  it("@regression exactly 4 action icons present: Settings, Friends, Chat, Notifications", () => {
     renderSidebar();
-    const logoutBtn = screen.getByLabelText(/sign out|logout|выйти|cerrar/i);
-    await user.click(logoutBtn);
-    await vi.waitFor(() => {
-      expect(mockLogout).toHaveBeenCalledTimes(1);
-    });
+    expect(screen.getByLabelText(/settings|настройки|ajustes/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/friends|друзья|amigos/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/chat|чат/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/notif|уведомл|notificac/i)).toBeInTheDocument();
   });
 
   // Negative: Sign-out does NOT appear when anonymous

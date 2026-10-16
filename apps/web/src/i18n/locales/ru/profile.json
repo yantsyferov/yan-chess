@@ -4,5 +4,11 @@
   "ratingsTitle": "Рейтинг",
   "historyTitle": "История партий",
   "signOut": "Выйти",
-  "loading": "Загрузка…"
+  "loading": "Загрузка…",
+  "identityCard": {
+    "countryLabel": "Страна",
+    "saved": "Сохранено",
+    "international": "Международный",
+    "avatarComingSoon": "Загрузка аватара скоро появится"
+  }
 }

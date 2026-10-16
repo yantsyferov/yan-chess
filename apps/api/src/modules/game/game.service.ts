@@ -111,6 +111,7 @@ export class GameService {
     whiteUserId: string,
     blackUserId: string,
     mode: Mode,
+    isRated = true,
   ): Promise<CreatedGame> {
     const gameId = randomUUID();
     const timeControlMs = TIME_CONTROL_MS[mode];
@@ -156,6 +157,7 @@ export class GameService {
       startedAt: now,
       whiteRatingBefore,
       blackRatingBefore,
+      isRated: isRated ? "true" : "false",
     });
     pipe.sadd("game:active", gameId);
     pipe.set(`user:activeGame:${whiteUserId}`, gameId);
@@ -438,12 +440,14 @@ export class GameService {
     let whiteUserId: string;
     let blackUserId: string;
     let mode: Mode;
+    let prevIsRated = true;
 
     const raw = await this.redis.hgetall(`game:${previousGameId}`);
     if (raw && Object.keys(raw).length > 0) {
       whiteUserId = raw["whiteUserId"] ?? "";
       blackUserId = raw["blackUserId"] ?? "";
       mode = (raw["mode"] ?? "Blitz") as Mode;
+      prevIsRated = raw["isRated"] !== "false";
     } else {
       const dbGame = await this.prisma.game.findUnique({ where: { id: previousGameId } });
       if (!dbGame) {
@@ -452,6 +456,7 @@ export class GameService {
       whiteUserId = dbGame.whiteUserId;
       blackUserId = dbGame.blackUserId;
       mode = dbGame.mode as Mode;
+      prevIsRated = dbGame.isRated;
     }
 
     if (accept) {
@@ -459,7 +464,7 @@ export class GameService {
       const newWhiteId = blackUserId;
       const newBlackId = whiteUserId;
 
-      const createdGame = await this.createGame(newWhiteId, newBlackId, mode);
+      const createdGame = await this.createGame(newWhiteId, newBlackId, mode, prevIsRated);
       const { gameId: newGameId, timeControlMs, fen, sideToMove, serverNow } = createdGame;
 
       await this.realtime.toRoom("play", `user:${newWhiteId}`).socketsJoin(`game:${newGameId}`);
@@ -532,6 +537,7 @@ export class GameService {
     const blackRatingBefore = Number(hash["blackRatingBefore"] ?? 1500);
     const startedAt = new Date(Number(hash["startedAt"] ?? Date.now()));
     const endedAt = new Date();
+    const isRated = hash["isRated"] !== "false";
 
     // Step 2: load SAN move list from Redis
     const moves: string[] = await this.redis.raw.lrange(`game:${gameId}:moves`, 0, -1);
@@ -574,6 +580,7 @@ export class GameService {
           blackUserId,
           mode,
           result,
+          isRated,
           tx,
         });
 
@@ -593,6 +600,7 @@ export class GameService {
             blackRatingAfter: ratingResult.blackAfter,
             startedAt,
             endedAt,
+            isRated,
           },
           tx,
         );

@@ -12,6 +12,7 @@ export interface AuthUser {
   email: string;
   createdAt: string;
   ratings?: Rating[];
+  country: string | null;
 }
 
 interface AuthState {

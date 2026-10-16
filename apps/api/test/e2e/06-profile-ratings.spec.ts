@@ -14,7 +14,7 @@ afterAll(async () => { await app.close(); });
 beforeEach(async () => { await resetAll(app); });
 
 const BASE = "/api/v1/auth";
-const USER = { email: "frank@example.com", nickname: "frank_test", password: "Test1234", confirmPassword: "Test1234" };
+const USER = { email: "frank@example.com", nickname: "frank_test", password: "Test1234", confirmPassword: "Test1234", country: "US" };
 
 async function registerVerifyLogin(): Promise<string> {
   await request(app.getHttpServer()).post(`${BASE}/register`).send(USER).expect(201);

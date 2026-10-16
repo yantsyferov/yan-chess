@@ -1,6 +1,7 @@
 import { useTranslation } from "react-i18next";
 import type { FriendRequestItem } from "@yanchess/shared";
 import { useFriendsStore } from "./useFriendsStore";
+import { UserFlag } from "../profile/UserFlag";
 
 interface RequestCardProps {
   item: FriendRequestItem;
@@ -34,7 +35,7 @@ export function RequestCard({ item }: RequestCardProps): JSX.Element {
   return (
     <div className="flex items-center justify-between px-4 py-3 rounded-lg bg-surface-elevated border border-border-subtle">
       <div className="flex flex-col gap-0.5">
-        <span className="text-sm font-medium text-text-primary">{item.requesterNickname}</span>
+        <span className="text-sm font-medium text-text-primary">{item.requesterNickname}<UserFlag country={item.requesterCountry} className="ml-1" /></span>
         <span
           className="text-xs text-text-muted"
           title={item.createdAt}
