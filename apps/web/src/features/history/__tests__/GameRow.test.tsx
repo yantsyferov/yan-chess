@@ -2,9 +2,10 @@
 // @spec: 006-game-history
 // @regression
 
-import { describe, it, expect, vi } from "vitest";
+import { describe, it, expect, vi, afterAll } from "vitest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import i18n from "../../../i18n";
 import { MemoryRouter } from "react-router-dom";
 import type { GameListItem } from "@yanchess/shared";
 
@@ -116,5 +117,31 @@ describe("GameRow", () => {
     await user.click(link);
     // Link handles navigation via href; navigate() should NOT be called
     expect(mockNavigate).not.toHaveBeenCalled();
+  });
+
+  // @spec: 014-play-redesign
+  describe("Rated/Casual badge", () => {
+    afterAll(() => {
+      void i18n.changeLanguage("en");
+    });
+
+    it("isRated=true shows Rated badge and not Casual badge", () => {
+      wrap(makeItem({ isRated: true }));
+      expect(screen.getByText("Rated")).toBeInTheDocument();
+      expect(screen.queryByText("Casual")).not.toBeInTheDocument();
+    });
+
+    it("isRated=false shows Casual badge and not Rated badge", () => {
+      wrap(makeItem({ isRated: false }));
+      expect(screen.getByText("Casual")).toBeInTheDocument();
+      expect(screen.queryByText("Rated")).not.toBeInTheDocument();
+    });
+
+    it("badge text matches Russian locale", () => {
+      i18n.changeLanguage("ru");
+      wrap(makeItem({ isRated: true }));
+      expect(screen.getByText("Рейтинговая")).toBeInTheDocument();
+      expect(screen.queryByText("Нерейтинговая")).not.toBeInTheDocument();
+    });
   });
 });

@@ -32,6 +32,7 @@ interface GameRowProps {
 
 export function GameRow({ item }: GameRowProps): JSX.Element {
   const { t } = useTranslation("history");
+  const { t: tGame } = useTranslation("game");
   const location = useLocation();
   const navigate = useNavigate();
   const replayTo = `/history/${item.gameId}`;
@@ -77,6 +78,16 @@ export function GameRow({ item }: GameRowProps): JSX.Element {
       <span className="text-xs font-medium px-2 py-0.5 rounded-full bg-surface-elevated text-text-secondary shrink-0">
         {MODE_LABELS[item.mode]}
       </span>
+
+      {item.isRated ? (
+        <span className="text-xs font-medium px-2 py-0.5 rounded-full bg-accent/10 text-accent shrink-0">
+          {tGame("history.ratedBadge")}
+        </span>
+      ) : (
+        <span className="text-xs font-medium px-2 py-0.5 rounded-full bg-surface-elevated text-text-secondary shrink-0">
+          {tGame("history.casualBadge")}
+        </span>
+      )}
 
       <span className="text-sm font-medium text-text-primary shrink-0">
         {resultLabel}

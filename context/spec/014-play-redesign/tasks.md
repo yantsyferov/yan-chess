@@ -48,14 +48,14 @@ Agents: `react-frontend`, `nestjs-backend`, `postgres-redis-data`, `testing-expe
 
 ---
 
-- [ ] **Slice 4: Game history Rated/Casual badge**
+- [x] **Slice 4: Game history Rated/Casual badge**
 
   > `GameRow.tsx` displays Rated/Casual pill from `game.isRated`. New localization keys `history.ratedBadge` + `history.casualBadge`.
 
-  - [ ] Amend `apps/web/src/i18n/locales/{en,ru,es}/game.json` — add `history.ratedBadge` ("Rated"/"Рейтинговая"/"Clasificatoria"), `history.casualBadge` ("Casual"/"Нерейтинговая"/"Amistosa"). **[Agent: react-frontend]**
-  - [ ] Amend `apps/web/src/features/history/GameRow.tsx` — read `game.isRated` from `GameListItem`, render pill next to mode badge (accent color for rated, muted for casual). **[Agent: react-frontend]**
-  - [ ] Extend `apps/web/src/features/history/__tests__/GameRow.test.tsx` — Rated badge visible when isRated=true; Casual visible when false; mutual exclusion. RED validate by removing the badge render. **[Agent: react-frontend]**
-  - [ ] Verify: `pnpm --filter web test -- --run src/features/history/` passes; dev-start, sign in as alice, play a Casual game vs matchmaking, finish, check history on /profile — row has Casual badge. Stop services. **[Agent: general-purpose]**
+  - [x] Amend `apps/web/src/i18n/locales/{en,ru,es}/game.json` — add `history.ratedBadge` ("Rated"/"Рейтинговая"/"Clasificatoria"), `history.casualBadge` ("Casual"/"Нерейтинговая"/"Amistosa"). **[Agent: react-frontend]**
+  - [x] Amend `apps/web/src/features/history/GameRow.tsx` — read `game.isRated` from `GameListItem`, render pill next to mode badge (accent color for rated, muted for casual). **[Agent: react-frontend]**
+  - [x] Extend `apps/web/src/features/history/__tests__/GameRow.test.tsx` — Rated badge visible when isRated=true; Casual visible when false; mutual exclusion. RED validate by removing the badge render. **[Agent: react-frontend]**
+  - [x] Verify: `pnpm --filter web test -- --run src/features/history/` passes; dev-start, sign in as alice, play a Casual game vs matchmaking, finish, check history on /profile — row has Casual badge. Stop services. **[Agent: general-purpose]**
 
 ---
 
