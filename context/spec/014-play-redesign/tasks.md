@@ -19,19 +19,19 @@ Agents: `react-frontend`, `nestjs-backend`, `postgres-redis-data`, `testing-expe
 
 ---
 
-- [ ] **Slice 2: Backend matchmaking rated segregation + rating skip**
+- [x] **Slice 2: Backend matchmaking rated segregation + rating skip**
 
   > Two parallel Redis queues per mode, pairing worker iterates (mode × isRated). RatingService early-returns on unrated games. Default behavior unchanged (all queue entries today default `isRated=true`).
 
-  - [ ] Amend `apps/api/src/modules/matchmaking/matchmaking.service.ts` — `joinQueue(userId, nickname, mode, isRated)` picks `mm:queue:{mode}:{rated|unrated}` key; writes `isRated` into `mm:entry:{userId}` hash; `leaveQueue` reads it to pick correct key. **[Agent: nestjs-backend]**
-  - [ ] Amend the pairing worker loop (inside matchmaking.service.ts or sibling file) — iterate 4 modes × 2 rated → 8 scans/sec; `pairOneInMode(mode, isRated)` reads only its own key. **[Agent: nestjs-backend]**
-  - [ ] Amend `apps/api/src/modules/game/game.service.ts` — `createGame(whiteId, blackId, mode, isRated)` persists the flag into Prisma + into `game:{gameId}` Redis hash. `endGame` reads `isRated` from Redis to pass down. **[Agent: nestjs-backend]**
-  - [ ] Amend `apps/api/src/modules/game/game.repository.ts` — `createCompletedGame` input accepts `isRated`. **[Agent: nestjs-backend]**
-  - [ ] Amend `apps/api/src/modules/rating/rating.service.ts` — `applyGameResult(ctx)` early-returns `{ ...zero deltas }` when `!ctx.isRated` (no `prisma.ratingByMode.update`). **[Agent: nestjs-backend]**
-  - [ ] Add `apps/api/test/unit/matchmaking-rated-segregation.spec.ts` — joinQueue true vs false land in different Redis keys. **[Agent: nestjs-backend]**
-  - [ ] Add `apps/api/test/unit/rating-skip-unrated.spec.ts` — applyGameResult on unrated game does not call prisma.ratingByMode.update, returns zero deltas. **[Agent: nestjs-backend]**
-  - [ ] Add `apps/api/test/e2e/game-rated-flag.e2e.spec.ts` — two users join rated Blitz → persisted game has isRated=true + ratings updated; repeat with unrated → isRated=false + ratings unchanged. **[Agent: nestjs-backend]**
-  - [ ] Verify: `pnpm --filter api test:unit` + `pnpm --filter api test:e2e` pass. All existing tests still green. **[Agent: general-purpose]**
+  - [x] Amend `apps/api/src/modules/matchmaking/matchmaking.service.ts` — `joinQueue(userId, nickname, mode, isRated)` picks `mm:queue:{mode}:{rated|unrated}` key; writes `isRated` into `mm:entry:{userId}` hash; `leaveQueue` reads it to pick correct key. **[Agent: nestjs-backend]**
+  - [x] Amend the pairing worker loop (inside matchmaking.service.ts or sibling file) — iterate 4 modes × 2 rated → 8 scans/sec; `pairOneInMode(mode, isRated)` reads only its own key. **[Agent: nestjs-backend]**
+  - [x] Amend `apps/api/src/modules/game/game.service.ts` — `createGame(whiteId, blackId, mode, isRated)` persists the flag into Prisma + into `game:{gameId}` Redis hash. `endGame` reads `isRated` from Redis to pass down. **[Agent: nestjs-backend]**
+  - [x] Amend `apps/api/src/modules/game/game.repository.ts` — `createCompletedGame` input accepts `isRated`. **[Agent: nestjs-backend]**
+  - [x] Amend `apps/api/src/modules/rating/rating.service.ts` — `applyGameResult(ctx)` early-returns `{ ...zero deltas }` when `!ctx.isRated` (no `prisma.ratingByMode.update`). **[Agent: nestjs-backend]**
+  - [x] Add `apps/api/test/unit/matchmaking-rated-segregation.spec.ts` — joinQueue true vs false land in different Redis keys. **[Agent: nestjs-backend]**
+  - [x] Add `apps/api/test/unit/rating-skip-unrated.spec.ts` — applyGameResult on unrated game does not call prisma.ratingByMode.update, returns zero deltas. **[Agent: nestjs-backend]**
+  - [x] Add `apps/api/test/e2e/game-rated-flag.e2e.spec.ts` — two users join rated Blitz → persisted game has isRated=true + ratings updated; repeat with unrated → isRated=false + ratings unchanged. **[Agent: nestjs-backend]**
+  - [x] Verify: `pnpm --filter api test:unit` + `pnpm --filter api test:e2e` pass. All existing tests still green. **[Agent: general-purpose]**
 
 ---
 

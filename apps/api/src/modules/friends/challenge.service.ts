@@ -195,7 +195,7 @@ export class ChallengeService {
       blackId = challengerId;
     }
 
-    const createdGame: CreatedGame = await this.gameService.createGame(whiteId, blackId, mode);
+    const createdGame: CreatedGame = await this.gameService.createGame(whiteId, blackId, mode, true);
     const { gameId, timeControlMs, fen, sideToMove, serverNow } = createdGame;
 
     // Join both players to game room on /play namespace

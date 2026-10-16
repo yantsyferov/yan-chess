@@ -1,9 +1,11 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, Logger } from "@nestjs/common";
 import { Mode, Prisma } from "@prisma/client";
 import { PrismaService } from "../prisma/prisma.service";
 
 @Injectable()
 export class RatingService {
+  private readonly logger = new Logger(RatingService.name);
+
   constructor(private readonly prisma: PrismaService) {}
 
   /**
@@ -16,6 +18,7 @@ export class RatingService {
     blackUserId: string;
     mode: Mode;
     result: "white_win" | "black_win" | "draw";
+    isRated?: boolean;
     tx?: Prisma.TransactionClient;
   }): Promise<{
     whiteBefore: number;
@@ -25,6 +28,26 @@ export class RatingService {
     blackAfter: number;
     blackDelta: number;
   }> {
+    if (args.isRated === false) {
+      const client = args.tx ?? this.prisma;
+      const rows = await client.ratingByMode.findMany({
+        where: { userId: { in: [args.whiteUserId, args.blackUserId] }, mode: args.mode },
+      });
+      const white = rows.find((r) => r.userId === args.whiteUserId);
+      const black = rows.find((r) => r.userId === args.blackUserId);
+      const whiteCurrent = white?.rating ?? 1500;
+      const blackCurrent = black?.rating ?? 1500;
+      this.logger.log(`Skipping rating update for unrated game (no gameId context)`);
+      return {
+        whiteBefore: whiteCurrent,
+        whiteAfter: whiteCurrent,
+        whiteDelta: 0,
+        blackBefore: blackCurrent,
+        blackAfter: blackCurrent,
+        blackDelta: 0,
+      };
+    }
+
     const client = args.tx ?? this.prisma;
     const rows = await client.ratingByMode.findMany({
       where: { userId: { in: [args.whiteUserId, args.blackUserId] }, mode: args.mode },

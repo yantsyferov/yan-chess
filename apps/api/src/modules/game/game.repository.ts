@@ -17,6 +17,7 @@ export interface CreateCompletedGameInput {
   blackRatingAfter: number;
   startedAt: Date;
   endedAt: Date;
+  isRated: boolean;
 }
 
 @Injectable()
