@@ -25,6 +25,28 @@ vi.mock("../features/auth/authService", () => ({
   verifyEmail: vi.fn(),
 }));
 
+// CountryPicker uses Radix portals — replace with a simple select for testing
+vi.mock("../features/profile/CountryPicker", () => ({
+  CountryPicker: ({
+    value,
+    onChange,
+  }: {
+    value: string | null;
+    onChange: (code: string) => void;
+  }) => (
+    <select
+      aria-label="Country"
+      value={value ?? ""}
+      onChange={(e) => {
+        if (e.target.value) onChange(e.target.value);
+      }}
+    >
+      <option value="">Select country</option>
+      <option value="MX">Mexico</option>
+    </select>
+  ),
+}));
+
 import { Login } from "../pages/Login";
 import { Register } from "../pages/Register";
 
@@ -80,6 +102,7 @@ describe("Register — Russian labels", () => {
   it("shows Russian Zod validation error when form submitted empty", async () => {
     const user = userEvent.setup();
     renderWithProviders(<Register />);
+    await user.selectOptions(screen.getByLabelText("Country"), "MX");
     const submitBtn = screen.getByRole("button", { name: "Зарегистрироваться" });
     await user.click(submitBtn);
     const errors = await screen.findAllByText("Введите email");

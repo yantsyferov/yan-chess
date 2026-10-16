@@ -33,14 +33,14 @@ Agents: `react-frontend`, `nestjs-backend`, `postgres-redis-data`, `testing-expe
 
 ---
 
-- [ ] **Slice 3: Register form gains Country field (required)**
+- [x] **Slice 3: Register form gains Country field (required)**
 
   > Add CountryPicker to Register.tsx below password-confirm. Submit disabled until country selected. Payload includes country code.
 
-  - [ ] Amend `apps/web/src/pages/Register.tsx` — add `<CountryPicker>` below password-confirm field; form state tracks `country: string | null`; submit button disabled when country is null; form submit payload includes `country`. Localized label via `auth:register.country.label` + required-validation message `auth:register.country.required`. **[Agent: react-frontend]**
-  - [ ] Add i18n keys to `apps/web/src/i18n/locales/{en,ru,es}/auth.json` — `register.country.{label,required}`. **[Agent: react-frontend]**
-  - [ ] Extend `apps/web/src/pages/__tests__/auth-i18n.test.tsx` (or add new Register.country.test.tsx) — Country field renders; submit disabled without country; with country filled, submit calls auth with payload including country code. RED-validate. **[Agent: react-frontend]**
-  - [ ] Verify: `pnpm --filter web test -- --run` passes; dev-start web preview on 5173, open /register, confirm Country field below password-confirm, type "Mex" to filter, pick Mexico, confirm Submit button enables. Stop preview. **[Agent: general-purpose]**
+  - [x] Amend `apps/web/src/pages/Register.tsx` — add `<CountryPicker>` below password-confirm field; form state tracks `country: string | null`; submit button disabled when country is null; form submit payload includes `country`. Localized label via `auth:register.country.label` + required-validation message `auth:register.country.required`. **[Agent: react-frontend]**
+  - [x] Add i18n keys to `apps/web/src/i18n/locales/{en,ru,es}/auth.json` — `register.country.{label,required}`. **[Agent: react-frontend]**
+  - [x] Extend `apps/web/src/pages/__tests__/auth-i18n.test.tsx` (or add new Register.country.test.tsx) — Country field renders; submit disabled without country; with country filled, submit calls auth with payload including country code. RED-validate. **[Agent: react-frontend]**
+  - [x] Verify: `pnpm --filter web test -- --run` passes; dev-start web preview on 5173, open /register, confirm Country field below password-confirm, type "Mex" to filter, pick Mexico, confirm Submit button enables. Stop preview. **[Agent: general-purpose]**
 
 ---
 

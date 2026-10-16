@@ -13,6 +13,29 @@ vi.mock("../../src/features/auth/authService", () => ({
   register: vi.fn(),
 }));
 
+// Mock CountryPicker with a simple select to avoid Radix portal complexity
+vi.mock("../../src/features/profile/CountryPicker", () => ({
+  CountryPicker: ({
+    value,
+    onChange,
+  }: {
+    value: string | null;
+    onChange: (code: string) => void;
+  }) => (
+    <select
+      aria-label="Country"
+      value={value ?? ""}
+      onChange={(e) => {
+        if (e.target.value) onChange(e.target.value);
+      }}
+    >
+      <option value="">Select country</option>
+      <option value="MX">Mexico</option>
+      <option value="US">United States</option>
+    </select>
+  ),
+}));
+
 // Mock useNavigate
 const mockNavigate = vi.fn();
 vi.mock("react-router-dom", async (importOriginal) => {
@@ -45,6 +68,7 @@ describe("Register page integration", () => {
     it("shows email validation error on empty submit", async () => {
       const user = userEvent.setup();
       renderRegister();
+      await user.selectOptions(screen.getByLabelText("Country"), "MX");
       await user.click(screen.getByRole("button", { name: "Sign up" }));
       await waitFor(() => {
         expect(screen.getByText("Email is required")).toBeInTheDocument();
@@ -55,6 +79,7 @@ describe("Register page integration", () => {
     it("shows nickname validation error on empty submit", async () => {
       const user = userEvent.setup();
       renderRegister();
+      await user.selectOptions(screen.getByLabelText("Country"), "MX");
       await user.click(screen.getByRole("button", { name: "Sign up" }));
       await waitFor(() => {
         expect(
@@ -67,6 +92,7 @@ describe("Register page integration", () => {
     it("shows password validation error on empty submit", async () => {
       const user = userEvent.setup();
       renderRegister();
+      await user.selectOptions(screen.getByLabelText("Country"), "MX");
       await user.click(screen.getByRole("button", { name: "Sign up" }));
       await waitFor(() => {
         expect(
@@ -90,6 +116,7 @@ describe("Register page integration", () => {
       await user.type(screen.getByLabelText("Nickname"), "alice123");
       await user.type(screen.getByLabelText("Password"), "Password1");
       await user.type(screen.getByLabelText("Confirm password"), "Password1");
+      await user.selectOptions(screen.getByLabelText("Country"), "MX");
       await user.click(screen.getByRole("button", { name: "Sign up" }));
       await waitFor(() => {
         expect(mockNavigate).toHaveBeenCalledWith(
@@ -114,6 +141,7 @@ describe("Register page integration", () => {
       await user.type(screen.getByLabelText("Nickname"), "alice123");
       await user.type(screen.getByLabelText("Password"), "Password1");
       await user.type(screen.getByLabelText("Confirm password"), "Password1");
+      await user.selectOptions(screen.getByLabelText("Country"), "MX");
       await user.click(screen.getByRole("button", { name: "Sign up" }));
       await waitFor(() => {
         expect(screen.getAllByText("This email is already registered.").length).toBeGreaterThan(0);
@@ -133,6 +161,7 @@ describe("Register page integration", () => {
       await user.type(screen.getByLabelText("Nickname"), "alice123");
       await user.type(screen.getByLabelText("Password"), "Password1");
       await user.type(screen.getByLabelText("Confirm password"), "Password1");
+      await user.selectOptions(screen.getByLabelText("Country"), "MX");
       await user.click(screen.getByRole("button", { name: "Sign up" }));
       await waitFor(() => {
         const loginLinks = screen.getAllByRole("link", { name: "Sign in" });
@@ -153,6 +182,7 @@ describe("Register page integration", () => {
       await user.type(screen.getByLabelText("Nickname"), "alice123");
       await user.type(screen.getByLabelText("Password"), "Password1");
       await user.type(screen.getByLabelText("Confirm password"), "Password1");
+      await user.selectOptions(screen.getByLabelText("Country"), "MX");
       await user.click(screen.getByRole("button", { name: "Sign up" }));
       await waitFor(() => {
         expect(
