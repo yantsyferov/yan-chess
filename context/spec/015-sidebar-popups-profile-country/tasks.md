@@ -55,17 +55,17 @@ Agents: `react-frontend`, `nestjs-backend`, `postgres-redis-data`, `testing-expe
 
 ---
 
-- [ ] **Slice 5: Sidebar popups infrastructure (Settings popup + removal of standalone Theme/Lang/Logout)**
+- [x] **Slice 5: Sidebar popups infrastructure (Settings popup + removal of standalone Theme/Lang/Logout)**
 
   > Add useSidebarPopupStore + SidebarPopup wrapper + SettingsPopup. Wire Settings icon to open popup. REMOVE from SidebarSignedInBottom: 5th Logout icon + standalone ThemeToggle + standalone LanguageSwitcher.
 
-  - [ ] Create `apps/web/src/features/sidebar-popups/useSidebarPopupStore.ts` — Zustand store `{ openPopup, open(id), close(), toggle(id) }`. Only one popup open at a time. **[Agent: react-frontend]**
-  - [ ] Create `apps/web/src/features/sidebar-popups/SidebarPopup.tsx` — wrapper component using @radix-ui/react-popover; `side="right" align="start"`. Props: `id: PopupId, trigger: ReactNode, children: ReactNode`. Open state controlled by useSidebarPopupStore.openPopup === id. **[Agent: react-frontend]**
-  - [ ] Create `apps/web/src/features/sidebar-popups/SettingsPopup.tsx` — contains LanguageSwitcher (reused, dropdown pattern), ThemeToggle (reused), Sign-out button. Section labels above each. Sign-out calls `authService.logout()` + navigates to /login. **[Agent: react-frontend]**
-  - [ ] Amend `apps/web/src/components/ui/sidebar/SidebarSignedInBottom.tsx` — DELETE: standalone ThemeToggle, standalone LanguageSwitcher, 5th Logout icon (the one with `// REMOVED in spec 015` comment). KEEP: avatar+nickname row, 4 action icons row. WRAP Settings icon with SidebarPopup containing SettingsPopup. Other 3 icons (Friends/Chat/Notifications) wrap in placeholder SidebarPopup stubs that will be filled in Slices 6-8. **[Agent: react-frontend]**
-  - [ ] Add i18n keys to `apps/web/src/i18n/locales/{en,ru,es}/common.json` — `popups.settings.{title,language,theme,signOut}`. **[Agent: react-frontend]**
-  - [ ] Add `apps/web/src/features/sidebar-popups/__tests__/useSidebarPopupStore.test.ts` + `SettingsPopup.test.tsx` — only one popup at a time; toggle semantics; language switch inside popup updates whole UI; theme switch works; sign-out routes to /login. RED validate sign-out. **[Agent: react-frontend]**
-  - [ ] Verify: `pnpm --filter web test -- --run` passes; `pnpm --filter web build` green; dev-start, sign in as alice, click Settings icon → popup opens on right of sidebar with Language + Theme + Sign out; switch to Spanish → sidebar labels + popup content update; click Sign out → redirect to /login with anonymous sidebar. Confirm sidebar bottom NO LONGER has standalone Theme/Lang/5th Logout icon. Screenshot. Stop preview. **[Agent: general-purpose]**
+  - [x] Create `apps/web/src/features/sidebar-popups/useSidebarPopupStore.ts` — Zustand store `{ openPopup, open(id), close(), toggle(id) }`. Only one popup open at a time. **[Agent: react-frontend]**
+  - [x] Create `apps/web/src/features/sidebar-popups/SidebarPopup.tsx` — wrapper component using @radix-ui/react-popover; `side="right" align="start"`. Props: `id: PopupId, trigger: ReactNode, children: ReactNode`. Open state controlled by useSidebarPopupStore.openPopup === id. **[Agent: react-frontend]**
+  - [x] Create `apps/web/src/features/sidebar-popups/SettingsPopup.tsx` — contains LanguageSwitcher (reused, dropdown pattern), ThemeToggle (reused), Sign-out button. Section labels above each. Sign-out calls `authService.logout()` + navigates to /login. **[Agent: react-frontend]**
+  - [x] Amend `apps/web/src/components/ui/sidebar/SidebarSignedInBottom.tsx` — DELETE: standalone ThemeToggle, standalone LanguageSwitcher, 5th Logout icon (the one with `// REMOVED in spec 015` comment). KEEP: avatar+nickname row, 4 action icons row. WRAP Settings icon with SidebarPopup containing SettingsPopup. Other 3 icons (Friends/Chat/Notifications) wrap in placeholder SidebarPopup stubs that will be filled in Slices 6-8. **[Agent: react-frontend]**
+  - [x] Add i18n keys to `apps/web/src/i18n/locales/{en,ru,es}/common.json` — `popups.settings.{title,language,theme,signOut}`. **[Agent: react-frontend]**
+  - [x] Add `apps/web/src/features/sidebar-popups/__tests__/useSidebarPopupStore.test.ts` + `SettingsPopup.test.tsx` — only one popup at a time; toggle semantics; language switch inside popup updates whole UI; theme switch works; sign-out routes to /login. RED validate sign-out. **[Agent: react-frontend]**
+  - [x] Verify: `pnpm --filter web test -- --run` passes; `pnpm --filter web build` green; dev-start, sign in as alice, click Settings icon → popup opens on right of sidebar with Language + Theme + Sign out; switch to Spanish → sidebar labels + popup content update; click Sign out → redirect to /login with anonymous sidebar. Confirm sidebar bottom NO LONGER has standalone Theme/Lang/5th Logout icon. Screenshot. Stop preview. **[Agent: general-purpose]**
 
 ---
 

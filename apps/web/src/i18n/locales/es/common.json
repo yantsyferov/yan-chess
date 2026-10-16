@@ -59,6 +59,14 @@
     "searchPlaceholder": "Buscar país...",
     "whiteFlag": "Sin país seleccionado"
   },
+  "popups": {
+    "settings": {
+      "title": "Ajustes",
+      "language": "Idioma",
+      "theme": "Tema",
+      "signOut": "Cerrar sesión"
+    }
+  },
   "notFound": {
     "title": "Página no encontrada",
     "body": "La página que buscas no existe.",

@@ -59,6 +59,14 @@
     "searchPlaceholder": "Поиск страны...",
     "whiteFlag": "Страна не выбрана"
   },
+  "popups": {
+    "settings": {
+      "title": "Настройки",
+      "language": "Язык",
+      "theme": "Тема",
+      "signOut": "Выйти"
+    }
+  },
   "notFound": {
     "title": "Страница не найдена",
     "body": "Запрошенная страница не существует.",

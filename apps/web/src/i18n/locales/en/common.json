@@ -59,6 +59,14 @@
     "searchPlaceholder": "Search country...",
     "whiteFlag": "No country selected"
   },
+  "popups": {
+    "settings": {
+      "title": "Settings",
+      "language": "Language",
+      "theme": "Theme",
+      "signOut": "Sign out"
+    }
+  },
   "notFound": {
     "title": "Page not found",
     "body": "The page you are looking for does not exist.",

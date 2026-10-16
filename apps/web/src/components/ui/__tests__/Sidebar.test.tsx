@@ -124,29 +124,20 @@ describe("SidebarSignedInBottom", () => {
     expect(screen.getByText(mockUser.nickname)).toBeInTheDocument();
   });
 
-  it("shows all 5 action icon buttons", () => {
+  // spec 015 Slice 5: 4 action icons remain (no standalone logout), chat is no longer disabled
+  it("shows exactly 4 action icon buttons (Settings, Friends, Chat, Notifications)", () => {
     renderSidebar();
     expect(screen.getByLabelText(/settings|настройки/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/friends|друзья/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/chat|чат/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/notif|уведомл/i)).toBeInTheDocument();
-    expect(screen.getByLabelText(/sign out|logout|выйти|cerrar/i)).toBeInTheDocument();
+    expect(screen.queryByLabelText(/^(sign out|logout|выйти)$/i)).not.toBeInTheDocument();
   });
 
-  it("Chat icon has cursor-not-allowed class", () => {
+  it("Chat icon is NOT disabled (cursor-not-allowed removed in spec 015)", () => {
     renderSidebar();
     const chatBtn = screen.getByLabelText(/chat|чат/i);
-    expect(chatBtn.className).toMatch(/cursor-not-allowed/);
-  });
-
-  it("Logout icon click calls authService.logout()", async () => {
-    const user = userEvent.setup();
-    renderSidebar();
-    const logoutBtn = screen.getByLabelText(/sign out|logout|выйти|cerrar/i);
-    await user.click(logoutBtn);
-    await vi.waitFor(() => {
-      expect(mockLogout).toHaveBeenCalledTimes(1);
-    });
+    expect(chatBtn.className).not.toMatch(/cursor-not-allowed/);
   });
 });
 
