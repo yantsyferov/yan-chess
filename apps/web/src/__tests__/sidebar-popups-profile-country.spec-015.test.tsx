@@ -23,7 +23,7 @@ vi.mock("react-router-dom", async () => {
 // authedFetch is used by Profile.handleCountryChange
 const mockAuthedFetch = vi.fn(() => Promise.resolve({ ok: true }));
 vi.mock("../features/auth/apiClient", () => ({
-  authedFetch: (...args: unknown[]) => mockAuthedFetch(...args),
+  authedFetch: (...args: unknown[]) => mockAuthedFetch(...(args as [])),
   apiGet: vi.fn(),
   apiPost: vi.fn(),
   apiDelete: vi.fn(),
@@ -48,7 +48,7 @@ import { useAuthStore } from "../features/auth/useAuthStore";
 import { useSidebarPopupStore } from "../features/sidebar-popups/useSidebarPopupStore";
 import { useFriendsStore } from "../features/friends/useFriendsStore";
 
-function seedAuth(overrides: Partial<Parameters<typeof useAuthStore.getState>["0"]["user"]> = {}) {
+function seedAuth(overrides: Partial<NonNullable<ReturnType<typeof useAuthStore.getState>["user"]>> = {}) {
   useAuthStore.setState({
     accessToken: "tok",
     user: {

@@ -31,7 +31,7 @@ export function SidebarPopup({ id, trigger, children }: SidebarPopupProps): JSX.
           side="right"
           align="start"
           sideOffset={8}
-          className="z-50 w-80 max-h-[70vh] overflow-y-auto rounded-xl bg-surface border border-border-subtle shadow-lg p-4 focus:outline-none"
+          className="z-50 w-80 max-h-[70vh] overflow-y-auto rounded-xl bg-surface-overlay backdrop-blur-[16px] border border-border-subtle shadow-lg p-4 focus:outline-none"
           onEscapeKeyDown={close}
           onInteractOutside={close}
         >
