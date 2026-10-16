@@ -76,8 +76,8 @@ Agents: `react-frontend`, `nestjs-backend`, `postgres-redis-data`, `testing-expe
   - [x] Create `apps/web/src/features/sidebar-popups/FriendsPopup.tsx` — reads `useFriendsStore(s => s.friends)`. Renders header "Friends (<count>)". List up to 10 rows (avatar + nickname + online indicator). Empty state with "No friends yet" + "Find friends" button → /friends. Bottom link "Open full Friends page" → /friends. **[Agent: react-frontend]**
   - [x] Amend `SidebarSignedInBottom.tsx` — wrap Friends icon with SidebarPopup containing FriendsPopup. **[Agent: react-frontend]**
   - [x] Add i18n keys to `common.json` — `popups.friends.{title,countLabel,emptyTitle,emptyBody,findFriendsButton,openFullPage}`. **[Agent: react-frontend]**
-  - [ ] Add `apps/web/src/features/sidebar-popups/__tests__/FriendsPopup.test.tsx` — list rendering with mocked friends; empty state when friends=[]; 10-row cap when friends=15; link to /friends renders. RED validate empty state. **[Agent: react-frontend]**
-  - [ ] Verify: narrow test passes; dev-start, sign in as alice, click Friends icon → popup with bob visible + "Open full Friends page" link. Stop preview. **[Agent: general-purpose]**
+  - [x] Add `apps/web/src/features/sidebar-popups/__tests__/FriendsPopup.test.tsx` — list rendering with mocked friends; empty state when friends=[]; 10-row cap when friends=15; link to /friends renders. RED validate empty state. **[Agent: react-frontend]**
+  - [x] Verify: narrow test passes; dev-start, sign in as alice, click Friends icon → popup with bob visible + "Open full Friends page" link. Stop preview. **[Agent: general-purpose]**
 
 ---
 
@@ -87,15 +87,15 @@ Agents: `react-frontend`, `nestjs-backend`, `postgres-redis-data`, `testing-expe
 
   - [x] Create `apps/web/src/features/sidebar-popups/ChatPopup.tsx` — speech-bubble icon + heading "Chat coming soon" + description text. No input field. **[Agent: react-frontend]**
   - [x] Create `apps/web/src/features/sidebar-popups/NotificationsPopup.tsx` — header "Notifications" + bell icon + empty state "You're all caught up." **[Agent: react-frontend]**
-  - [ ] Amend `SidebarSignedInBottom.tsx` — wrap Chat icon with SidebarPopup containing ChatPopup; REMOVE the `cursor-not-allowed pointer-events-none opacity-50` classes added in spec 013 (icon becomes clickable). Wrap Notifications icon with SidebarPopup containing NotificationsPopup. **[Agent: react-frontend]**
-  - [ ] Add i18n keys to `common.json` — `popups.chat.{title,description}`, `popups.notifications.{title,emptyState}`. **[Agent: react-frontend]**
-  - [ ] Add `apps/web/src/features/sidebar-popups/__tests__/ChatPopup.test.tsx` + `NotificationsPopup.test.tsx` — content renders; Chat icon is enabled (no cursor-not-allowed class). RED validate Chat enable. **[Agent: react-frontend]**
-  - [ ] Verify: tests pass; dev-start, sign in as alice, click Chat icon → "Chat coming soon" popup; Chat icon no longer visibly disabled; click Notifications icon → "You're all caught up." popup. Stop preview. **[Agent: general-purpose]**
+  - [x] Amend `SidebarSignedInBottom.tsx` — wrap Chat icon with SidebarPopup containing ChatPopup; REMOVE the `cursor-not-allowed pointer-events-none opacity-50` classes added in spec 013 (icon becomes clickable). Wrap Notifications icon with SidebarPopup containing NotificationsPopup. **[Agent: react-frontend]**
+  - [x] Add i18n keys to `common.json` — `popups.chat.{title,description}`, `popups.notifications.{title,emptyState}`. **[Agent: react-frontend]**
+  - [x] Add `apps/web/src/features/sidebar-popups/__tests__/ChatPopup.test.tsx` + `NotificationsPopup.test.tsx` — content renders; Chat icon is enabled (no cursor-not-allowed class). RED validate Chat enable. **[Agent: react-frontend]**
+  - [x] Verify: tests pass; dev-start, sign in as alice, click Chat icon → "Chat coming soon" popup; Chat icon no longer visibly disabled; click Notifications icon → "You're all caught up." popup. Stop preview. **[Agent: general-purpose]**
 
 ---
 
-- [ ] **Slice 8: Feature Testing & Regression**
+- [x] **Slice 8: Feature Testing & Regression**
 
   > Verifies the whole feature end-to-end against functional-spec.md, run after all implementation slices are complete.
-  - [ ] Read functional-spec.md acceptance criteria in full. Generate acceptance-level tests that verify the entire feature as a whole — not individual slices. Cover applicable layers (unit for pure logic, integration for service interactions, e2e for user flows) based on the project's testing stack. Write tests with RED validation (must fail before implementation is confirmed done). Annotate each test with `@spec: 015-sidebar-popups-profile-country` and `@regression` if suitable for long-term regression. **[Agent: testing-expert]**
-  - [ ] Run all generated tests. All must pass. Fix any failures before proceeding. **[Agent: testing-expert]**
+  - [x] Read functional-spec.md acceptance criteria in full. Generate acceptance-level tests that verify the entire feature as a whole — not individual slices. Cover applicable layers (unit for pure logic, integration for service interactions, e2e for user flows) based on the project's testing stack. Write tests with RED validation (must fail before implementation is confirmed done). Annotate each test with `@spec: 015-sidebar-popups-profile-country` and `@regression` if suitable for long-term regression. **[Agent: testing-expert]**
+  - [x] Run all generated tests. All must pass. Fix any failures before proceeding. **[Agent: testing-expert]**
