@@ -8,22 +8,22 @@ Baseline: 508 web tests, 141 api unit, api e2e unaffected (no backend touch).
 
 ---
 
-- [ ] **Slice 1: Extract `UserIdentity` + migrate all 7 nickname-render sites**
+- [x] **Slice 1: Extract `UserIdentity` + migrate all 7 nickname-render sites**
 
   > Highest-impact extraction. Centralizes nickname + flag + optional rating + optional online dot into one component. All visible output stays identical.
 
-  - [ ] Create `apps/web/src/features/profile/UserIdentity.tsx` with props `{ nickname: string, country: string | null, rating?: number, online?: boolean, size?: 'sm' | 'md' | 'lg', className?: string }`. Renders nickname text + inline `<UserFlag>` + optional ` (rating)` + optional `<OnlineStatusDot>` (if OnlineStatusDot isn't extracted yet in slice 2, inline the dot here first and swap in slice 2). **[Agent: react-frontend]**
-  - [ ] Add `apps/web/src/features/profile/__tests__/UserIdentity.test.tsx` — renders nickname, flag, rating when passed, dot when `online`; size variants apply classes. RED-validate 1 test. **[Agent: react-frontend]**
-  - [ ] Migrate `apps/web/src/features/history/GameRow.tsx` — opponent nickname → `<UserIdentity nickname country rating />`. **[Agent: react-frontend]**
-  - [ ] Migrate `apps/web/src/features/friends/FriendCard.tsx` — row → `<UserIdentity nickname country online rating />`. **[Agent: react-frontend]**
-  - [ ] Migrate `apps/web/src/features/friends/SearchResultCard.tsx` — row → `<UserIdentity nickname country rating />`. **[Agent: react-frontend]**
-  - [ ] Migrate `apps/web/src/features/sidebar-popups/FriendsPopup.tsx` — row → `<UserIdentity nickname country online size="sm" />`. **[Agent: react-frontend]**
-  - [ ] Migrate `apps/web/src/features/play/InlineChallengeForm.tsx` — friend header → `<UserIdentity nickname country online size="md" />`. **[Agent: react-frontend]**
-  - [ ] Migrate `apps/web/src/features/play/FriendsLobbyPanel.tsx` — list rows → `<UserIdentity nickname country online />`. **[Agent: react-frontend]**
-  - [ ] Migrate `apps/web/src/features/online/OnlineBoard.tsx` — opponent panel → `<UserIdentity nickname country rating />`. **[Agent: react-frontend]**
-  - [ ] Migrate `apps/web/src/pages/Profile.tsx` — identity card heading → use `<UserIdentity>` for the nickname+flag inline (CountryPicker stays separate for form edit). **[Agent: react-frontend]**
-  - [ ] Delete now-unused `<UserFlag>` imports in migrated files (UserIdentity imports UserFlag). **[Agent: react-frontend]**
-  - [ ] Verify: `pnpm --filter web test -- --run` → ≥508 (new tests may add +3-5); `pnpm --filter web build` → green. **[Agent: react-frontend]**
+  - [x] Create `apps/web/src/features/profile/UserIdentity.tsx` with props `{ nickname: string, country: string | null, rating?: number, online?: boolean, size?: 'sm' | 'md' | 'lg', className?: string }`. Renders nickname text + inline `<UserFlag>` + optional ` (rating)` + optional `<OnlineStatusDot>` (if OnlineStatusDot isn't extracted yet in slice 2, inline the dot here first and swap in slice 2). **[Agent: react-frontend]**
+  - [x] Add `apps/web/src/features/profile/__tests__/UserIdentity.test.tsx` — renders nickname, flag, rating when passed, dot when `online`; size variants apply classes. RED-validate 1 test. **[Agent: react-frontend]**
+  - [x] Migrate `apps/web/src/features/history/GameRow.tsx` — opponent nickname → `<UserIdentity nickname country rating />`. **[Agent: react-frontend]**
+  - [x] Migrate `apps/web/src/features/friends/FriendCard.tsx` — row → `<UserIdentity nickname country online rating />`. **[Agent: react-frontend]**
+  - [x] Migrate `apps/web/src/features/friends/SearchResultCard.tsx` — row → `<UserIdentity nickname country rating />`. **[Agent: react-frontend]**
+  - [x] Migrate `apps/web/src/features/sidebar-popups/FriendsPopup.tsx` — row → `<UserIdentity nickname country online size="sm" />`. **[Agent: react-frontend]**
+  - [x] Migrate `apps/web/src/features/play/InlineChallengeForm.tsx` — friend header → `<UserIdentity nickname country online size="md" />`. **[Agent: react-frontend]**
+  - [x] Migrate `apps/web/src/features/play/FriendsLobbyPanel.tsx` — list rows → `<UserIdentity nickname country online />`. **[Agent: react-frontend]**
+  - [x] Migrate `apps/web/src/features/online/OnlineBoard.tsx` — opponent panel → `<UserIdentity nickname country rating />`. **[Agent: react-frontend]**
+  - [x] Migrate `apps/web/src/pages/Profile.tsx` — identity card heading → use `<UserIdentity>` for the nickname+flag inline (CountryPicker stays separate for form edit). **[Agent: react-frontend]**
+  - [x] Delete now-unused `<UserFlag>` imports in migrated files (UserIdentity imports UserFlag). **[Agent: react-frontend]**
+  - [x] Verify: `pnpm --filter web test -- --run` → ≥508 (new tests may add +3-5); `pnpm --filter web build` → green. **[Agent: react-frontend]**
 
 ---
 

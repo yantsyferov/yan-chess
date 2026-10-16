@@ -4,7 +4,7 @@ import { toast } from "sonner";
 import type { FriendListItem } from "@yanchess/shared";
 import type { Mode, ChallengeColor } from "@yanchess/shared";
 import { useFriendsStore } from "../friends/useFriendsStore";
-import { UserFlag } from "../profile/UserFlag";
+import { UserIdentity } from "../profile/UserIdentity";
 import { Button } from "../../components/ui/Button";
 
 const MODES: Mode[] = ["Bullet", "Blitz", "Rapid", "Classical"];
@@ -52,15 +52,7 @@ export function InlineChallengeForm({ friend, onSent, onBack }: InlineChallengeF
     <div className="flex flex-col gap-4">
       {/* Header */}
       <div className="flex items-center gap-3">
-        <span
-          className={`inline-block w-2.5 h-2.5 rounded-full flex-shrink-0 ${
-            friend.online
-              ? "bg-success"
-              : "border border-text-muted bg-transparent"
-          }`}
-          aria-hidden="true"
-        />
-        <span className="text-base font-semibold text-text-primary">{friend.nickname}<UserFlag country={friend.country} size="md" className="ml-1" /></span>
+        <UserIdentity nickname={friend.nickname} country={friend.country} online={friend.online} size="md" />
       </div>
 
       <button

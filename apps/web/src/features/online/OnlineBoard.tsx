@@ -13,7 +13,7 @@ import { ConfirmResignDialog } from "../../components/game/ConfirmResignDialog";
 import { DrawOfferDialog } from "../../components/game/DrawOfferDialog";
 import { Alert } from "../../components/ui/Alert";
 import { OnlineResultModal } from "./OnlineResultModal";
-import { UserFlag } from "../profile/UserFlag";
+import { UserIdentity } from "../profile/UserIdentity";
 
 function PlayerCard({
   nickname,
@@ -26,16 +26,9 @@ function PlayerCard({
   online?: boolean;
   country?: string | null;
 }): JSX.Element {
-  const { t } = useTranslation("game");
-  const dotClass =
-    online === false
-      ? "inline-block w-2 h-2 rounded-full bg-text-muted"
-      : "inline-block w-2 h-2 rounded-full bg-green-500";
   return (
     <div className="flex items-center gap-2 px-1">
-      <span className={dotClass} aria-label={online === false ? t("online.playerStatus.offline") : t("online.playerStatus.online")} />
-      <span className="text-text-primary font-semibold truncate">{nickname}<UserFlag country={country ?? null} className="ml-1" /></span>
-      <span className="text-text-muted text-sm tabular-nums">{rating}</span>
+      <UserIdentity nickname={nickname} country={country ?? null} rating={rating} online={online} />
     </div>
   );
 }

@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useFriendsStore } from "../friends/useFriendsStore";
 import { Button } from "../../components/ui/Button";
-import { UserFlag } from "../profile/UserFlag";
+import { UserIdentity } from "../profile/UserIdentity";
 
 const MAX_ROWS = 10;
 
@@ -44,15 +44,7 @@ export function FriendsPopup(): JSX.Element {
               onClick={() => { navigate("/friends"); }}
               className="flex items-center gap-2 px-2 py-1.5 rounded-md hover:bg-surface-elevated transition-colors text-left w-full"
             >
-              <span
-                className={`inline-block w-2 h-2 rounded-full flex-shrink-0 ${
-                  friend.online
-                    ? "bg-success"
-                    : "border border-text-muted bg-transparent"
-                }`}
-                aria-hidden="true"
-              />
-              <span className="text-sm text-text-primary truncate">{friend.nickname}<UserFlag country={friend.country} className="ml-1" /></span>
+              <UserIdentity nickname={friend.nickname} country={friend.country} online={friend.online} size="sm" />
             </button>
           ))}
         </div>

@@ -17,7 +17,7 @@ import {
 } from "../../components/ui/Dialog";
 import { Button } from "../../components/ui/Button";
 import { useFriendsStore } from "./useFriendsStore";
-import { UserFlag } from "../profile/UserFlag";
+import { UserIdentity } from "../profile/UserIdentity";
 import { useOnlineGameStore } from "../online/useOnlineGameStore";
 
 interface FriendCardProps {
@@ -51,17 +51,10 @@ export function FriendCard({ item }: FriendCardProps): JSX.Element {
     <>
       <div className="flex items-center justify-between px-4 py-3 rounded-lg bg-surface-elevated border border-border-subtle">
         <div className="flex items-center gap-3">
-          {/* Presence dot — green when online, hollow grey when offline */}
-          <span
-            className={`inline-block w-2.5 h-2.5 rounded-full flex-shrink-0 ${
-              item.online
-                ? "bg-success"
-                : "border border-text-muted bg-transparent"
-            }`}
-            aria-hidden="true"
-          />
           <div className="flex flex-col gap-0.5">
-            <span className="text-sm font-medium text-text-primary">{item.nickname}<UserFlag country={item.country} className="ml-1" /></span>
+            <span className="text-sm font-medium text-text-primary">
+              <UserIdentity nickname={item.nickname} country={item.country} online={item.online} />
+            </span>
             <span className="text-xs text-text-muted">{t("friends.blitzRating", { rating: item.blitzRating })}</span>
           </div>
         </div>
