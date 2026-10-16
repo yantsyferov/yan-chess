@@ -8,6 +8,7 @@ const PER_PAGE = 20;
 type GameWithUsers = {
   id: string;
   mode: string;
+  isRated: boolean;
   whiteUserId: string;
   blackUserId: string;
   result: GameResult;
@@ -151,6 +152,7 @@ export class GameHistoryService {
       opponent,
       result,
       endReason: game.endReason as GameListItem["endReason"],
+      isRated: game.isRated,
       ratingBefore,
       ratingAfter,
       ratingDelta: ratingAfter - ratingBefore,

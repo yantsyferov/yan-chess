@@ -13,6 +13,7 @@ export interface GameListItem {
   ratingBefore: number;
   ratingAfter: number;
   ratingDelta: number;
+  isRated: boolean;
   startedAt: string; // ISO
   endedAt: string; // ISO
 }

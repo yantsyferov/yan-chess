@@ -53,6 +53,7 @@ function makeItem(id: string, result: "win" | "loss" | "draw" = "win"): GameList
     ratingBefore: 1500,
     ratingAfter: 1516,
     ratingDelta: result === "win" ? 16 : result === "loss" ? -16 : 0,
+    isRated: true,
     startedAt: "2026-10-11T18:00:00Z",
     endedAt: "2026-10-11T18:05:00Z",
   };

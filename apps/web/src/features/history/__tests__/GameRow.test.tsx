@@ -28,6 +28,7 @@ function makeItem(overrides: Partial<GameListItem> = {}): GameListItem {
     ratingBefore: 1500,
     ratingAfter: 1516,
     ratingDelta: 16,
+    isRated: true,
     startedAt: "2026-10-11T18:00:00.000Z",
     endedAt: "2026-10-11T18:05:00.000Z",
     ...overrides,

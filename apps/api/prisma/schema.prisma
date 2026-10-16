@@ -110,6 +110,7 @@ model Game {
   whiteRatingAfter  Int           @map("white_rating_after")
   blackRatingBefore Int           @map("black_rating_before")
   blackRatingAfter  Int           @map("black_rating_after")
+  isRated           Boolean       @default(true) @map("is_rated")
   startedAt         DateTime      @map("started_at") @db.Timestamptz(3)
   endedAt           DateTime      @map("ended_at") @db.Timestamptz(3)
 

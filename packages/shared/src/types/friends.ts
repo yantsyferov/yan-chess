@@ -88,6 +88,7 @@ export interface ChallengeReceivedPayload {
   challengerNickname: string;
   mode: Mode;
   color: ChallengeColor;
+  isRated: boolean;
   /** ms epoch */
   timeoutAt: number;
 }
@@ -116,6 +117,7 @@ export interface ChallengeSendPayload {
   targetUserId: string;
   mode: Mode;
   color: ChallengeColor;
+  isRated: boolean;
 }
 
 export interface ChallengeRespondPayload {
