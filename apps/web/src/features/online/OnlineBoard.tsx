@@ -13,15 +13,18 @@ import { ConfirmResignDialog } from "../../components/game/ConfirmResignDialog";
 import { DrawOfferDialog } from "../../components/game/DrawOfferDialog";
 import { Alert } from "../../components/ui/Alert";
 import { OnlineResultModal } from "./OnlineResultModal";
+import { UserFlag } from "../profile/UserFlag";
 
 function PlayerCard({
   nickname,
   rating,
   online,
+  country,
 }: {
   nickname: string;
   rating: number;
   online?: boolean;
+  country?: string | null;
 }): JSX.Element {
   const { t } = useTranslation("game");
   const dotClass =
@@ -31,7 +34,7 @@ function PlayerCard({
   return (
     <div className="flex items-center gap-2 px-1">
       <span className={dotClass} aria-label={online === false ? t("online.playerStatus.offline") : t("online.playerStatus.online")} />
-      <span className="text-text-primary font-semibold truncate">{nickname}</span>
+      <span className="text-text-primary font-semibold truncate">{nickname}<UserFlag country={country ?? null} className="ml-1" /></span>
       <span className="text-text-muted text-sm tabular-nums">{rating}</span>
     </div>
   );
@@ -106,7 +109,7 @@ export function OnlineBoard(): JSX.Element {
       {/* Board column */}
       <div className="flex flex-col items-center w-full max-w-[560px] mx-auto gap-2">
         {/* Opponent (top) */}
-        <PlayerCard nickname={opponentNickname} rating={opponentRating} online={opponent?.online} />
+        <PlayerCard nickname={opponentNickname} rating={opponentRating} online={opponent?.online} country={opponent?.country ?? null} />
         <Clock ms={topMs} isActive={topIsActive} />
 
         <Board
@@ -125,7 +128,7 @@ export function OnlineBoard(): JSX.Element {
 
         {/* Self (bottom) */}
         <Clock ms={bottomMs} isActive={bottomIsActive} />
-        <PlayerCard nickname={selfNickname} rating={selfRating} online={true} />
+        <PlayerCard nickname={selfNickname} rating={selfRating} online={true} country={user?.country ?? null} />
 
         <GameActions
           canAct={vm.result === null}

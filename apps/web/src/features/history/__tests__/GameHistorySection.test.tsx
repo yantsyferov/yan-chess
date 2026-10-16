@@ -47,7 +47,7 @@ function makeItem(id: string, result: "win" | "loss" | "draw" = "win"): GameList
     gameId: id,
     mode: "Blitz",
     playerColor: "white",
-    opponent: { nickname: "bob", ratingAfter: 1484 },
+    opponent: { nickname: "bob", country: null, ratingAfter: 1484 },
     result,
     endReason: "resignation",
     ratingBefore: 1500,

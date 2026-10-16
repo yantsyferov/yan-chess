@@ -4,6 +4,7 @@ import { toast } from "sonner";
 import type { FriendListItem } from "@yanchess/shared";
 import type { Mode, ChallengeColor } from "@yanchess/shared";
 import { useFriendsStore } from "../friends/useFriendsStore";
+import { UserFlag } from "../profile/UserFlag";
 import { Button } from "../../components/ui/Button";
 
 const MODES: Mode[] = ["Bullet", "Blitz", "Rapid", "Classical"];
@@ -59,7 +60,7 @@ export function InlineChallengeForm({ friend, onSent, onBack }: InlineChallengeF
           }`}
           aria-hidden="true"
         />
-        <span className="text-base font-semibold text-text-primary">{friend.nickname}</span>
+        <span className="text-base font-semibold text-text-primary">{friend.nickname}<UserFlag country={friend.country} size="md" className="ml-1" /></span>
       </div>
 
       <button

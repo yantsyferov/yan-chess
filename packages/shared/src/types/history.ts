@@ -7,7 +7,7 @@ export interface GameListItem {
   gameId: string;
   mode: Mode;
   playerColor: "white" | "black";
-  opponent: { nickname: string; ratingAfter: number };
+  opponent: { nickname: string; country: string | null; ratingAfter: number };
   result: "win" | "loss" | "draw";
   endReason: GameEndReason;
   ratingBefore: number;

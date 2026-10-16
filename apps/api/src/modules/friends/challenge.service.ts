@@ -56,6 +56,11 @@ export class ChallengeService {
     body: ChallengeSendPayload,
   ): Promise<ChallengeSendResult> {
     const { targetUserId, mode, color, isRated } = body;
+    const challenger = await this.prisma.user.findUnique({
+      where: { id: myUserId },
+      select: { country: true },
+    });
+    const challengerCountry = challenger?.country ?? null;
 
     // 1. Reject self
     if (targetUserId === myUserId) {
@@ -138,6 +143,7 @@ export class ChallengeService {
       challengeId,
       challengerUserId: myUserId,
       challengerNickname: myNickname,
+      challengerCountry,
       mode,
       color,
       isRated,

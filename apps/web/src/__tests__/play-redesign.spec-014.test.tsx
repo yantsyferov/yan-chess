@@ -181,7 +181,7 @@ function makeGameItem(overrides: Partial<GameListItem> = {}): GameListItem {
     gameId: "g-001",
     mode: "Blitz",
     playerColor: "white",
-    opponent: { nickname: "bob", ratingAfter: 1480 },
+    opponent: { nickname: "bob", country: null, ratingAfter: 1480 },
     result: "win",
     endReason: "resignation",
     ratingBefore: 1500,

@@ -76,6 +76,7 @@ const INBOUND_FIXTURE = {
   challengeId: "ch-in-001",
   challengerUserId: "user-alice",
   challengerNickname: "alice",
+  challengerCountry: null,
   mode: "Blitz" as const,
   color: "white" as const,
   isRated: true,

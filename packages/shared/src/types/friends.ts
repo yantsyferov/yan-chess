@@ -16,6 +16,7 @@ export type FriendshipRelationship = (typeof FriendshipRelationships)[number];
 export interface FriendListItem {
   userId: string;
   nickname: string;
+  country: string | null;
   blitzRating: number;
   online: boolean;
   friendedAt: string; // ISO
@@ -29,6 +30,7 @@ export interface FriendRequestItem {
   friendshipId: string;
   requesterUserId: string;
   requesterNickname: string;
+  requesterCountry: string | null;
   createdAt: string; // ISO
 }
 
@@ -39,6 +41,7 @@ export interface FriendRequestsResponse {
 export interface FriendSearchItem {
   userId: string;
   nickname: string;
+  country: string | null;
   blitzRating: number;
   relationship: FriendshipRelationship;
   /** Set when relationship is pending_inbound — needed to accept the request. */
@@ -56,12 +59,14 @@ export interface FriendRequestedPayload {
   friendshipId: string;
   requesterUserId: string;
   requesterNickname: string;
+  requesterCountry: string | null;
 }
 
 export interface FriendAcceptedPayload {
   friendshipId: string;
   friendUserId: string;
   friendNickname: string;
+  friendCountry: string | null;
 }
 
 export interface FriendDeclinedPayload {
@@ -86,6 +91,7 @@ export interface ChallengeReceivedPayload {
   challengeId: string;
   challengerUserId: string;
   challengerNickname: string;
+  challengerCountry: string | null;
   mode: Mode;
   color: ChallengeColor;
   isRated: boolean;

@@ -1,6 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { useFriendsStore } from "./useFriendsStore";
 import { useChallenge } from "./useChallenge";
+import { UserFlag } from "../profile/UserFlag";
 import { Button } from "../../components/ui/Button";
 
 function RatedBadge({ isRated }: { isRated: boolean }): JSX.Element {
@@ -37,6 +38,10 @@ function ChallengeToastInner(): JSX.Element {
     <div className="fixed top-4 right-4 z-50 bg-surface-overlay backdrop-blur-[16px] border border-border-subtle rounded-xl shadow-lg p-4 max-w-sm w-[calc(100vw-2rem)]">
       <div className="flex items-center gap-2 mb-1">
         <RatedBadge isRated={inboundChallenge.isRated} />
+        <span className="text-sm font-medium text-text-primary">
+          {inboundChallenge.challengerNickname}
+          <UserFlag country={inboundChallenge.challengerCountry} className="ml-1" />
+        </span>
       </div>
       <p className="text-sm text-text-primary">
         {t("inboundChallenge.challenges", {

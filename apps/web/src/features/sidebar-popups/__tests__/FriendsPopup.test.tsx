@@ -21,6 +21,7 @@ import type { FriendListItem } from "@yanchess/shared";
 
 function makeFriend(overrides: Partial<FriendListItem> & { userId: string; nickname: string }): FriendListItem {
   return {
+    country: null,
     blitzRating: 1500,
     online: false,
     friendedAt: new Date().toISOString(),

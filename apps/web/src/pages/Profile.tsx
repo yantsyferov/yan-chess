@@ -9,6 +9,7 @@ import { GameHistorySection } from "../features/history/GameHistorySection";
 import { Card } from "../components/ui/Card";
 import { Button } from "../components/ui/Button";
 import { CountryPicker } from "../features/profile/CountryPicker";
+import { UserFlag } from "../features/profile/UserFlag";
 import { authedFetch } from "../features/auth/apiClient";
 
 export function Profile(): JSX.Element {
@@ -57,7 +58,7 @@ export function Profile(): JSX.Element {
             <Avatar nickname={user.nickname} size="xl" />
           </div>
           <div className="flex flex-col gap-2 flex-1 min-w-0">
-            <h1 className="text-2xl font-semibold text-text-primary truncate">{user.nickname}</h1>
+            <h1 className="text-2xl font-semibold text-text-primary truncate">{user.nickname}<UserFlag country={user.country ?? null} size="md" className="ml-1" /></h1>
             <div className="flex flex-col gap-1">
               <span className="text-xs text-text-muted">{t("identityCard.countryLabel")}</span>
               {user.country == null ? (

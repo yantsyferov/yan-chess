@@ -37,8 +37,8 @@ function makeGame(overrides: Partial<{
     blackRatingAfter: 1484,
     startedAt: new Date("2026-10-11T18:00:00Z"),
     endedAt: new Date("2026-10-11T18:05:00Z"),
-    whiteUser: { nickname: "alice" },
-    blackUser: { nickname: "bob" },
+    whiteUser: { nickname: "alice", country: null },
+    blackUser: { nickname: "bob", country: null },
     ...overrides,
   } as Parameters<typeof service.mapToListItem>[0];
 }
@@ -83,8 +83,8 @@ describe("GameHistoryService.mapToListItem — row-perspective mapping", () => {
       blackRatingAfter: 1484,
       startedAt: new Date("2026-10-11T18:00:00Z"),
       endedAt: new Date("2026-10-11T18:05:00Z"),
-      whiteUser: { nickname: "bob" },
-      blackUser: { nickname: "alice" },
+      whiteUser: { nickname: "bob", country: null },
+      blackUser: { nickname: "alice", country: null },
     } as Parameters<typeof service.mapToListItem>[0];
     const item = service.mapToListItem(row, ALICE_ID);
 

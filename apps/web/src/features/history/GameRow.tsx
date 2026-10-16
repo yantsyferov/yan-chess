@@ -2,6 +2,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import type { GameListItem, GameEndReason } from "@yanchess/shared";
 import { MODE_LABELS } from "../shared/mode-labels";
+import { UserFlag } from "../profile/UserFlag";
 
 function formatDate(iso: string): string {
   return new Date(iso).toLocaleString(undefined, {
@@ -71,7 +72,7 @@ export function GameRow({ item }: GameRowProps): JSX.Element {
       <span className="text-sm text-text-muted w-36 shrink-0">{formatDate(item.startedAt)}</span>
 
       <span className="text-sm text-text-primary grow">
-        {item.opponent.nickname}{" "}
+        {item.opponent.nickname}<UserFlag country={item.opponent.country} className="ml-1" />{" "}
         <span className="text-text-muted">({item.opponent.ratingAfter})</span>
       </span>
 

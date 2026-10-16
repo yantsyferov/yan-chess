@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useFriendsStore } from "../friends/useFriendsStore";
 import { Button } from "../../components/ui/Button";
+import { UserFlag } from "../profile/UserFlag";
 
 const MAX_ROWS = 10;
 
@@ -51,7 +52,7 @@ export function FriendsPopup(): JSX.Element {
                 }`}
                 aria-hidden="true"
               />
-              <span className="text-sm text-text-primary truncate">{friend.nickname}</span>
+              <span className="text-sm text-text-primary truncate">{friend.nickname}<UserFlag country={friend.country} className="ml-1" /></span>
             </button>
           ))}
         </div>

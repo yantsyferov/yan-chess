@@ -19,8 +19,8 @@ type GameWithUsers = {
   blackRatingAfter: number;
   startedAt: Date;
   endedAt: Date;
-  whiteUser: { nickname: string };
-  blackUser: { nickname: string };
+  whiteUser: { nickname: string; country: string | null };
+  blackUser: { nickname: string; country: string | null };
 };
 
 type ListWhereArgs = {
@@ -72,8 +72,8 @@ export class GameHistoryService {
       skip: (effectivePage - 1) * PER_PAGE,
       take: PER_PAGE,
       include: {
-        whiteUser: { select: { nickname: true } },
-        blackUser: { select: { nickname: true } },
+        whiteUser: { select: { nickname: true, country: true } },
+        blackUser: { select: { nickname: true, country: true } },
       },
     });
 
@@ -125,8 +125,10 @@ export class GameHistoryService {
   mapToListItem(game: GameWithUsers, userId: string): GameListItem {
     const playerColor = game.whiteUserId === userId ? "white" : "black";
 
+    const opponentUser = playerColor === "white" ? game.blackUser : game.whiteUser;
     const opponent = {
-      nickname: playerColor === "white" ? game.blackUser.nickname : game.whiteUser.nickname,
+      nickname: opponentUser.nickname,
+      country: opponentUser.country ?? null,
       ratingAfter: playerColor === "white" ? game.blackRatingAfter : game.whiteRatingAfter,
     };
 

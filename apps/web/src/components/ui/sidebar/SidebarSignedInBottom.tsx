@@ -4,6 +4,7 @@ import { Settings, Users, MessageSquare, Bell } from "lucide-react";
 import { useAuthStore } from "../../../features/auth/useAuthStore";
 import { useFriendsStore } from "../../../features/friends/useFriendsStore";
 import { Avatar } from "../Avatar";
+import { UserFlag } from "../../../features/profile/UserFlag";
 import { IconButton } from "../IconButton";
 import { SidebarPopup } from "../../../features/sidebar-popups/SidebarPopup";
 import { SettingsPopup } from "../../../features/sidebar-popups/SettingsPopup";
@@ -26,6 +27,7 @@ export function SidebarSignedInBottom(): JSX.Element {
       >
         <Avatar nickname={user.nickname} size="sm" />
         <span className="text-sm text-text-primary truncate">{user.nickname}</span>
+        <UserFlag country={user.country ?? null} className="ml-1" />
       </Link>
 
       <div className="flex items-center gap-1">

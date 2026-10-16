@@ -44,6 +44,7 @@ interface InboundChallenge {
   challengeId: string;
   challengerUserId: string;
   challengerNickname: string;
+  challengerCountry: string | null;
   mode: Mode;
   color: ChallengeColor;
   isRated: boolean;
@@ -141,6 +142,7 @@ export const useFriendsStore = create<FriendsState>((set, get) => ({
         friendshipId: payload.friendshipId,
         requesterUserId: payload.requesterUserId,
         requesterNickname: payload.requesterNickname,
+        requesterCountry: payload.requesterCountry,
         createdAt: new Date().toISOString(),
       };
       const toastId = `req-${payload.friendshipId}-${Date.now()}`;
@@ -216,6 +218,7 @@ export const useFriendsStore = create<FriendsState>((set, get) => ({
           challengeId: payload.challengeId,
           challengerUserId: payload.challengerUserId,
           challengerNickname: payload.challengerNickname,
+          challengerCountry: payload.challengerCountry,
           mode: payload.mode,
           color: payload.color,
           isRated: payload.isRated,
@@ -434,6 +437,7 @@ export const useFriendsStore = create<FriendsState>((set, get) => ({
     const tentativeFriend: FriendListItem = {
       userId: request.requesterUserId,
       nickname: request.requesterNickname,
+      country: request.requesterCountry,
       blitzRating: 1500,
       online: false,
       friendedAt: new Date().toISOString(),

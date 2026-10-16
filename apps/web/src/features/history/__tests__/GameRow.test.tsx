@@ -23,7 +23,7 @@ function makeItem(overrides: Partial<GameListItem> = {}): GameListItem {
     gameId: "game-abc",
     mode: "Blitz",
     playerColor: "white",
-    opponent: { nickname: "bob", ratingAfter: 1484 },
+    opponent: { nickname: "bob", country: null, ratingAfter: 1484 },
     result: "win",
     endReason: "resignation",
     ratingBefore: 1500,
@@ -87,7 +87,7 @@ describe("GameRow", () => {
   });
 
   it("@regression shows opponent nickname and rating", () => {
-    wrap(makeItem({ opponent: { nickname: "charlie", ratingAfter: 1600 } }));
+    wrap(makeItem({ opponent: { nickname: "charlie", country: null, ratingAfter: 1600 } }));
     expect(screen.getByText(/charlie/)).toBeInTheDocument();
     expect(screen.getByText(/1600/)).toBeInTheDocument();
   });

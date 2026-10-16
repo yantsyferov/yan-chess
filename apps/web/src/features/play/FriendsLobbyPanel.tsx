@@ -5,6 +5,7 @@ import type { FriendListItem } from "@yanchess/shared";
 import { useFriendsStore } from "../friends/useFriendsStore";
 import { InlineChallengeForm } from "./InlineChallengeForm";
 import { Button } from "../../components/ui/Button";
+import { UserFlag } from "../profile/UserFlag";
 import { Card } from "../../components/ui/Card";
 
 type View = "list" | "challenge";
@@ -73,7 +74,7 @@ export function FriendsLobbyPanel(): JSX.Element {
                   aria-hidden="true"
                 />
                 <span className="text-sm font-medium text-text-primary">
-                  {friend.nickname}
+                  {friend.nickname}<UserFlag country={friend.country} className="ml-1" />
                 </span>
               </div>
               <Button

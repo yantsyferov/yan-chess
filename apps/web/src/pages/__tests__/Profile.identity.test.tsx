@@ -108,7 +108,8 @@ describe("Profile identity card", () => {
   it('shows "International" + white flag when user.country is null', () => {
     useAuthStore.setState({ accessToken: "tok", user: baseUser({ country: null }) });
     renderProfile();
-    expect(screen.getByText("🏳", { exact: false })).toBeInTheDocument();
+    const flags = screen.getAllByText("🏳");
+    expect(flags.length).toBeGreaterThanOrEqual(1);
     expect(screen.getByText(/international/i)).toBeInTheDocument();
   });
 
