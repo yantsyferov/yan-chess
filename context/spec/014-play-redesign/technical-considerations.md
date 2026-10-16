@@ -1,7 +1,7 @@
 # Technical Specification: Play Page Redesign
 
 - **Functional Specification:** [`./functional-spec.md`](./functional-spec.md)
-- **Status:** Draft
+- **Status:** Completed
 - **Author(s):** AWOS /awos:tech (orchestrator + react-frontend + nestjs-backend specialists)
 
 ---

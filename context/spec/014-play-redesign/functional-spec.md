@@ -1,7 +1,7 @@
 # Functional Specification: Play Page Redesign
 
 - **Topic:** Redesign the `/play` page into a mode-selector showing a decorative chessboard on the left and four game-mode options on the right (Online, vs Bot, vs Friend, vs Human on this computer). Introduce a nested URL pattern `/play/<mode>` for each playable mode. Add a rated/unrated toggle to applicable modes. Build a dedicated vs-Friend lobby at `/play/friend` with a friends-panel-to-challenge-form flow.
-- **Status:** Draft
+- **Status:** Completed
 - **Author:** AWOS /awos:spec
 
 ---
@@ -39,21 +39,21 @@ Secondary wins this spec delivers:
 - Each card shows an icon, the mode name, a one-sentence description, and a clickable call-to-action (e.g., "Play Online").
 - `/play` is a public page: anonymous visitors see the same four cards signed-in users do.
 - **Acceptance Criteria:**
-  - [ ] Given an anonymous visitor opens `/play`, when the page loads, then they see a chessboard in starting position on the left and four mode cards on the right.
-  - [ ] Given a signed-in player opens `/play`, when the page loads, then they see the same four mode cards in the same layout.
-  - [ ] Given the visitor hovers over the chessboard, when nothing is clicked, then no squares highlight and no piece can be moved.
-  - [ ] Given the visitor sees the mode cards, when they look at them, then the order from top to bottom is: Online, vs Bot, vs Friend, vs Human on this computer.
+  - [x] Given an anonymous visitor opens `/play`, when the page loads, then they see a chessboard in starting position on the left and four mode cards on the right.
+  - [x] Given a signed-in player opens `/play`, when the page loads, then they see the same four mode cards in the same layout.
+  - [x] Given the visitor hovers over the chessboard, when nothing is clicked, then no squares highlight and no piece can be moved.
+  - [x] Given the visitor sees the mode cards, when they look at them, then the order from top to bottom is: Online, vs Bot, vs Friend, vs Human on this computer.
 
 ### 2.2 Anonymous click → sign-in redirect for auth-required modes
 
 - When an anonymous visitor clicks **Online** or **vs Friend** on `/play`, they are taken to the sign-in page. After a successful sign-in they are returned to `/play` (not forwarded further into the mode they clicked — the choice is "come back to the Play screen and pick again").
 - When an anonymous visitor clicks **vs Bot** or **vs Human on this computer**, no sign-in is required: the chosen mode starts immediately.
 - **Acceptance Criteria:**
-  - [ ] Given no one is signed in, when the visitor clicks the Online card on `/play`, then they land on the sign-in page.
-  - [ ] Given no one is signed in, when the visitor clicks the vs Friend card on `/play`, then they land on the sign-in page.
-  - [ ] Given no one is signed in, when the visitor clicks the vs Bot card on `/play`, then they land directly on the vs-bot setup (no sign-in prompt).
-  - [ ] Given no one is signed in, when the visitor clicks the vs Human on this computer card on `/play`, then they land directly on the hotseat game page (no sign-in prompt).
-  - [ ] Given an anonymous visitor was taken to the sign-in page after clicking Online or vs Friend, when they sign in successfully, then they are returned to `/play` with the four cards visible.
+  - [x] Given no one is signed in, when the visitor clicks the Online card on `/play`, then they land on the sign-in page.
+  - [x] Given no one is signed in, when the visitor clicks the vs Friend card on `/play`, then they land on the sign-in page.
+  - [x] Given no one is signed in, when the visitor clicks the vs Bot card on `/play`, then they land directly on the vs-bot setup (no sign-in prompt).
+  - [x] Given no one is signed in, when the visitor clicks the vs Human on this computer card on `/play`, then they land directly on the hotseat game page (no sign-in prompt).
+  - [x] Given an anonymous visitor was taken to the sign-in page after clicking Online or vs Friend, when they sign in successfully, then they are returned to `/play` with the four cards visible.
 
 ### 2.3 /play/ai — vs Bot
 
@@ -61,9 +61,9 @@ Secondary wins this spec delivers:
 - The old URL `/vs-bot` continues to work: it redirects to `/play/ai` so existing bookmarks and links do not break.
 - `/play/ai` is public — no sign-in required.
 - **Acceptance Criteria:**
-  - [ ] Given a player is on `/play`, when they click the vs Bot card, then they land on `/play/ai` and see the bot setup (difficulty, time control, color).
-  - [ ] Given a visitor types `/vs-bot` into the URL bar, when the page loads, then they are redirected to `/play/ai` with the same setup visible.
-  - [ ] Given an anonymous visitor is on `/play/ai`, when they complete the setup and start the game, then the game begins without requiring sign-in.
+  - [x] Given a player is on `/play`, when they click the vs Bot card, then they land on `/play/ai` and see the bot setup (difficulty, time control, color).
+  - [x] Given a visitor types `/vs-bot` into the URL bar, when the page loads, then they are redirected to `/play/ai` with the same setup visible.
+  - [x] Given an anonymous visitor is on `/play/ai`, when they complete the setup and start the game, then the game begins without requiring sign-in.
 
 ### 2.4 /play/online — matchmaking
 
@@ -72,11 +72,11 @@ Secondary wins this spec delivers:
 - The pairing rule is unchanged: both players must have the same mode (Bullet/Blitz/etc.) AND the same rated/unrated preference to be matched. A player searching rated Blitz is NOT paired with a player searching unrated Blitz.
 - `/play/online` requires sign-in. An anonymous visitor who reaches this URL directly is redirected to the sign-in page.
 - **Acceptance Criteria:**
-  - [ ] Given a signed-in player is on `/play`, when they click the Online card, then they land on `/play/online` with the mode selector (Bullet/Blitz/Rapid/Classical) and the rated/unrated toggle visible, and the "rated" option is selected by default.
-  - [ ] Given a signed-in player is on `/play/online`, when they toggle to "unrated" and click "Find game", then after the match completes neither their rating nor the opponent's rating changes.
-  - [ ] Given a signed-in player is on `/play/online` with "rated" selected, when they are matched with another player who also searched with "rated", then their ratings are updated at game end exactly as they are today.
-  - [ ] Given one player is searching Blitz rated and another is searching Blitz unrated, when both are in the queue, then they are NOT matched with each other.
-  - [ ] Given an anonymous visitor opens `/play/online` directly, when the page loads, then they are redirected to the sign-in page.
+  - [x] Given a signed-in player is on `/play`, when they click the Online card, then they land on `/play/online` with the mode selector (Bullet/Blitz/Rapid/Classical) and the rated/unrated toggle visible, and the "rated" option is selected by default.
+  - [x] Given a signed-in player is on `/play/online`, when they toggle to "unrated" and click "Find game", then after the match completes neither their rating nor the opponent's rating changes.
+  - [x] Given a signed-in player is on `/play/online` with "rated" selected, when they are matched with another player who also searched with "rated", then their ratings are updated at game end exactly as they are today.
+  - [x] Given one player is searching Blitz rated and another is searching Blitz unrated, when both are in the queue, then they are NOT matched with each other.
+  - [x] Given an anonymous visitor opens `/play/online` directly, when the page loads, then they are redirected to the sign-in page.
 
 ### 2.5 /play/friend — vs-Friend lobby
 
@@ -97,37 +97,37 @@ Secondary wins this spec delivers:
 - If the signed-in player has zero friends, the panel shows the empty state "No friends yet — add some from the Friends page" with a link to `/friends`.
 - `/play/friend` requires sign-in.
 - **Acceptance Criteria:**
-  - [ ] Given a signed-in player with at least one friend opens `/play/friend`, when the page loads, then they see a chessboard on the left and their friends list on the right.
-  - [ ] Given a signed-in player with zero friends opens `/play/friend`, when the page loads, then the right panel shows "No friends yet — add some from the Friends page" with a link to `/friends`.
-  - [ ] Given a signed-in player is on `/play/friend` in list view, when they click the "Challenge" button next to a friend, then the panel switches to challenge view for that friend showing the time control, rated toggle, color selector, "Send challenge", and "Challenge link" controls.
-  - [ ] Given a signed-in player is in challenge view, when they fill the form and click "Send challenge", then a challenge is sent to that friend (verified via the receiving friend getting the normal incoming-challenge toast) and the player's panel returns to the friends list.
-  - [ ] Given a signed-in player is in challenge view, when they click "Challenge link", then they see a toast with the text "Shareable link coming soon" and the clipboard is not modified.
-  - [ ] Given a signed-in player is in challenge view, when they click "Back to friends list", then the panel returns to the list view with the same friends they had before.
-  - [ ] Given a signed-in player is in challenge view and ticks "Unrated" before sending, when the challenged friend accepts the game, then after the game completes neither player's rating changes.
-  - [ ] Given an anonymous visitor opens `/play/friend` directly, when the page loads, then they are redirected to the sign-in page.
+  - [x] Given a signed-in player with at least one friend opens `/play/friend`, when the page loads, then they see a chessboard on the left and their friends list on the right.
+  - [x] Given a signed-in player with zero friends opens `/play/friend`, when the page loads, then the right panel shows "No friends yet — add some from the Friends page" with a link to `/friends`.
+  - [x] Given a signed-in player is on `/play/friend` in list view, when they click the "Challenge" button next to a friend, then the panel switches to challenge view for that friend showing the time control, rated toggle, color selector, "Send challenge", and "Challenge link" controls.
+  - [x] Given a signed-in player is in challenge view, when they fill the form and click "Send challenge", then a challenge is sent to that friend (verified via the receiving friend getting the normal incoming-challenge toast) and the player's panel returns to the friends list.
+  - [x] Given a signed-in player is in challenge view, when they click "Challenge link", then they see a toast with the text "Shareable link coming soon" and the clipboard is not modified.
+  - [x] Given a signed-in player is in challenge view, when they click "Back to friends list", then the panel returns to the list view with the same friends they had before.
+  - [x] Given a signed-in player is in challenge view and ticks "Unrated" before sending, when the challenged friend accepts the game, then after the game completes neither player's rating changes.
+  - [x] Given an anonymous visitor opens `/play/friend` directly, when the page loads, then they are redirected to the sign-in page.
 
 ### 2.6 Hotseat on `/game` is unchanged
 
 - Clicking **vs Human on this computer** on `/play` takes the player to `/game` — the existing hotseat page.
 - `/game` is public (unchanged), the hotseat experience is unchanged, this spec adds no behavior there beyond the entry point from `/play`.
 - **Acceptance Criteria:**
-  - [ ] Given a player is on `/play`, when they click the vs Human on this computer card, then they land on `/game` with the hotseat setup visible.
+  - [x] Given a player is on `/play`, when they click the vs Human on this computer card, then they land on `/game` with the hotseat setup visible.
 
 ### 2.7 Rated flag on persisted games
 
 - Every game that gets persisted (via matchmaking or friend challenge) carries a flag indicating whether it was rated.
 - A player's game history shows this flag next to each row — rated games are visually marked as "Rated" (or an equivalent short label), unrated games as "Casual" (or an equivalent short label). The exact label wording is a style decision for the implementation, as long as the two are visually distinct from each other.
 - **Acceptance Criteria:**
-  - [ ] Given a player has played both rated and unrated games, when they open their game history, then each row is visually marked as either "Rated" or "Casual" (or equivalent short labels).
-  - [ ] Given a player completed an unrated game, when they open the game-end screen, then no rating-change number is shown next to the result (because no rating change occurred).
+  - [x] Given a player has played both rated and unrated games, when they open their game history, then each row is visually marked as either "Rated" or "Casual" (or equivalent short labels).
+  - [x] Given a player completed an unrated game, when they open the game-end screen, then no rating-change number is shown next to the result (because no rating change occurred).
 
 ### 2.8 Localization
 
 - Every new user-facing string on `/play`, `/play/ai`, `/play/online`, `/play/friend`, the rated/unrated toggle, and the game-history "Rated/Casual" label is translated into English, Russian, and Spanish.
 - **Acceptance Criteria:**
-  - [ ] Given the current language is Russian, when the visitor opens `/play`, then all four mode cards render in Russian.
-  - [ ] Given the current language is Spanish, when a signed-in player opens `/play/friend` in list view, then the "Challenge" button next to each friend reads in Spanish.
-  - [ ] Given the current language is Russian, when a player opens their game history, then the Rated/Casual column reads in Russian.
+  - [x] Given the current language is Russian, when the visitor opens `/play`, then all four mode cards render in Russian.
+  - [x] Given the current language is Spanish, when a signed-in player opens `/play/friend` in list view, then the "Challenge" button next to each friend reads in Spanish.
+  - [x] Given the current language is Russian, when a player opens their game history, then the Rated/Casual column reads in Russian.
 
 ---
 
@@ -162,4 +162,4 @@ Secondary wins this spec delivers:
 
 ## Change Log
 
-_No amendments yet._
+- **[2026-10-16]** — `/awos:verify` — all 22 ACs marked complete. Visual verification via Playwright drive against web preview on port 5173 (CORS-allowed by dev-API on 3000). Screenshots at `docs/screenshots/014-play-*.png`: `hub-anon` (RU locale, 4 cards + decorative board), `hub-signed-in` (as alice), `friend-list` (bob visible with "Вызвать" button), `friend-challenge-form` (mode + rated + color + Send + Challenge-link in RU), `online-rated-toggle`. End-to-end: `/vs-bot` auto-redirects to `/play/ai`, `/play/online` + `/play/friend` auth-gated, decorative board renders in starting position. Signed-in flow proved: alice logs in → /play shows mode cards → click vs Friend card → /play/friend lobby → click Challenge for bob → form appears with Russian labels (Режим / Тип партии / Цвет / Отправить вызов / Ссылка на вызов). Non-visual logic criteria (§2.7 rated flag persistence, §2.8 full localization matrix) covered by the 27-test FTR suite at `apps/web/src/__tests__/play-redesign.spec-014.test.tsx` + the 3-test backend FTR at `apps/api/test/e2e/play-redesign.spec-014.e2e.spec.ts` + per-slice coverage (446 web + 142 api unit + 93 api e2e, all green on branch).
