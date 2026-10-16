@@ -1,5 +1,5 @@
 import { lazy, Suspense, useEffect } from "react";
-import { Routes, Route, Outlet } from "react-router-dom";
+import { Routes, Route, Navigate, Outlet } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { Home } from "./pages/Home";
 import { Register } from "./pages/Register";
@@ -15,7 +15,7 @@ import { wireOnlineGameSocket, useOnlineGameStore } from "./features/online/useO
 import { FriendsNotificationLayer } from "./features/friends/FriendsNotificationLayer";
 
 const Game = lazy(() => import("./pages/Game"));
-const Play = lazy(() => import("./pages/Play").then((m) => ({ default: m.Play })));
+const PlayOnline = lazy(() => import("./pages/PlayOnline").then((m) => ({ default: m.PlayOnline })));
 const VsBot = lazy(() => import("./pages/VsBot").then((m) => ({ default: m.VsBot })));
 const HistoryReplay = lazy(() =>
   import("./pages/HistoryReplay").then((m) => ({ default: m.HistoryReplay })),
@@ -71,6 +71,19 @@ export function AppRoutes(): JSX.Element {
         }
       />
 
+      {/* Public: VsBot at /play/ai */}
+      <Route
+        path="/play/ai"
+        element={
+          <Suspense fallback={SUSPENSE_FALLBACK}>
+            <VsBot />
+          </Suspense>
+        }
+      />
+
+      {/* Permanent redirect: /vs-bot → /play/ai */}
+      <Route path="/vs-bot" element={<Navigate to="/play/ai" replace />} />
+
       {/* Authenticated layout — wires sockets + renders global notification layer */}
       <Route element={<ProtectedRoute><AuthenticatedLayout /></ProtectedRoute>}>
         <Route path="/" element={<Home />} />
@@ -79,15 +92,15 @@ export function AppRoutes(): JSX.Element {
           path="/play"
           element={
             <Suspense fallback={SUSPENSE_FALLBACK}>
-              <Play />
+              <PlayOnline />
             </Suspense>
           }
         />
         <Route
-          path="/vs-bot"
+          path="/play/online"
           element={
             <Suspense fallback={SUSPENSE_FALLBACK}>
-              <VsBot />
+              <PlayOnline />
             </Suspense>
           }
         />

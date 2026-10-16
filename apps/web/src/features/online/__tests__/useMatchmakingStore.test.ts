@@ -40,7 +40,7 @@ describe("useMatchmakingStore – joinQueue", () => {
     expect(state.phase).toBe("searching");
     expect(state.mode).toBe("Blitz");
     expect(state.since).not.toBeNull();
-    expect(emitMock).toHaveBeenCalledWith("queue.join", { mode: "Blitz" });
+    expect(emitMock).toHaveBeenCalledWith("queue.join", { mode: "Blitz", isRated: true });
   });
 
   it("negative: after joinQueue, phase is NOT idle", () => {

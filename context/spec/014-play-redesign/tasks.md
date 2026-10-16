@@ -59,18 +59,18 @@ Agents: `react-frontend`, `nestjs-backend`, `postgres-redis-data`, `testing-expe
 
 ---
 
-- [ ] **Slice 5: Route restructure — /play/ai + /play/online + /vs-bot redirect**
+- [x] **Slice 5: Route restructure — /play/ai + /play/online + /vs-bot redirect**
 
   > Move current `/play` content → `/play/online` (protected). Move current `/vs-bot` → `/play/ai` (public, drops auth gate). Add `/vs-bot` permanent redirect. `/play` still shows old matchmaking screen in this slice (will be replaced in slice 6).
 
-  - [ ] Create `apps/web/src/pages/PlayOnline.tsx` by extracting content from `apps/web/src/pages/Play.tsx`. Add local `const [isRated, setIsRated] = useState(true)` state + two-button segmented control (localized via `play.online.rated.*` keys) + pass `isRated` into `useMatchmakingStore.joinQueue(...)`. **[Agent: react-frontend]**
-  - [ ] Amend `apps/web/src/features/matchmaking/useMatchmakingStore.ts` — `joinQueue(mode, isRated)` sends new flag over socket. **[Agent: react-frontend]**
-  - [ ] Add `play.online.rated.{label,rated,casual}` keys to `apps/web/src/i18n/locales/{en,ru,es}/game.json`. **[Agent: react-frontend]**
-  - [ ] Amend `apps/web/src/routes.tsx` — add `/play/online` route (protected, mounts `PlayOnline`); add `/play/ai` route (PUBLIC, mounts `VsBot`); add `/vs-bot` route rendering `<Navigate to="/play/ai" replace />`. Keep `/play` temporarily pointing at `PlayOnline` for continuity until slice 6 replaces it. **[Agent: react-frontend]**
-  - [ ] Delete `apps/web/src/pages/Play.tsx` (content now in PlayOnline.tsx). **[Agent: react-frontend]**
-  - [ ] Grep `apps/web/src/**/__tests__/**` for `/vs-bot` string literals and update to `/play/ai`. **[Agent: react-frontend]**
-  - [ ] Add `apps/web/src/__tests__/routes.014-redirect.test.tsx` — `MemoryRouter initialEntries={['/vs-bot']}` → page shows VsBot content (redirect worked); `initialEntries={['/play/online']}` without auth → redirects to /login; `initialEntries={['/play/ai']}` without auth → renders VsBot (no redirect). **[Agent: react-frontend]**
-  - [ ] Verify: `pnpm --filter web test -- --run` passes; dev-start, open http://localhost:5173/vs-bot — should redirect to /play/ai; open /play/ai without login — bot setup visible; open /play/online without login — redirect to /login. Stop services, delete ephemeral artifacts. **[Agent: general-purpose]**
+  - [x] Create `apps/web/src/pages/PlayOnline.tsx` by extracting content from `apps/web/src/pages/Play.tsx`. Add local `const [isRated, setIsRated] = useState(true)` state + two-button segmented control (localized via `play.online.rated.*` keys) + pass `isRated` into `useMatchmakingStore.joinQueue(...)`. **[Agent: react-frontend]**
+  - [x] Amend `apps/web/src/features/matchmaking/useMatchmakingStore.ts` — `joinQueue(mode, isRated)` sends new flag over socket. **[Agent: react-frontend]**
+  - [x] Add `play.online.rated.{label,rated,casual}` keys to `apps/web/src/i18n/locales/{en,ru,es}/game.json`. **[Agent: react-frontend]**
+  - [x] Amend `apps/web/src/routes.tsx` — add `/play/online` route (protected, mounts `PlayOnline`); add `/play/ai` route (PUBLIC, mounts `VsBot`); add `/vs-bot` route rendering `<Navigate to="/play/ai" replace />`. Keep `/play` temporarily pointing at `PlayOnline` for continuity until slice 6 replaces it. **[Agent: react-frontend]**
+  - [x] Delete `apps/web/src/pages/Play.tsx` (content now in PlayOnline.tsx). **[Agent: react-frontend]**
+  - [x] Grep `apps/web/src/**/__tests__/**` for `/vs-bot` string literals and update to `/play/ai`. **[Agent: react-frontend]**
+  - [x] Add `apps/web/src/__tests__/routes.014-redirect.test.tsx` — `MemoryRouter initialEntries={['/vs-bot']}` → page shows VsBot content (redirect worked); `initialEntries={['/play/online']}` without auth → redirects to /login; `initialEntries={['/play/ai']}` without auth → renders VsBot (no redirect). **[Agent: react-frontend]**
+  - [x] Verify: `pnpm --filter web test -- --run` passes; dev-start, open http://localhost:5173/vs-bot — should redirect to /play/ai; open /play/ai without login — bot setup visible; open /play/online without login — redirect to /login. Stop services, delete ephemeral artifacts. **[Agent: general-purpose]**
 
 ---
 

@@ -71,7 +71,7 @@ describe("useMatchmakingStore – pendingNavigate wiring", () => {
 
   it("joinQueue emits queue.join socket event with the correct mode", () => {
     useMatchmakingStore.getState().joinQueue("Blitz");
-    expect(mockSocketEmit).toHaveBeenCalledWith("queue.join", { mode: "Blitz" });
+    expect(mockSocketEmit).toHaveBeenCalledWith("queue.join", { mode: "Blitz", isRated: true });
   });
 
   it("leaveQueue emits queue.leave socket event", () => {
