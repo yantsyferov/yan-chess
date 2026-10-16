@@ -91,6 +91,27 @@
     }
   },
   "play": {
+    "hub": {
+      "title": "How do you want to play?"
+    },
+    "modeCard": {
+      "online": {
+        "title": "Online",
+        "description": "Find a human opponent at your level."
+      },
+      "ai": {
+        "title": "vs Bot",
+        "description": "Train against the computer."
+      },
+      "friend": {
+        "title": "vs Friend",
+        "description": "Challenge a friend to a game."
+      },
+      "hotseat": {
+        "title": "vs Human on this computer",
+        "description": "Two players, one board."
+      }
+    },
     "online": {
       "rated": {
         "label": "Game type",

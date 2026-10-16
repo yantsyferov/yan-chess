@@ -74,14 +74,14 @@ Agents: `react-frontend`, `nestjs-backend`, `postgres-redis-data`, `testing-expe
 
 ---
 
-- [ ] **Slice 6: /play becomes the mode-selector hub (PlayHub)**
+- [x] **Slice 6: /play becomes the mode-selector hub (PlayHub)**
 
   > Decorative board + 4 mode cards replace the old matchmaking screen at /play. Anonymous click on Online + vs Friend → /login. Bot + Hotseat work directly.
 
-  - [ ] Create `apps/web/src/features/play/ModeCard.tsx` — props `{ icon: LucideIcon, titleKey, descriptionKey, ctaKey, to, requiresAuth, isAuthenticated }`. When `requiresAuth && !isAuthenticated` the card renders `<Link to="/login">`, else `<Link to={to}>`. **[Agent: react-frontend]**
-  - [ ] Create `apps/web/src/pages/PlayHub.tsx` — layout: `flex md:flex-row flex-col gap-6`. Left: `<Board fen={START_FEN} canInteract={false} {...stubs} />` (fixed `md:w-[400px]`). Right: 4 `<ModeCard>` in order Online / vs Bot / vs Friend / Hotseat (lucide icons `Globe`/`Bot`/`Users`/`Monitor`). Reads `useAuthStore(s => s.user)` for `isAuthenticated`. **[Agent: react-frontend]**
-  - [ ] Add `play.hub.title` + `play.modeCard.{online,ai,friend,hotseat}.{title,description}` keys to `apps/web/src/i18n/locales/{en,ru,es}/game.json`. **[Agent: react-frontend]**
-  - [ ] Amend `apps/web/src/routes.tsx` — `/play` route now **public** (outside `<AuthenticatedLayout>`), mounts `PlayHub`. Keep `/play/online` as the protected matchmaking route from slice 5. **[Agent: react-frontend]**
+  - [x] Create `apps/web/src/features/play/ModeCard.tsx` — props `{ icon: LucideIcon, titleKey, descriptionKey, ctaKey, to, requiresAuth, isAuthenticated }`. When `requiresAuth && !isAuthenticated` the card renders `<Link to="/login">`, else `<Link to={to}>`. **[Agent: react-frontend]**
+  - [x] Create `apps/web/src/pages/PlayHub.tsx` — layout: `flex md:flex-row flex-col gap-6`. Left: `<Board fen={START_FEN} canInteract={false} {...stubs} />` (fixed `md:w-[400px]`). Right: 4 `<ModeCard>` in order Online / vs Bot / vs Friend / Hotseat (lucide icons `Globe`/`Bot`/`Users`/`Monitor`). Reads `useAuthStore(s => s.user)` for `isAuthenticated`. **[Agent: react-frontend]**
+  - [x] Add `play.hub.title` + `play.modeCard.{online,ai,friend,hotseat}.{title,description}` keys to `apps/web/src/i18n/locales/{en,ru,es}/game.json`. **[Agent: react-frontend]**
+  - [x] Amend `apps/web/src/routes.tsx` — `/play` route now **public** (outside `<AuthenticatedLayout>`), mounts `PlayHub`. Keep `/play/online` as the protected matchmaking route from slice 5. **[Agent: react-frontend]**
   - [ ] Add `apps/web/src/pages/__tests__/PlayHub.test.tsx` — 4 cards in order; anon user: Online href=/login + Bot href=/play/ai + Friend href=/login + Hotseat href=/game; signed-in: Online href=/play/online + Friend href=/play/friend. RED-validate one card by swapping its `to` href. **[Agent: react-frontend]**
   - [ ] Verify: `pnpm --filter web test -- --run src/pages/__tests__/PlayHub.test.tsx` passes; `pnpm --filter web build` green; dev-start, open /play as anonymous → see 4 cards + decorative board; click Bot card → /play/ai; click Online card → /login; sign in as alice, revisit /play → still 4 cards; click Online → /play/online. Screenshot `docs/screenshots/014-play-hub-anon.png` + `014-play-hub-signed-in.png`. Stop services. **[Agent: general-purpose]**
 

@@ -91,6 +91,27 @@
     }
   },
   "play": {
+    "hub": {
+      "title": "¿Cómo quieres jugar?"
+    },
+    "modeCard": {
+      "online": {
+        "title": "En línea",
+        "description": "Encuentra un oponente de tu nivel."
+      },
+      "ai": {
+        "title": "vs Bot",
+        "description": "Entrena contra la computadora."
+      },
+      "friend": {
+        "title": "vs Amigo",
+        "description": "Desafía a un amigo a jugar."
+      },
+      "hotseat": {
+        "title": "vs Humano en esta computadora",
+        "description": "Dos jugadores, un tablero."
+      }
+    },
     "online": {
       "rated": {
         "label": "Tipo de partida",

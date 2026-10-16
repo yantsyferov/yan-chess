@@ -15,6 +15,7 @@ import { wireOnlineGameSocket, useOnlineGameStore } from "./features/online/useO
 import { FriendsNotificationLayer } from "./features/friends/FriendsNotificationLayer";
 
 const Game = lazy(() => import("./pages/Game"));
+const PlayHub = lazy(() => import("./pages/PlayHub").then((m) => ({ default: m.PlayHub })));
 const PlayOnline = lazy(() => import("./pages/PlayOnline").then((m) => ({ default: m.PlayOnline })));
 const VsBot = lazy(() => import("./pages/VsBot").then((m) => ({ default: m.VsBot })));
 const HistoryReplay = lazy(() =>
@@ -71,6 +72,16 @@ export function AppRoutes(): JSX.Element {
         }
       />
 
+      {/* Public: PlayHub mode-selector at /play */}
+      <Route
+        path="/play"
+        element={
+          <Suspense fallback={SUSPENSE_FALLBACK}>
+            <PlayHub />
+          </Suspense>
+        }
+      />
+
       {/* Public: VsBot at /play/ai */}
       <Route
         path="/play/ai"
@@ -88,14 +99,6 @@ export function AppRoutes(): JSX.Element {
       <Route element={<ProtectedRoute><AuthenticatedLayout /></ProtectedRoute>}>
         <Route path="/" element={<Home />} />
         <Route path="/profile" element={<Profile />} />
-        <Route
-          path="/play"
-          element={
-            <Suspense fallback={SUSPENSE_FALLBACK}>
-              <PlayOnline />
-            </Suspense>
-          }
-        />
         <Route
           path="/play/online"
           element={
