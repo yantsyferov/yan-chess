@@ -73,6 +73,14 @@
       "emptyBody": "Find and add friends to see them here.",
       "findFriendsButton": "Find friends",
       "openFullPage": "Open full Friends page"
+    },
+    "chat": {
+      "title": "Chat coming soon",
+      "description": "Direct messages between friends are on the roadmap."
+    },
+    "notifications": {
+      "title": "Notifications",
+      "emptyState": "You're all caught up."
     }
   },
   "notFound": {

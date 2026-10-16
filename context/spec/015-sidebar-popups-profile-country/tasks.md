@@ -81,12 +81,12 @@ Agents: `react-frontend`, `nestjs-backend`, `postgres-redis-data`, `testing-expe
 
 ---
 
-- [ ] **Slice 7: Chat + Notifications placeholder popups**
+- [x] **Slice 7: Chat + Notifications placeholder popups**
 
   > Both are "coming soon" / "empty state" placeholders — no real data wired. Chat icon stops being visibly disabled.
 
-  - [ ] Create `apps/web/src/features/sidebar-popups/ChatPopup.tsx` — speech-bubble icon + heading "Chat coming soon" + description text. No input field. **[Agent: react-frontend]**
-  - [ ] Create `apps/web/src/features/sidebar-popups/NotificationsPopup.tsx` — header "Notifications" + bell icon + empty state "You're all caught up." **[Agent: react-frontend]**
+  - [x] Create `apps/web/src/features/sidebar-popups/ChatPopup.tsx` — speech-bubble icon + heading "Chat coming soon" + description text. No input field. **[Agent: react-frontend]**
+  - [x] Create `apps/web/src/features/sidebar-popups/NotificationsPopup.tsx` — header "Notifications" + bell icon + empty state "You're all caught up." **[Agent: react-frontend]**
   - [ ] Amend `SidebarSignedInBottom.tsx` — wrap Chat icon with SidebarPopup containing ChatPopup; REMOVE the `cursor-not-allowed pointer-events-none opacity-50` classes added in spec 013 (icon becomes clickable). Wrap Notifications icon with SidebarPopup containing NotificationsPopup. **[Agent: react-frontend]**
   - [ ] Add i18n keys to `common.json` — `popups.chat.{title,description}`, `popups.notifications.{title,emptyState}`. **[Agent: react-frontend]**
   - [ ] Add `apps/web/src/features/sidebar-popups/__tests__/ChatPopup.test.tsx` + `NotificationsPopup.test.tsx` — content renders; Chat icon is enabled (no cursor-not-allowed class). RED validate Chat enable. **[Agent: react-frontend]**

@@ -8,8 +8,8 @@ import { IconButton } from "../IconButton";
 import { SidebarPopup } from "../../../features/sidebar-popups/SidebarPopup";
 import { SettingsPopup } from "../../../features/sidebar-popups/SettingsPopup";
 import { FriendsPopup } from "../../../features/sidebar-popups/FriendsPopup";
-import { ChatPopupStub } from "../../../features/sidebar-popups/ChatPopupStub";
-import { NotificationsPopupStub } from "../../../features/sidebar-popups/NotificationsPopupStub";
+import { ChatPopup } from "../../../features/sidebar-popups/ChatPopup";
+import { NotificationsPopup } from "../../../features/sidebar-popups/NotificationsPopup";
 
 export function SidebarSignedInBottom(): JSX.Element {
   const { t } = useTranslation("common");
@@ -78,7 +78,7 @@ export function SidebarSignedInBottom(): JSX.Element {
             </IconButton>
           }
         >
-          <ChatPopupStub />
+          <ChatPopup />
         </SidebarPopup>
 
         <SidebarPopup
@@ -93,7 +93,7 @@ export function SidebarSignedInBottom(): JSX.Element {
             </IconButton>
           }
         >
-          <NotificationsPopupStub />
+          <NotificationsPopup />
         </SidebarPopup>
       </div>
     </div>

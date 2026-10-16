@@ -73,6 +73,14 @@
       "emptyBody": "Encuentra y añade amigos para verlos aquí.",
       "findFriendsButton": "Buscar amigos",
       "openFullPage": "Abrir página de Amigos"
+    },
+    "chat": {
+      "title": "Chat próximamente",
+      "description": "Los mensajes directos entre amigos están en la hoja de ruta."
+    },
+    "notifications": {
+      "title": "Notificaciones",
+      "emptyState": "Estás al día."
     }
   },
   "notFound": {
