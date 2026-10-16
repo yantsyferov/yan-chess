@@ -44,14 +44,14 @@ Agents: `react-frontend`, `nestjs-backend`, `postgres-redis-data`, `testing-expe
 
 ---
 
-- [ ] **Slice 4: Profile page redesign — identity card + CountryPicker save-on-change**
+- [x] **Slice 4: Profile page redesign — identity card + CountryPicker save-on-change**
 
   > Restructure /profile with identity card (avatar + nickname + CountryPicker) at top, ratings below, history below. CountryPicker saves immediately on change via PATCH /users/me. "International" + 🏳 shown for NULL country.
 
-  - [ ] Amend `apps/web/src/pages/Profile.tsx` — new top section: identity card with avatar (existing Avatar placeholder), nickname, CountryPicker reading `user.country`. On CountryPicker change: call `authedFetch` PATCH /users/me { country: code }. "International" + 🏳 + localized text when country is null. **[Agent: react-frontend]**
-  - [ ] Add i18n keys to `apps/web/src/i18n/locales/{en,ru,es}/profile.json` — `identityCard.{countryLabel,saved,international,avatarComingSoon}`. **[Agent: react-frontend]**
-  - [ ] Extend `apps/web/src/pages/__tests__/` — new `Profile.identity.test.tsx` or extend existing. Identity card renders; CountryPicker shows current country; selecting new country calls PATCH; "International" shown when null. RED-validate. **[Agent: react-frontend]**
-  - [ ] Verify: `pnpm --filter web test -- --run src/pages/__tests__/` passes; dev-start, sign in as alice, visit /profile, confirm identity card at top with avatar + nickname + country selector (NULL → International), change country to Spain → page updates, reload → country still Spain. Stop preview. **[Agent: general-purpose]**
+  - [x] Amend `apps/web/src/pages/Profile.tsx` — new top section: identity card with avatar (existing Avatar placeholder), nickname, CountryPicker reading `user.country`. On CountryPicker change: call `authedFetch` PATCH /users/me { country: code }. "International" + 🏳 + localized text when country is null. **[Agent: react-frontend]**
+  - [x] Add i18n keys to `apps/web/src/i18n/locales/{en,ru,es}/profile.json` — `identityCard.{countryLabel,saved,international,avatarComingSoon}`. **[Agent: react-frontend]**
+  - [x] Extend `apps/web/src/pages/__tests__/` — new `Profile.identity.test.tsx` or extend existing. Identity card renders; CountryPicker shows current country; selecting new country calls PATCH; "International" shown when null. RED-validate. **[Agent: react-frontend]**
+  - [x] Verify: `pnpm --filter web test -- --run src/pages/__tests__/` passes; dev-start, sign in as alice, visit /profile, confirm identity card at top with avatar + nickname + country selector (NULL → International), change country to Spain → page updates, reload → country still Spain. Stop preview. **[Agent: general-purpose]**
 
 ---
 

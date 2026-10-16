@@ -66,6 +66,7 @@ describe("fetchMe → lang merge", () => {
       nickname: "Tester",
       email: "t@t.com",
       createdAt: new Date().toISOString(),
+      country: null,
     });
 
     await fetchMe();
@@ -107,6 +108,7 @@ describe("fetchMe → lang merge", () => {
       nickname: "Tester",
       email: "t@t.com",
       createdAt: new Date().toISOString(),
+      country: null,
     });
 
     await fetchMe();

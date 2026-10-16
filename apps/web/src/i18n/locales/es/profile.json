@@ -4,5 +4,11 @@
   "ratingsTitle": "Clasificación",
   "historyTitle": "Historial de partidas",
   "signOut": "Cerrar sesión",
-  "loading": "Cargando…"
+  "loading": "Cargando…",
+  "identityCard": {
+    "countryLabel": "País",
+    "saved": "Guardado",
+    "international": "Internacional",
+    "avatarComingSoon": "Carga de avatar próximamente"
+  }
 }

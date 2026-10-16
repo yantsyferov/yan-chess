@@ -4,5 +4,11 @@
   "ratingsTitle": "Rating",
   "historyTitle": "Game history",
   "signOut": "Sign out",
-  "loading": "Loading…"
+  "loading": "Loading…",
+  "identityCard": {
+    "countryLabel": "Country",
+    "saved": "Saved",
+    "international": "International",
+    "avatarComingSoon": "Avatar upload coming soon"
+  }
 }

@@ -45,6 +45,7 @@ const mockUser: AuthUser = {
   nickname: "TestUser",
   email: "test@example.com",
   createdAt: "2024-01-01T00:00:00Z",
+  country: null,
 };
 
 let _storeUser: AuthUser | null = null;

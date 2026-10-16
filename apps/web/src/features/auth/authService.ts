@@ -174,6 +174,7 @@ export async function fetchMe(): Promise<AuthUser | null> {
     createdAt: string;
     avatar: null;
     lang: Lang | null;
+    country: string | null;
     ratings: import("./useAuthStore").Rating[];
   };
   const user: AuthUser = {
@@ -182,6 +183,7 @@ export async function fetchMe(): Promise<AuthUser | null> {
     email: u.email,
     createdAt: u.createdAt,
     ratings: u.ratings,
+    country: u.country ?? null,
   };
   if (token) useAuthStore.getState().setSession(token, user);
   if (u.lang !== null && u.lang !== undefined) {
