@@ -28,7 +28,7 @@ export function AppShell({ children }: { children: ReactNode }): JSX.Element {
   }
 
   return (
-    <div className="flex min-h-screen">
+    <div className="flex h-screen overflow-hidden">
       <div className="hidden md:flex">
         <Sidebar />
       </div>
