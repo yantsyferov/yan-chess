@@ -27,18 +27,18 @@ Baseline: 508 web tests, 141 api unit, api e2e unaffected (no backend touch).
 
 ---
 
-- [ ] **Slice 2: Extract `OnlineStatusDot` + `RatedBadge` + consolidate migration**
+- [x] **Slice 2: Extract `OnlineStatusDot` + `RatedBadge` + consolidate migration**
 
   > Two small primitives + make UserIdentity use the extracted OnlineStatusDot. Move RatedBadge out of ChallengeToast into components/ui and reuse in GameRow.
 
-  - [ ] Create `apps/web/src/components/ui/OnlineStatusDot.tsx` — `<OnlineStatusDot online size?='sm'|'md' className? />`. **[Agent: react-frontend]**
-  - [ ] Add `apps/web/src/components/ui/__tests__/OnlineStatusDot.test.tsx` — online → green class, offline → grey class, size prop applies width/height class. **[Agent: react-frontend]**
-  - [ ] Create `apps/web/src/components/ui/RatedBadge.tsx` — moved from `features/friends/ChallengeToast.tsx` local `RatedBadge` component. `<RatedBadge isRated size?='sm'|'md' />`. **[Agent: react-frontend]**
-  - [ ] Add `apps/web/src/components/ui/__tests__/RatedBadge.test.tsx` — Rated label when isRated=true, Casual when false, correct styling per state. **[Agent: react-frontend]**
-  - [ ] Migrate `features/friends/ChallengeToast.tsx` — remove local RatedBadge, import from `components/ui/RatedBadge`. **[Agent: react-frontend]**
-  - [ ] Migrate `features/history/GameRow.tsx` — replace the inline Rated/Casual span with `<RatedBadge isRated={game.isRated} />`. **[Agent: react-frontend]**
-  - [ ] Migrate `features/profile/UserIdentity.tsx` + all 5 original OnlineStatusDot inline sites (FriendsPopup, FriendCard, OnlineBoard, InlineChallengeForm, FriendsLobbyPanel) — replace inline dot JSX with `<OnlineStatusDot online size="sm|md" />`. UserIdentity now imports OnlineStatusDot. **[Agent: react-frontend]**
-  - [ ] Verify: tests + build green. **[Agent: react-frontend]**
+  - [x] Create `apps/web/src/components/ui/OnlineStatusDot.tsx` — `<OnlineStatusDot online size?='sm'|'md' className? />`. **[Agent: react-frontend]**
+  - [x] Add `apps/web/src/components/ui/__tests__/OnlineStatusDot.test.tsx` — online → green class, offline → grey class, size prop applies width/height class. **[Agent: react-frontend]**
+  - [x] Create `apps/web/src/components/ui/RatedBadge.tsx` — moved from `features/friends/ChallengeToast.tsx` local `RatedBadge` component. `<RatedBadge isRated size?='sm'|'md' />`. **[Agent: react-frontend]**
+  - [x] Add `apps/web/src/components/ui/__tests__/RatedBadge.test.tsx` — Rated label when isRated=true, Casual when false, correct styling per state. **[Agent: react-frontend]**
+  - [x] Migrate `features/friends/ChallengeToast.tsx` — remove local RatedBadge, import from `components/ui/RatedBadge`. **[Agent: react-frontend]**
+  - [x] Migrate `features/history/GameRow.tsx` — replace the inline Rated/Casual span with `<RatedBadge isRated={game.isRated} />`. **[Agent: react-frontend]**
+  - [x] Migrate `features/profile/UserIdentity.tsx` + all 5 original OnlineStatusDot inline sites (FriendsPopup, FriendCard, OnlineBoard, InlineChallengeForm, FriendsLobbyPanel) — replace inline dot JSX with `<OnlineStatusDot online size="sm|md" />`. UserIdentity now imports OnlineStatusDot. **[Agent: react-frontend]**
+  - [x] Verify: tests + build green. **[Agent: react-frontend]**
 
 ---
 

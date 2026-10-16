@@ -1,4 +1,5 @@
 import { UserFlag } from "./UserFlag";
+import { OnlineStatusDot } from "../../components/ui/OnlineStatusDot";
 
 interface UserIdentityProps {
   nickname: string;
@@ -22,13 +23,7 @@ export function UserIdentity({
   return (
     <span className={`inline-flex items-center gap-1.5 ${className}`}>
       {online !== undefined && (
-        // Inline dot for Slice 1; Slice 2 swaps for <OnlineStatusDot>
-        <span
-          aria-label={online ? "online" : "offline"}
-          className={`inline-block w-2 h-2 rounded-full ${
-            online ? "bg-success" : "border border-text-muted"
-          }`}
-        />
+        <OnlineStatusDot online={online} size={size === "md" ? "md" : "sm"} />
       )}
       <span className={textSize}>{nickname}</span>
       <UserFlag country={country} size={size === "sm" ? "sm" : "md"} />
