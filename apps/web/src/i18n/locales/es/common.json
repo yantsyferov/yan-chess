@@ -41,6 +41,18 @@
     "widensAfter": "Buscamos un jugador con clasificación similar. Si no se encuentra en 10 segundos, el rango se amplía.",
     "cancel": "Cancelar"
   },
+  "sidebar": {
+    "play": "Jugar",
+    "settings": "Ajustes",
+    "friends": "Amigos",
+    "chat": "Chat",
+    "notifications": "Notificaciones",
+    "logout": "Cerrar sesión",
+    "theme": "Tema",
+    "logoAriaLabel": "YanChess — inicio",
+    "openMenu": "Abrir menú",
+    "closeMenu": "Cerrar menú"
+  },
   "notFound": {
     "title": "Página no encontrada",
     "body": "La página que buscas no existe.",

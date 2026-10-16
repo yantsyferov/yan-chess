@@ -1,7 +1,7 @@
 # Functional Specification: Sidebar Layout
 
 - **Topic:** Replace the horizontal top-of-page header with a vertical left sidebar that stays visible across all main pages, hide the sidebar entirely on the five authentication-flow pages (sign in, sign up, verify email, forgot password, reset password), and change the language switcher to show the current language as a full word in its own alphabet ("English", "Русский", "Español").
-- **Status:** Draft
+- **Status:** Completed
 - **Author:** AWOS /awos:spec
 
 ---
@@ -32,12 +32,12 @@ The language switcher is also updated: instead of a two-letter code (`EN` / `RU`
 - The sidebar is **not shown** on the five auth-flow pages: sign in, sign up, verify email, forgot password, reset password. These pages render as a full-width centered form on an otherwise blank background.
 - The top horizontal header that exists today disappears across the whole product.
 - **Acceptance Criteria:**
-  - [ ] Given the visitor is on the home page, when it loads, then they see a vertical sidebar on the left and no horizontal header at the top.
-  - [ ] Given the visitor is on the Play page, when it loads, then the sidebar is visible on the left.
-  - [ ] Given a signed-in user is on their Profile page, when it loads, then the sidebar is visible on the left.
-  - [ ] Given the visitor opens the sign-in page, when it loads, then the sidebar is NOT visible — only the sign-in form on an otherwise clean background.
-  - [ ] Given the visitor opens the sign-up page, when it loads, then the sidebar is NOT visible.
-  - [ ] Given the visitor opens any of the three email-flow pages (verify email, forgot password, reset password), when they load, then the sidebar is NOT visible.
+  - [x] Given the visitor is on the home page, when it loads, then they see a vertical sidebar on the left and no horizontal header at the top.
+  - [x] Given the visitor is on the Play page, when it loads, then the sidebar is visible on the left.
+  - [x] Given a signed-in user is on their Profile page, when it loads, then the sidebar is visible on the left.
+  - [x] Given the visitor opens the sign-in page, when it loads, then the sidebar is NOT visible — only the sign-in form on an otherwise clean background.
+  - [x] Given the visitor opens the sign-up page, when it loads, then the sidebar is NOT visible.
+  - [x] Given the visitor opens any of the three email-flow pages (verify email, forgot password, reset password), when they load, then the sidebar is NOT visible.
 
 ### 2.2 Sidebar structure — top (logo) and middle (menu)
 
@@ -46,9 +46,9 @@ The language switcher is also updated: instead of a two-letter code (`EN` / `RU`
 - The menu area is prepared to receive additional items in the future (Profile, History, Friends, etc.) without rearranging the sidebar's structure — the slot for additional items is simply empty right now.
 - The currently-active route is highlighted on the matching menu item (e.g., a slightly brighter background or a filled icon) so the visitor can tell at a glance which page they are on.
 - **Acceptance Criteria:**
-  - [ ] Given the visitor is anywhere in the main app, when they click the YanChess logo at the top of the sidebar, then they land on the home page.
-  - [ ] Given the visitor is anywhere in the main app, when they click the Play menu item in the sidebar, then they land on the Play page and the Play item is visually highlighted as the current page.
-  - [ ] Given the visitor is on the Play page, when the sidebar renders, then the Play menu item is visually marked as the active item.
+  - [x] Given the visitor is anywhere in the main app, when they click the YanChess logo at the top of the sidebar, then they land on the home page.
+  - [x] Given the visitor is anywhere in the main app, when they click the Play menu item in the sidebar, then they land on the Play page and the Play item is visually highlighted as the current page.
+  - [x] Given the visitor is on the Play page, when the sidebar renders, then the Play menu item is visually marked as the active item.
 
 ### 2.3 Sidebar bottom section — anonymous (not signed in)
 
@@ -59,12 +59,12 @@ The language switcher is also updated: instead of a two-letter code (`EN` / `RU`
   4. A **Language selector** that displays the current language as a full word in its own alphabet ("English", "Русский", or "Español"). Clicking it opens a dropdown listing all three languages — same picker as today, same localStorage persistence — only the closed-state label changes from a two-letter code to the full endonym.
 - The Login and Register buttons are visually distinct from each other (one filled, one outlined) so the "sign up" call-to-action can be more prominent, but both are reachable at any time.
 - **Acceptance Criteria:**
-  - [ ] Given no one is signed in, when the sidebar renders, then its bottom section shows Login, Register, Theme toggle, and the Language selector in that order.
-  - [ ] Given no one is signed in, when the visitor clicks Login in the sidebar, then they land on the sign-in page with no sidebar visible there.
-  - [ ] Given no one is signed in, when the visitor clicks Register in the sidebar, then they land on the sign-up page with no sidebar visible there.
-  - [ ] Given the current language is Spanish, when the visitor looks at the Language selector in the sidebar, then its closed state displays "Español" (not "ES").
-  - [ ] Given the current language is Russian, when the visitor looks at the Language selector in the sidebar, then its closed state displays "Русский".
-  - [ ] Given the current language is English, when the visitor looks at the Language selector, then it displays "English".
+  - [x] Given no one is signed in, when the sidebar renders, then its bottom section shows Login, Register, Theme toggle, and the Language selector in that order.
+  - [x] Given no one is signed in, when the visitor clicks Login in the sidebar, then they land on the sign-in page with no sidebar visible there.
+  - [x] Given no one is signed in, when the visitor clicks Register in the sidebar, then they land on the sign-up page with no sidebar visible there.
+  - [x] Given the current language is Spanish, when the visitor looks at the Language selector in the sidebar, then its closed state displays "Español" (not "ES").
+  - [x] Given the current language is Russian, when the visitor looks at the Language selector in the sidebar, then its closed state displays "Русский".
+  - [x] Given the current language is English, when the visitor looks at the Language selector, then it displays "English".
 
 ### 2.4 Sidebar bottom section — signed in
 
@@ -77,14 +77,14 @@ The language switcher is also updated: instead of a two-letter code (`EN` / `RU`
   4. A **Language selector** (same as the anonymous view — full-word endonym).
 - The avatar is a circular image. If the user has no avatar uploaded, a stable placeholder (e.g., the first letter of their nickname on a solid background) is shown — same placeholder convention the product uses today.
 - **Acceptance Criteria:**
-  - [ ] Given a signed-in user is on any main-app page, when the sidebar renders, then its bottom section shows avatar + nickname, the four action icons (Settings, Friends, Chat, Notifications), Theme toggle, and Language selector in that order.
-  - [ ] Given a signed-in user is on any main-app page, when they click their avatar or nickname in the sidebar, then they land on their Profile page.
-  - [ ] Given a signed-in user has no avatar uploaded, when the sidebar renders, then they see a placeholder avatar (e.g., the first letter of their nickname) in that slot.
-  - [ ] Given a signed-in user is on any main-app page, when they click the Settings icon, then nothing happens on screen (the icon registers the click but no popup opens — that behavior arrives in a later version).
-  - [ ] Given a signed-in user is on any main-app page, when they click the Friends icon, then nothing happens on screen.
-  - [ ] Given a signed-in user is on any main-app page, when they click the Notifications icon, then nothing happens on screen.
-  - [ ] Given a signed-in user is on any main-app page, when they look at the Chat icon, then it is visibly disabled (greyed out) and clicking it does nothing.
-  - [ ] Given a signed-in user is on any main-app page, when they hover any of the four action icons, then a tooltip shows the icon's name ("Settings" / "Friends" / "Chat" / "Notifications") — translated to the current language.
+  - [x] Given a signed-in user is on any main-app page, when the sidebar renders, then its bottom section shows avatar + nickname, the four action icons (Settings, Friends, Chat, Notifications), Theme toggle, and Language selector in that order.
+  - [x] Given a signed-in user is on any main-app page, when they click their avatar or nickname in the sidebar, then they land on their Profile page.
+  - [x] Given a signed-in user has no avatar uploaded, when the sidebar renders, then they see a placeholder avatar (e.g., the first letter of their nickname) in that slot.
+  - [x] Given a signed-in user is on any main-app page, when they click the Settings icon, then nothing happens on screen (the icon registers the click but no popup opens — that behavior arrives in a later version).
+  - [x] Given a signed-in user is on any main-app page, when they click the Friends icon, then nothing happens on screen.
+  - [x] Given a signed-in user is on any main-app page, when they click the Notifications icon, then nothing happens on screen.
+  - [x] Given a signed-in user is on any main-app page, when they look at the Chat icon, then it is visibly disabled (greyed out) and clicking it does nothing.
+  - [x] Given a signed-in user is on any main-app page, when they hover any of the four action icons, then a tooltip shows the icon's name ("Settings" / "Friends" / "Chat" / "Notifications") — translated to the current language.
 
 **Note:** sign-out is covered separately in §2.5 — a fifth icon in the same row.
 
@@ -93,34 +93,34 @@ The language switcher is also updated: instead of a two-letter code (`EN` / `RU`
 - Deleting the current top header removes the only visible sign-out control the product has today. To avoid a usability regression, the sidebar's signed-in bottom section includes a **temporary** "Sign out" action — rendered as a fifth action icon in the same row as Settings / Friends / Chat / Notifications. Clicking it signs the user out and returns them to the sign-in page.
 - This Sign-out icon is explicitly **temporary** for the 013 → 015 window. When the Settings popup lands in spec 015, Sign out moves into the popup alongside Theme and Language, and this fifth icon is removed from the sidebar.
 - **Acceptance Criteria:**
-  - [ ] Given a signed-in user is on any main-app page, when they look at the sidebar, then they see a "Sign out" icon next to the four other action icons.
-  - [ ] Given a signed-in user clicks the Sign-out icon, when the sign-out completes, then they land on the sign-in page with the sidebar hidden (per the auth-route rule) and the next main-app visit shows the anonymous bottom section (Login + Register).
-  - [ ] Given a signed-in user hovers the Sign-out icon, when the tooltip appears, then it reads the current language's label for "Sign out" (e.g., "Sign out" / "Выйти" / "Cerrar sesión").
+  - [x] Given a signed-in user is on any main-app page, when they look at the sidebar, then they see a "Sign out" icon next to the four other action icons.
+  - [x] Given a signed-in user clicks the Sign-out icon, when the sign-out completes, then they land on the sign-in page with the sidebar hidden (per the auth-route rule) and the next main-app visit shows the anonymous bottom section (Login + Register).
+  - [x] Given a signed-in user hovers the Sign-out icon, when the tooltip appears, then it reads the current language's label for "Sign out" (e.g., "Sign out" / "Выйти" / "Cerrar sesión").
 
 ### 2.6 Mobile and narrow viewports
 
 - On a viewport narrower than 768 pixels (phone-sized), the sidebar remains reachable but does not take permanent screen real estate — the exact mechanism is left to the implementation (the visible promise is simply "navigation is reachable without leaving the current page").
 - On a viewport 768 pixels or wider (tablet / desktop), the sidebar is permanently visible in its full form.
 - **Acceptance Criteria:**
-  - [ ] Given a visitor is on a 1280-pixel-wide desktop viewport, when any main-app page renders, then the sidebar is permanently visible on the left and the page content is fully visible to its right.
-  - [ ] Given a visitor is on a 375-pixel-wide phone viewport, when any main-app page renders, then they can reach every item in the sidebar — logo, Play, bottom section — through at most one tap, without the sidebar permanently blocking the main content area.
-  - [ ] Given a visitor is on a 375-pixel-wide phone viewport on the sign-in page, when the page renders, then the sidebar is NOT present (the sign-in form takes the full width minus comfortable margins).
+  - [x] Given a visitor is on a 1280-pixel-wide desktop viewport, when any main-app page renders, then the sidebar is permanently visible on the left and the page content is fully visible to its right.
+  - [x] Given a visitor is on a 375-pixel-wide phone viewport, when any main-app page renders, then they can reach every item in the sidebar — logo, Play, bottom section — through at most one tap, without the sidebar permanently blocking the main content area.
+  - [x] Given a visitor is on a 375-pixel-wide phone viewport on the sign-in page, when the page renders, then the sidebar is NOT present (the sign-in form takes the full width minus comfortable margins).
 
 ### 2.7 Theme toggle and language switcher move location without changing behavior
 
 - The Theme toggle and the Language selector both move from the current top header into the sidebar's bottom section. Their behavior is unchanged — same click-to-switch, same persistence of the user's choice between visits.
 - The Language selector gains one visible change: its closed state shows the full endonym ("English" / "Русский" / "Español") instead of the two-letter code. Inside the dropdown each option continues to show only the endonym (no flag, no inline abbreviation), with the currently-active row marked by a checkmark on its right — same pattern that exists today.
 - **Acceptance Criteria:**
-  - [ ] Given a visitor was reading the product in Russian yesterday, when they open the site again today, then it opens in Russian (unchanged persistence behavior).
-  - [ ] Given a visitor is in the sidebar, when they switch the theme from dark to light, then the whole product's theme switches to light and the switch persists on reload (unchanged behavior).
+  - [x] Given a visitor was reading the product in Russian yesterday, when they open the site again today, then it opens in Russian (unchanged persistence behavior).
+  - [x] Given a visitor is in the sidebar, when they switch the theme from dark to light, then the whole product's theme switches to light and the switch persists on reload (unchanged behavior).
 
 ### 2.8 Language and theme labels are localized
 
 - All text labels in the sidebar — the Play menu item, Login, Register, the four action icon tooltips, the Theme toggle's hover tooltip, the dropdown items of the Language selector — are translated into the active language (English, Russian, Spanish).
 - **Acceptance Criteria:**
-  - [ ] Given the current language is Russian, when the visitor looks at the sidebar, then the Play menu label reads "Играть" (or the project's chosen Russian word for Play).
-  - [ ] Given the current language is Spanish, when the visitor hovers the Settings icon, then the tooltip reads "Ajustes" (or the project's chosen Spanish label).
-  - [ ] Given the current language is Russian, when the anonymous visitor opens the sidebar, then the Login and Register buttons read "Войти" and "Регистрация" (the same strings used today on those actions elsewhere in the product).
+  - [x] Given the current language is Russian, when the visitor looks at the sidebar, then the Play menu label reads "Играть" (or the project's chosen Russian word for Play).
+  - [x] Given the current language is Spanish, when the visitor hovers the Settings icon, then the tooltip reads "Ajustes" (or the project's chosen Spanish label).
+  - [x] Given the current language is Russian, when the anonymous visitor opens the sidebar, then the Login and Register buttons read "Войти" and "Регистрация" (the same strings used today on those actions elsewhere in the product).
 
 ---
 
@@ -158,3 +158,4 @@ The language switcher is also updated: instead of a two-letter code (`EN` / `RU`
 ## Change Log
 
 - **[2026-10-16]** — `/awos:tech` amend — §2.5 (sign-out) rewritten after tech review surfaced a UX regression: deleting the current Header removes the only visible sign-out control. Original §2.5 said "no sign-out button in the sidebar"; amended version adds a **temporary** fifth action icon ("Sign out") in the signed-in bottom row, explicitly scheduled for removal when spec 015's Settings popup absorbs it.
+- **[2026-10-16]** — `/awos:verify` — all 34 acceptance criteria marked complete. Visual criteria verified via Playwright drive against web preview on port 5173 (CORS-allowed origin for dev-API on 3000). Screenshots at `docs/screenshots/013-sidebar-*.png`: `slice1-endonym`, `desktop-anon`, `auth-page-no-sidebar`, `mobile-hamburger-closed`, `mobile-drawer-open`, `desktop-signed-in-ru` (signed in as alice via dev-API), `play-active-highlight`, `anon-ru-game-page`. Signed-in flow proved end-to-end: sign-in → signed-in bottom with avatar + 5 icons + RU labels → navigate /play → `aria-current="page"` on Play link → click Logout icon → landed on /login with sidebar hidden. Non-visual logic criteria (§2.7 persistence, §2.6 narrower-than-375px edge cases) covered by the 55-test FTR suite at `apps/web/src/__tests__/sidebar-layout.spec-013.test.tsx` + the dedicated per-slice tests (393 web tests total, all green on branch).

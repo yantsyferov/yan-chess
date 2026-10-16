@@ -41,6 +41,18 @@
     "widensAfter": "Looking for a player of similar rating. If no one is found within 10 seconds, the range widens.",
     "cancel": "Cancel"
   },
+  "sidebar": {
+    "play": "Play",
+    "settings": "Settings",
+    "friends": "Friends",
+    "chat": "Chat",
+    "notifications": "Notifications",
+    "logout": "Sign out",
+    "theme": "Theme",
+    "logoAriaLabel": "YanChess home",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
+  },
   "notFound": {
     "title": "Page not found",
     "body": "The page you are looking for does not exist.",
