@@ -21,15 +21,15 @@ Agents: `react-frontend`, `nestjs-backend`, `postgres-redis-data`, `testing-expe
 
 ---
 
-- [ ] **Slice 2: Countries data module + CountryPicker component**
+- [x] **Slice 2: Countries data module + CountryPicker component**
 
   > Bundle a localized country list and build the searchable dropdown with flag emoji. Unused by any page yet — Slices 3 + 4 will plug it in.
 
-  - [ ] Create `apps/web/src/data/countries.ts` — exports `COUNTRIES: CountryEntry[]` with ~250 ISO 3166-1 alpha-2 entries. Each has `{ code, flag, names: { en, ru, es } }`. Top 50 populous countries have full RU/ES translations; remaining fall back to English name (document). Flag emoji from Unicode flag codepoints. **[Agent: react-frontend]**
-  - [ ] Create `apps/web/src/features/profile/CountryPicker.tsx` — searchable dropdown (Radix Popover + text input filter). Props: `value: string | null`, `onChange(code: string): void`, `placeholder?: string`. Renders flag emoji + localized country name per row. Reads locale from `useLangStore`. **[Agent: react-frontend]**
-  - [ ] Add i18n keys to `apps/web/src/i18n/locales/{en,ru,es}/common.json` — `country.placeholder` ("Select country" / "Выберите страну" / "Selecciona un país"), `country.international` ("International" / "Международный" / "Internacional"), `country.whiteFlag` aria-label. **[Agent: react-frontend]**
-  - [ ] Add `apps/web/src/features/profile/__tests__/CountryPicker.test.tsx` — search filter narrows list; onChange fires with correct ISO code; selecting a country shows flag inline; placeholder renders when value=null. RED-validate the search filter. **[Agent: react-frontend]**
-  - [ ] Verify: `pnpm --filter web test -- --run src/features/profile/__tests__/CountryPicker.test.tsx` passes; `pnpm --filter web build` green. **[Agent: general-purpose]**
+  - [x] Create `apps/web/src/data/countries.ts` — exports `COUNTRIES: CountryEntry[]` with ~250 ISO 3166-1 alpha-2 entries. Each has `{ code, flag, names: { en, ru, es } }`. Top 50 populous countries have full RU/ES translations; remaining fall back to English name (document). Flag emoji from Unicode flag codepoints. **[Agent: react-frontend]**
+  - [x] Create `apps/web/src/features/profile/CountryPicker.tsx` — searchable dropdown (Radix Popover + text input filter). Props: `value: string | null`, `onChange(code: string): void`, `placeholder?: string`. Renders flag emoji + localized country name per row. Reads locale from `useLangStore`. **[Agent: react-frontend]**
+  - [x] Add i18n keys to `apps/web/src/i18n/locales/{en,ru,es}/common.json` — `country.placeholder` ("Select country" / "Выберите страну" / "Selecciona un país"), `country.international` ("International" / "Международный" / "Internacional"), `country.whiteFlag` aria-label. **[Agent: react-frontend]**
+  - [x] Add `apps/web/src/features/profile/__tests__/CountryPicker.test.tsx` — search filter narrows list; onChange fires with correct ISO code; selecting a country shows flag inline; placeholder renders when value=null. RED-validate the search filter. **[Agent: react-frontend]**
+  - [x] Verify: `pnpm --filter web test -- --run src/features/profile/__tests__/CountryPicker.test.tsx` passes; `pnpm --filter web build` green. **[Agent: general-purpose]**
 
 ---
 

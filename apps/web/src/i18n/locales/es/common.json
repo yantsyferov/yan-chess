@@ -53,6 +53,12 @@
     "openMenu": "Abrir menú",
     "closeMenu": "Cerrar menú"
   },
+  "country": {
+    "placeholder": "Selecciona un país",
+    "international": "Internacional",
+    "searchPlaceholder": "Buscar país...",
+    "whiteFlag": "Sin país seleccionado"
+  },
   "notFound": {
     "title": "Página no encontrada",
     "body": "La página que buscas no existe.",

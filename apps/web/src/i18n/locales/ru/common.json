@@ -53,6 +53,12 @@
     "openMenu": "Открыть меню",
     "closeMenu": "Закрыть меню"
   },
+  "country": {
+    "placeholder": "Выберите страну",
+    "international": "Международный",
+    "searchPlaceholder": "Поиск страны...",
+    "whiteFlag": "Страна не выбрана"
+  },
   "notFound": {
     "title": "Страница не найдена",
     "body": "Запрошенная страница не существует.",
