@@ -42,7 +42,7 @@ const HISTORY_BASE = "/api/v1/users/me/games";
 async function registerVerifyLogin(email: string, nickname: string): Promise<string> {
   await request(app.getHttpServer())
     .post(`${BASE}/register`)
-    .send({ email, nickname, password: "Test1234!", confirmPassword: "Test1234!" })
+    .send({ email, nickname, password: "Test1234!", confirmPassword: "Test1234!", country: "US" })
     .expect(201);
   const token = latestTokenFor(email);
   await request(app.getHttpServer())

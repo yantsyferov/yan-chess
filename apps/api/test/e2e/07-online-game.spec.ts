@@ -35,7 +35,7 @@ async function registerVerifyLogin(
 ): Promise<string> {
   await request(app.getHttpServer())
     .post(`${BASE}/register`)
-    .send({ email, nickname, password, confirmPassword: password })
+    .send({ email, nickname, password, confirmPassword: password, country: "US" })
     .expect(201);
   const token = latestTokenFor(email);
   await request(app.getHttpServer())

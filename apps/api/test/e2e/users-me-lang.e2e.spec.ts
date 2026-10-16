@@ -20,6 +20,7 @@ const USER = {
   nickname: "langtest",
   password: "Test1234",
   confirmPassword: "Test1234",
+  country: "US",
 };
 
 async function registerVerifyLogin(payload: typeof USER & { lang?: string }): Promise<string> {

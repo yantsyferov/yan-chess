@@ -6,18 +6,18 @@ Agents: `react-frontend`, `nestjs-backend`, `postgres-redis-data`, `testing-expe
 
 ---
 
-- [ ] **Slice 1: Country column on User + API endpoints accept/return it (foundation)**
+- [x] **Slice 1: Country column on User + API endpoints accept/return it (foundation)**
 
   > Add `User.country String?` nullable column. Extend `registerSchema` + `updateMeSchema` with country. API persists + returns it. Zero visible UI change. Prep for later slices.
 
-  - [ ] Prisma migration `20261016_add_user_country` — add `country String? @db.VarChar(2)` to User model. Apply dev + test DBs. **[Agent: postgres-redis-data]**
-  - [ ] Amend `packages/shared/src/schemas/auth.ts` — `registerSchema` gains REQUIRED `country: z.string().length(2)` field (new users must provide it). Rebuild shared. **[Agent: nestjs-backend]**
-  - [ ] Amend `packages/shared/src/schemas/users.ts` — `updateMeSchema` gains OPTIONAL `country: z.string().length(2).nullable().optional()` (profile edit). Rebuild shared. **[Agent: nestjs-backend]**
-  - [ ] Amend `apps/api/src/modules/users/users.service.ts` — `UserMeDto` gains `country: string | null`; `updateMe({ country })` writes it; `me()` mapper returns `user.country`. **[Agent: nestjs-backend]**
-  - [ ] Amend `apps/api/src/modules/auth/auth.service.ts` — `register()` stores `dto.country` on new user row. **[Agent: nestjs-backend]**
-  - [ ] Existing e2e test fixtures that register users — update to include `country: "US"` (or similar) in register payload to pass new schema validation. Grep `apps/api/test/e2e/` for `register` + `email:` patterns to find the fixtures. **[Agent: nestjs-backend]**
-  - [ ] Add `apps/api/test/e2e/users-me-country.e2e.spec.ts` — register with country=MX → GET /users/me returns country=MX; PATCH { country: "FR" } → GET returns FR; existing fixture user (country NULL) returns null. **[Agent: nestjs-backend]**
-  - [ ] Verify: `pnpm --filter api test:unit` + `pnpm --filter api test:e2e` + `pnpm --filter web build` pass. **[Agent: general-purpose]**
+  - [x] Prisma migration `20261016_add_user_country` — add `country String? @db.VarChar(2)` to User model. Apply dev + test DBs. **[Agent: postgres-redis-data]**
+  - [x] Amend `packages/shared/src/schemas/auth.ts` — `registerSchema` gains REQUIRED `country: z.string().length(2)` field (new users must provide it). Rebuild shared. **[Agent: nestjs-backend]**
+  - [x] Amend `packages/shared/src/schemas/users.ts` — `updateMeSchema` gains OPTIONAL `country: z.string().length(2).nullable().optional()` (profile edit). Rebuild shared. **[Agent: nestjs-backend]**
+  - [x] Amend `apps/api/src/modules/users/users.service.ts` — `UserMeDto` gains `country: string | null`; `updateMe({ country })` writes it; `me()` mapper returns `user.country`. **[Agent: nestjs-backend]**
+  - [x] Amend `apps/api/src/modules/auth/auth.service.ts` — `register()` stores `dto.country` on new user row. **[Agent: nestjs-backend]**
+  - [x] Existing e2e test fixtures that register users — update to include `country: "US"` (or similar) in register payload to pass new schema validation. Grep `apps/api/test/e2e/` for `register` + `email:` patterns to find the fixtures. **[Agent: nestjs-backend]**
+  - [x] Add `apps/api/test/e2e/users-me-country.e2e.spec.ts` — register with country=MX → GET /users/me returns country=MX; PATCH { country: "FR" } → GET returns FR; existing fixture user (country NULL) returns null. **[Agent: nestjs-backend]**
+  - [x] Verify: `pnpm --filter api test:unit` + `pnpm --filter api test:e2e` + `pnpm --filter web build` pass. **[Agent: general-purpose]**
 
 ---
 

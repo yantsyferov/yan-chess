@@ -56,6 +56,7 @@ model User {
   createdAt          DateTime  @default(now()) @map("created_at") @db.Timestamptz(3)
   passwordUpdatedAt  DateTime  @default(now()) @map("password_updated_at") @db.Timestamptz(3)
   lang               Lang?
+  country            String?  @db.VarChar(2) @map("country")
 
   emailVerificationTokens EmailVerificationToken[]
   passwordResetTokens     PasswordResetToken[]

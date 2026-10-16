@@ -37,6 +37,7 @@ describe("[@spec:012-i18n] register with lang=ru sends Russian email", () => {
         password: "Secret123",
         confirmPassword: "Secret123",
         lang: "ru",
+        country: "US",
       })
       .expect(201);
 
@@ -57,6 +58,7 @@ describe("[@spec:012-i18n] register with lang=es sends Spanish email", () => {
         password: "Secret123",
         confirmPassword: "Secret123",
         lang: "es",
+        country: "US",
       })
       .expect(201);
 

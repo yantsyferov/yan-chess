@@ -16,6 +16,7 @@ export interface UserMeDto {
   createdAt: Date;
   avatar: null;
   lang: Lang | null;
+  country: string | null;
   ratings: RatingDto[];
 }
 
@@ -60,14 +61,20 @@ export class UsersService {
       createdAt: user.createdAt,
       avatar: null,
       lang: (user.lang as Lang | null) ?? null,
+      country: user.country ?? null,
       ratings,
     };
   }
 
   async updateMe(userId: string, dto: UpdateMeDto): Promise<UserMeDto> {
+    const data: Record<string, unknown> = { lang: dto.lang ?? undefined };
+    if ("country" in dto) {
+      data["country"] = dto.country ?? null;
+    }
+
     const user = await this.prisma.user.update({
       where: { id: userId },
-      data: { lang: dto.lang ?? undefined },
+      data,
       include: { ratings: true },
     });
 
@@ -84,6 +91,7 @@ export class UsersService {
       createdAt: user.createdAt,
       avatar: null,
       lang: (user.lang as Lang | null) ?? null,
+      country: user.country ?? null,
       ratings,
     };
   }
