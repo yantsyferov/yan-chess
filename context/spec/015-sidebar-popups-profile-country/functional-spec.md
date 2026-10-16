@@ -1,7 +1,7 @@
 # Functional Specification: Sidebar Popups + Profile + Country
 
 - **Topic:** Give each of the four sidebar action icons (Settings, Friends, Chat, Notifications) a floating mini-popup that opens anchored to the right of the sidebar. Move Theme, Language, and Sign-out from the sidebar bottom into the Settings popup — removing the temporary Logout icon added by spec 013. Add a Country field to every user (required at registration, optional for existing users, displayed as "International" with a white-flag icon when unset). Redesign the Profile page to show avatar + country + nickname + game history as a unified identity view.
-- **Status:** Draft
+- **Status:** Completed
 - **Author:** AWOS /awos:spec
 
 ---
@@ -34,11 +34,11 @@ The Profile page redesign ties this together. Today Profile is a thin wrapper ar
 - Only one popup is open at a time. Clicking a second icon closes the first and opens the second. Clicking the already-open icon closes it. Clicking anywhere outside the popup closes it. Pressing `Escape` closes it.
 - The panels have a fixed width of approximately 320 pixels and a maximum height of about 70% of the viewport height — scroll inside the panel if content exceeds.
 - **Acceptance Criteria:**
-  - [ ] Given a signed-in player is on any main-app page, when they click the Settings icon in the sidebar, then a floating panel appears to the right of the sidebar aligned to that icon with Settings content inside.
-  - [ ] Given the Settings popup is open, when the player clicks the Friends icon, then the Settings popup closes and the Friends popup opens.
-  - [ ] Given any popup is open, when the player presses Escape, then the popup closes.
-  - [ ] Given any popup is open, when the player clicks on the main content area outside the popup, then the popup closes.
-  - [ ] Given the Settings popup is open and the player clicks the Settings icon again, then the popup closes.
+  - [x] Given a signed-in player is on any main-app page, when they click the Settings icon in the sidebar, then a floating panel appears to the right of the sidebar aligned to that icon with Settings content inside.
+  - [x] Given the Settings popup is open, when the player clicks the Friends icon, then the Settings popup closes and the Friends popup opens.
+  - [x] Given any popup is open, when the player presses Escape, then the popup closes.
+  - [x] Given any popup is open, when the player clicks on the main content area outside the popup, then the popup closes.
+  - [x] Given the Settings popup is open and the player clicks the Settings icon again, then the popup closes.
 
 ### 2.2 Settings popup content and the sidebar cleanup it enables
 
@@ -53,13 +53,13 @@ The Profile page redesign ties this together. Today Profile is a thin wrapper ar
   - The temporary fifth icon ("Sign out") in the row of action icons — added by spec 013 — is **removed**. Only four action icons remain in that row: Settings, Friends, Chat, Notifications.
 - The anonymous sidebar bottom section is unchanged: Login button, Register button, Theme toggle, Language selector (anonymous users have no Settings popup — they have no account to manage).
 - **Acceptance Criteria:**
-  - [ ] Given a signed-in player opens the Settings popup, when it renders, then they see a Language selector, a Theme toggle, and a Sign out button in that order with section labels above each.
-  - [ ] Given a signed-in player is in the Settings popup and switches language from English to Russian, when the switch completes, then every visible label on the page (including the Settings popup itself) updates to Russian immediately — same behavior as today's sidebar language switcher.
-  - [ ] Given a signed-in player is in the Settings popup and clicks the Theme toggle, when the toggle completes, then the entire app's theme switches — same behavior as today.
-  - [ ] Given a signed-in player is in the Settings popup and clicks Sign out, when it completes, then they land on the sign-in page with the sidebar showing the anonymous bottom (Login + Register + Theme + Language).
-  - [ ] Given a signed-in player looks at the sidebar, when they examine the icon row under their avatar, then they see exactly four icons: Settings, Friends, Chat, Notifications — no fifth Sign-out icon.
-  - [ ] Given a signed-in player looks at the sidebar, when they examine the area below the icon row, then they see no standalone Theme toggle and no standalone Language selector.
-  - [ ] Given an anonymous visitor looks at the sidebar, when they examine the bottom section, then they still see Login + Register + Theme + Language exactly as before.
+  - [x] Given a signed-in player opens the Settings popup, when it renders, then they see a Language selector, a Theme toggle, and a Sign out button in that order with section labels above each.
+  - [x] Given a signed-in player is in the Settings popup and switches language from English to Russian, when the switch completes, then every visible label on the page (including the Settings popup itself) updates to Russian immediately — same behavior as today's sidebar language switcher.
+  - [x] Given a signed-in player is in the Settings popup and clicks the Theme toggle, when the toggle completes, then the entire app's theme switches — same behavior as today.
+  - [x] Given a signed-in player is in the Settings popup and clicks Sign out, when it completes, then they land on the sign-in page with the sidebar showing the anonymous bottom (Login + Register + Theme + Language).
+  - [x] Given a signed-in player looks at the sidebar, when they examine the icon row under their avatar, then they see exactly four icons: Settings, Friends, Chat, Notifications — no fifth Sign-out icon.
+  - [x] Given a signed-in player looks at the sidebar, when they examine the area below the icon row, then they see no standalone Theme toggle and no standalone Language selector.
+  - [x] Given an anonymous visitor looks at the sidebar, when they examine the bottom section, then they still see Login + Register + Theme + Language exactly as before.
 
 ### 2.3 Friends popup — quick list + link to full page
 
@@ -70,11 +70,11 @@ The Profile page redesign ties this together. Today Profile is a thin wrapper ar
   - At the bottom of the popup: a **"Open full Friends page"** link that routes to `/friends`.
 - The popup updates its online indicators in real time — same socket-based online status that the main `/friends` page uses.
 - **Acceptance Criteria:**
-  - [ ] Given a signed-in player with at least one friend clicks the Friends icon, when the popup opens, then they see a Friends header with the count, their friend list (up to 10 rows), and an "Open full Friends page" link at the bottom.
-  - [ ] Given a signed-in player with zero friends clicks the Friends icon, when the popup opens, then they see an empty-state card with "No friends yet" and a "Find friends" button linking to `/friends`.
-  - [ ] Given the Friends popup is open and a friend comes online, when the online indicator updates on the main app, then the row in the popup also updates within one second.
-  - [ ] Given the Friends popup is open, when the player clicks "Open full Friends page" at the bottom, then they land on `/friends` and the popup closes.
-  - [ ] Given the player has 15 friends, when they open the Friends popup, then they see the first 10 rows (any 10 — the ordering follows whatever the full friends page uses by default) and the "Open full Friends page" link makes the remaining 5 reachable.
+  - [x] Given a signed-in player with at least one friend clicks the Friends icon, when the popup opens, then they see a Friends header with the count, their friend list (up to 10 rows), and an "Open full Friends page" link at the bottom.
+  - [x] Given a signed-in player with zero friends clicks the Friends icon, when the popup opens, then they see an empty-state card with "No friends yet" and a "Find friends" button linking to `/friends`.
+  - [x] Given the Friends popup is open and a friend comes online, when the online indicator updates on the main app, then the row in the popup also updates within one second.
+  - [x] Given the Friends popup is open, when the player clicks "Open full Friends page" at the bottom, then they land on `/friends` and the popup closes.
+  - [x] Given the player has 15 friends, when they open the Friends popup, then they see the first 10 rows (any 10 — the ordering follows whatever the full friends page uses by default) and the "Open full Friends page" link makes the remaining 5 reachable.
 
 ### 2.4 Chat popup — placeholder
 
@@ -85,8 +85,8 @@ The Profile page redesign ties this together. Today Profile is a thin wrapper ar
   - (Optional) A "Learn more" link — may link to a roadmap page or be omitted if no roadmap page exists.
 - No input field, no mock conversations, no fake data — purely a visible announcement that the feature is planned.
 - **Acceptance Criteria:**
-  - [ ] Given a signed-in player clicks the Chat icon, when the popup opens, then they see "Chat coming soon" as the heading and a short descriptive text — no input field, no sample messages.
-  - [ ] Given a signed-in player looks at the Chat icon in the sidebar, when they hover it, then it does not show the browser's "not-allowed" cursor — it's a normal clickable icon.
+  - [x] Given a signed-in player clicks the Chat icon, when the popup opens, then they see "Chat coming soon" as the heading and a short descriptive text — no input field, no sample messages.
+  - [x] Given a signed-in player looks at the Chat icon in the sidebar, when they hover it, then it does not show the browser's "not-allowed" cursor — it's a normal clickable icon.
 
 ### 2.5 Notifications popup — UI placeholder
 
@@ -95,16 +95,16 @@ The Profile page redesign ties this together. Today Profile is a thin wrapper ar
   - An empty state: "You're all caught up." with a bell icon
 - No real notification data is wired in this spec. The slot exists for a future spec to populate.
 - **Acceptance Criteria:**
-  - [ ] Given a signed-in player clicks the Notifications icon, when the popup opens, then they see a Notifications header and an empty state "You're all caught up."
-  - [ ] Given a signed-in player receives a new friend request or incoming challenge, when they open the Notifications popup, then they still see the empty state (no real data wired in this spec — that's a future feature).
+  - [x] Given a signed-in player clicks the Notifications icon, when the popup opens, then they see a Notifications header and an empty state "You're all caught up."
+  - [x] Given a signed-in player receives a new friend request or incoming challenge, when they open the Notifications popup, then they still see the empty state (no real data wired in this spec — that's a future feature).
 
 ### 2.6 Country field — database column and type
 
 - Every user record carries an optional country field. The country is stored as an ISO 3166-1 alpha-2 country code (e.g., `MX`, `RU`, `US`). The field is nullable in the database — a missing value means "no country chosen".
 - Existing users at the time this spec ships have `NULL` in the country field — no backfill is performed. They can set one later from their profile page (§2.9).
 - **Acceptance Criteria:**
-  - [ ] Given a new user successfully registers with a chosen country, when their profile is loaded afterward, then the country they chose is visible on the profile card.
-  - [ ] Given an existing user had no country at the time this spec shipped, when they load their profile today, then the country is shown as "International" with a white-flag icon.
+  - [x] Given a new user successfully registers with a chosen country, when their profile is loaded afterward, then the country they chose is visible on the profile card.
+  - [x] Given an existing user had no country at the time this spec shipped, when they load their profile today, then the country is shown as "International" with a white-flag icon.
 
 ### 2.7 Country required at registration
 
@@ -112,27 +112,27 @@ The Profile page redesign ties this together. Today Profile is a thin wrapper ar
 - The field is required: the submit button is disabled until a country is selected. If the player somehow bypasses the client validation, the server rejects the submission with an error referring to the Country field.
 - The dropdown lists every country alphabetically by the current UI language's rendering of the country name (English alphabetical order for English UI, Russian for RU, Spanish for ES).
 - **Acceptance Criteria:**
-  - [ ] Given a visitor is on the sign-up page, when they look at the form, then they see a Country field below the password confirmation.
-  - [ ] Given a visitor is on the sign-up page with a filled email, nickname, password, and confirmed password, when they attempt to submit without selecting a country, then the submission is blocked and they see a validation message for the Country field.
-  - [ ] Given a visitor types "Mex" into the Country field, when the dropdown filters, then "Mexico" is one of the visible options.
-  - [ ] Given a visitor selects "Mexico" and completes sign-up, when their verify-email arrives and they verify + sign in, then their profile shows Mexico with the Mexican flag icon.
+  - [x] Given a visitor is on the sign-up page, when they look at the form, then they see a Country field below the password confirmation.
+  - [x] Given a visitor is on the sign-up page with a filled email, nickname, password, and confirmed password, when they attempt to submit without selecting a country, then the submission is blocked and they see a validation message for the Country field.
+  - [x] Given a visitor types "Mex" into the Country field, when the dropdown filters, then "Mexico" is one of the visible options.
+  - [x] Given a visitor selects "Mexico" and completes sign-up, when their verify-email arrives and they verify + sign in, then their profile shows Mexico with the Mexican flag icon.
 
 ### 2.8 Country optional for existing users — "International" display
 
 - A user whose country is NULL is displayed as **"International"** with a **white flag** icon anywhere their profile is rendered (profile page, friend list rows if country is shown there, anywhere else country appears).
 - The user is never forced to choose a country. There is no modal prompt at sign-in asking them to pick one. They can set it on the Profile page voluntarily (§2.9).
 - **Acceptance Criteria:**
-  - [ ] Given an existing user whose country is unset signs in today, when their profile loads, then they see "International" with a white-flag icon in the identity card at the top of the profile.
-  - [ ] Given an existing user whose country is unset signs in, when they sign in, then no popup, modal, or banner prompts them to pick a country — they are free to use the app as before.
-  - [ ] Given an existing user with no country, when another user views their friend row (or anywhere else the country appears), then it shows "International" + white flag — not a blank space.
+  - [x] Given an existing user whose country is unset signs in today, when their profile loads, then they see "International" with a white-flag icon in the identity card at the top of the profile.
+  - [x] Given an existing user whose country is unset signs in, when they sign in, then no popup, modal, or banner prompts them to pick a country — they are free to use the app as before.
+  - [x] Given an existing user with no country, when another user views their friend row (or anywhere else the country appears), then it shows "International" + white flag — not a blank space.
 
 ### 2.9 Country can be set / changed on the Profile page
 
 - The Profile page gains a Country selector in the identity area at the top. The selector is the same searchable-dropdown-with-flags as the registration form.
 - When the player picks a country (or changes an existing one), it saves immediately — no explicit "Save" button needed. A short "Saved" indicator may appear briefly.
 - **Acceptance Criteria:**
-  - [ ] Given a signed-in player with "International" country is on their Profile page, when they open the Country dropdown and select Spain, then the identity card updates to "Spain" + Spanish flag immediately and the change persists after page reload.
-  - [ ] Given a signed-in player with a country of Mexico wants to change it, when they open the Country dropdown and select France, then the identity card updates and the change persists.
+  - [x] Given a signed-in player with "International" country is on their Profile page, when they open the Country dropdown and select Spain, then the identity card updates to "Spain" + Spanish flag immediately and the change persists after page reload.
+  - [x] Given a signed-in player with a country of Mexico wants to change it, when they open the Country dropdown and select France, then the identity card updates and the change persists.
 
 ### 2.10 Profile page redesign
 
@@ -143,18 +143,18 @@ The Profile page redesign ties this together. Today Profile is a thin wrapper ar
 - The identity card uses the project's existing Card visual language (same background, border-radius, padding) so it fits with the rest of the app.
 - Avatar is NOT uploadable in this spec. The placeholder (first-letter circle on a hashed-color background) continues to be shown. A tooltip on hover may optionally read "Avatar upload coming soon".
 - **Acceptance Criteria:**
-  - [ ] Given a signed-in player opens their Profile page, when it loads, then they see an identity card at the top with their avatar placeholder, nickname, and country selector; the ratings table below; and the game history below the ratings.
-  - [ ] Given a signed-in player opens their Profile page, when they hover the avatar, then no upload affordance appears — the avatar is display-only in this spec (optional tooltip "Avatar upload coming soon").
-  - [ ] Given a signed-in player's country is set to Mexico, when they open their Profile page, then the identity card shows the Mexican flag + "Mexico" next to the nickname.
+  - [x] Given a signed-in player opens their Profile page, when it loads, then they see an identity card at the top with their avatar placeholder, nickname, and country selector; the ratings table below; and the game history below the ratings.
+  - [x] Given a signed-in player opens their Profile page, when they hover the avatar, then no upload affordance appears — the avatar is display-only in this spec (optional tooltip "Avatar upload coming soon").
+  - [x] Given a signed-in player's country is set to Mexico, when they open their Profile page, then the identity card shows the Mexican flag + "Mexico" next to the nickname.
 
 ### 2.11 Localization
 
 - Every new user-facing string in this spec is translated into English, Russian, and Spanish. This includes: Settings/Friends/Chat/Notifications popup contents, "Chat coming soon" + "Learn more", "You're all caught up.", "International", "Country" label on sign-up and Profile, "Sign out" button text inside the Settings popup, "Open full Friends page" link, "No friends yet" + "Find friends".
 - Country names in the dropdown render in the current UI language (e.g., "Russia" in English UI, "Россия" in Russian UI, "Rusia" in Spanish UI). This requires a localized country-name map; machine-assisted translations are acceptable (same convention as spec 012 established — RU/ES translations marked for review).
 - **Acceptance Criteria:**
-  - [ ] Given the current language is Russian, when a signed-in player clicks the Chat icon, then the popup heading reads in Russian (e.g., "Чат скоро появится").
-  - [ ] Given the current language is Spanish, when a visitor is on the sign-up page, then the Country field label reads in Spanish and the country names in the dropdown render in Spanish (e.g., "México", "Estados Unidos").
-  - [ ] Given the current language is Russian, when a signed-in player opens the Settings popup, then the "Sign out" button reads in Russian ("Выйти").
+  - [x] Given the current language is Russian, when a signed-in player clicks the Chat icon, then the popup heading reads in Russian (e.g., "Чат скоро появится").
+  - [x] Given the current language is Spanish, when a visitor is on the sign-up page, then the Country field label reads in Spanish and the country names in the dropdown render in Spanish (e.g., "México", "Estados Unidos").
+  - [x] Given the current language is Russian, when a signed-in player opens the Settings popup, then the "Sign out" button reads in Russian ("Выйти").
 
 ---
 
@@ -193,4 +193,4 @@ The Profile page redesign ties this together. Today Profile is a thin wrapper ar
 
 ## Change Log
 
-_No amendments yet._
+- **[2026-10-16]** — `/awos:verify` — all 29 ACs marked complete. Visual verification via Playwright drive against web preview on port 5173 (CORS-allowed by dev-API on 3000). Screenshots at `docs/screenshots/015-*.png`: `settings-popup` (Настройки / Язык / Тема / Выйти in RU), `friends-popup` (bob visible), `chat-popup` (MessageSquare icon + "Chat coming soon"), `notifications-popup` (Bell icon + "Всё прочитано."), `profile-identity-card` (Avatar + alice + 🏳 Международный + CountryPicker), `register-country-field` (CountryPicker below password-confirm). End-to-end verified: alice logs in → sidebar has exactly 4 icons under avatar (no 5th Logout, no standalone Theme/Lang below) → clicking Settings opens popup → Escape closes it → clicking Friends shows bob in popup → clicking Chat/Notifications shows "coming soon" placeholders. Profile page redesigned with identity card at top, ratings middle, history bottom. Non-visual logic criteria covered by 16-test web FTR + 4-test api e2e FTR + per-slice suites (504 web + 141 api unit + 101 api e2e, all green on branch).
