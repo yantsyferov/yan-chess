@@ -4,6 +4,7 @@ import * as Popover from "@radix-ui/react-popover";
 import { useLangStore } from "../i18n/useLangStore";
 import { COUNTRIES } from "../../data/countries";
 import type { CountryEntry } from "../../data/countries";
+import { UserFlag } from "./UserFlag";
 
 export interface CountryPickerProps {
   value: string | null;
@@ -71,7 +72,7 @@ export function CountryPicker({
           type="button"
           disabled={disabled}
           aria-label={
-            selected ? `${selected.flag} ${getLocalizedName(selected, locale)}` : t("country.whiteFlag")
+            selected ? getLocalizedName(selected, locale) : t("country.whiteFlag")
           }
           className={[
             "inline-flex items-center gap-2 w-full rounded-lg bg-surface-elevated border px-3 py-2.5",
@@ -86,7 +87,7 @@ export function CountryPicker({
         >
           {selected ? (
             <>
-              <span aria-hidden="true">{selected.flag}</span>
+              <UserFlag country={selected.code} size="sm" />
               <span>{getLocalizedName(selected, locale)}</span>
             </>
           ) : (
@@ -130,7 +131,7 @@ export function CountryPicker({
                       c.code === value ? "text-accent font-medium" : "text-text-primary",
                     ].join(" ")}
                   >
-                    <span aria-hidden="true">{c.flag}</span>
+                    <UserFlag country={c.code} size="sm" />
                     <span>{getLocalizedName(c, locale)}</span>
                   </button>
                 </li>

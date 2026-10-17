@@ -157,14 +157,14 @@ describe("§2.2 UserIdentity in FriendsPopup", () => {
     expect(screen.getByText("Magnus")).toBeInTheDocument();
   });
 
-  it("@regression shows flag placeholder (🏳) for friend with no country", () => {
+  it("@regression shows flag placeholder for friend with no country", () => {
     mockFriends = [makeFriend({ userId: "u2", nickname: "Hikaru", country: null })];
     render(
       <MemoryRouter>
         <FriendsPopup />
       </MemoryRouter>,
     );
-    expect(screen.getByText("🏳")).toBeInTheDocument();
+    expect(screen.getByLabelText("No country")).toBeInTheDocument();
   });
 
   it("negative: friend with unknown userId does not appear when not in list", () => {
@@ -196,14 +196,14 @@ describe("§2.2 UserIdentity in Profile", () => {
     expect(screen.getByText("Alice")).toBeInTheDocument();
   });
 
-  it("@regression shows white flag (🏳) when country is null in Profile identity card", () => {
+  it("@regression shows white flag placeholder when country is null in Profile identity card", () => {
     useAuthStore.setState({ accessToken: "tok", user: baseUser({ country: null }) });
     render(
       <MemoryRouter>
         <Profile />
       </MemoryRouter>,
     );
-    const flags = screen.getAllByText("🏳");
+    const flags = screen.getAllByLabelText("No country");
     expect(flags.length).toBeGreaterThanOrEqual(1);
   });
 

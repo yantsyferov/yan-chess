@@ -1,4 +1,5 @@
 import "@fontsource-variable/inter";
+import "flag-icons/css/flag-icons.min.css";
 import "./styles/tokens.css";
 import "./styles/global.css";
 import "./i18n";

@@ -6,16 +6,17 @@ import { render, screen } from "@testing-library/react";
 import { UserFlag } from "../UserFlag";
 
 describe("UserFlag", () => {
-  it("returns the correct flag emoji for a known code (MX → 🇲🇽)", () => {
+  it("renders a flag-icons span with the lowercased ISO code for a known country", () => {
     render(<UserFlag country="MX" />);
     const el = screen.getByLabelText("Mexico");
-    expect(el.textContent).toBe("🇲🇽");
+    expect(el.className).toContain("fi");
+    expect(el.className).toContain("fi-mx");
   });
 
-  it("returns white flag 🏳 when country is null", () => {
+  it("renders a placeholder (no fi-xx class) when country is null", () => {
     render(<UserFlag country={null} />);
     const el = screen.getByLabelText("No country");
-    expect(el.textContent).toBe("🏳");
+    expect(el.className).not.toContain("fi-");
   });
 
   it("aria-label is country's English name when set", () => {
