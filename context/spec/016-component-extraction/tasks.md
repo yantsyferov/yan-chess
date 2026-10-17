@@ -68,12 +68,12 @@ Baseline: 508 web tests, 141 api unit, api e2e unaffected (no backend touch).
   - [x] Grep for other inline "no X yet" + "Find Y" patterns and migrate if found. **[Agent: react-frontend]**
   - [x] Amend `apps/web/src/features/shared/mode-labels.ts` — export `MODE_OPTIONS: { mode: Mode, Icon: LucideIcon }[]` + ensure `TIME_LABELS` exported. Both `ModeSelector.tsx` + `VsBotSetup.tsx` now import from here instead of inlining. **[Agent: react-frontend]**
   - [x] Grep for any remaining duplicated patterns (e.g., mode-cards grid structure in VsBotSetup vs ModeSelector) — if any clear duplication left, extract or document in Change Log. **[Agent: react-frontend]**
-  - [ ] Visual sanity verify: dev-start web preview on 5173 (dev-API already running), take 5 screenshots on key pages (`/`, `/play`, `/play/friend`, `/profile`, `/friends`) → compare with any prior visual baseline (eyes on). Save to `docs/screenshots/016-after-*.png`. **[Agent: general-purpose]**
+  - [x] Visual sanity verify: dev-start web preview on 5173 (dev-API already running), take 5 screenshots on key pages (`/`, `/play`, `/play/friend`, `/profile`, `/friends`) → compare with any prior visual baseline (eyes on). Save to `docs/screenshots/016-after-*.png`. **[Agent: general-purpose]**
 
 ---
 
-- [ ] **Slice 5: Feature Testing & Regression**
+- [x] **Slice 5: Feature Testing & Regression**
 
   > Verifies the whole feature end-to-end against functional-spec.md, run after all implementation slices are complete.
-  - [ ] Read functional-spec.md acceptance criteria in full. Generate acceptance-level tests that verify the entire feature as a whole — not individual slices. Cover applicable layers (unit for pure logic, integration for service interactions, e2e for user flows) based on the project's testing stack. Write tests with RED validation (must fail before implementation is confirmed done). Annotate each test with `@spec: 016-component-extraction` and `@regression` if suitable for long-term regression. **[Agent: testing-expert]**
-  - [ ] Run all generated tests. All must pass. Fix any failures before proceeding. **[Agent: testing-expert]**
+  - [x] Read functional-spec.md acceptance criteria in full. Generate acceptance-level tests that verify the entire feature as a whole — not individual slices. Cover applicable layers (unit for pure logic, integration for service interactions, e2e for user flows) based on the project's testing stack. Write tests with RED validation (must fail before implementation is confirmed done). Annotate each test with `@spec: 016-component-extraction` and `@regression` if suitable for long-term regression. **[Agent: testing-expert]**
+  - [x] Run all generated tests. All must pass. Fix any failures before proceeding. **[Agent: testing-expert]**
