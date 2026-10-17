@@ -78,5 +78,7 @@
   "errors": {
     "loadFailed": "Не удалось загрузить историю партий."
   },
-  "tryAgain": "Повторить"
+  "tryAgain": "Повторить",
+  "recentGames": "Недавние партии",
+  "viewAllGames": "Все партии"
 }

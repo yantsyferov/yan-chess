@@ -78,5 +78,7 @@
   "errors": {
     "loadFailed": "Failed to load game history."
   },
-  "tryAgain": "Try again"
+  "tryAgain": "Try again",
+  "recentGames": "Recent games",
+  "viewAllGames": "View all games"
 }

@@ -18,7 +18,11 @@ interface UseGamesListResult {
   refetch: () => void;
 }
 
-export function useGamesList(): UseGamesListResult {
+interface UseGamesListOptions {
+  limit?: number;
+}
+
+export function useGamesList({ limit }: UseGamesListOptions = {}): UseGamesListResult {
   const [searchParams] = useSearchParams();
   const pageParam = searchParams.get("page");
   const page = pageParam !== null ? Number(pageParam) : 1;
@@ -43,9 +47,14 @@ export function useGamesList(): UseGamesListResult {
 
     setState((prev) => ({ ...prev, loading: true, error: null }));
 
-    const qs = new URLSearchParams({ page: String(page) });
-    if (mode !== null) qs.set("mode", mode);
-    if (result !== null) qs.set("result", result);
+    let qs: URLSearchParams;
+    if (limit !== undefined) {
+      qs = new URLSearchParams({ limit: String(limit) });
+    } else {
+      qs = new URLSearchParams({ page: String(page) });
+      if (mode !== null) qs.set("mode", mode);
+      if (result !== null) qs.set("result", result);
+    }
 
     void apiGet<GameListResponse>(`/users/me/games?${qs.toString()}`).then((res) => {
       if (cancelled) return;
@@ -66,7 +75,7 @@ export function useGamesList(): UseGamesListResult {
     return () => {
       cancelled = true;
     };
-  }, [page, mode, result, fetchCount]);
+  }, [limit, page, mode, result, fetchCount]);
 
   return { games: state.games, pagination: state.pagination, loading: state.loading, error: state.error, refetch };
 }

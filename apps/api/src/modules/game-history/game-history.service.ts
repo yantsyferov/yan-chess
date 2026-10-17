@@ -55,13 +55,33 @@ export class GameHistoryService {
 
   async listGames(
     userId: string,
-    args: { page: number; mode?: string; result?: "wins" | "losses" | "draws" },
+    args: { page: number; mode?: string; result?: "wins" | "losses" | "draws"; limit?: number },
   ): Promise<GameListResponse> {
-    const { page, mode, result } = args;
+    const { page, mode, result, limit } = args;
 
     const where = buildListWhere(userId, { mode, result });
 
     const totalGames = await this.prisma.game.count({ where });
+
+    if (limit !== undefined) {
+      const games = await this.prisma.game.findMany({
+        where,
+        orderBy: { startedAt: "desc" },
+        skip: 0,
+        take: limit,
+        include: {
+          whiteUser: { select: { nickname: true, country: true } },
+          blackUser: { select: { nickname: true, country: true } },
+        },
+      });
+
+      const items = games.map((game) => this.mapToListItem(game as GameWithUsers, userId));
+
+      return {
+        games: items,
+        pagination: { page: 1, perPage: limit, totalGames, totalPages: 1 },
+      };
+    }
 
     const totalPages = Math.max(1, Math.ceil(totalGames / PER_PAGE));
     const effectivePage = Math.min(Math.max(page, 1), totalPages);

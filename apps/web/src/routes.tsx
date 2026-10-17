@@ -25,6 +25,9 @@ const HistoryReplay = lazy(() =>
 const Friends = lazy(() =>
   import("./pages/Friends").then((m) => ({ default: m.Friends })),
 );
+const History = lazy(() =>
+  import("./pages/History").then((m) => ({ default: m.History })),
+);
 
 const SUSPENSE_FALLBACK = <div className="text-text-secondary text-center py-10">Loading...</div>;
 
@@ -114,6 +117,14 @@ export function AppRoutes(): JSX.Element {
           element={
             <Suspense fallback={SUSPENSE_FALLBACK}>
               <PlayFriend />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/history"
+          element={
+            <Suspense fallback={SUSPENSE_FALLBACK}>
+              <History />
             </Suspense>
           }
         />
