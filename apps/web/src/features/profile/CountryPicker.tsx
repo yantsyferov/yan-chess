@@ -2,8 +2,7 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import * as Popover from "@radix-ui/react-popover";
 import { useLangStore } from "../i18n/useLangStore";
-import { COUNTRIES } from "../../data/countries";
-import type { CountryEntry } from "../../data/countries";
+import { COUNTRIES, getLocalizedCountryName } from "../../data/countries";
 import { UserFlag } from "./UserFlag";
 
 export interface CountryPickerProps {
@@ -11,12 +10,6 @@ export interface CountryPickerProps {
   onChange: (code: string) => void;
   placeholder?: string;
   disabled?: boolean;
-}
-
-function getLocalizedName(entry: CountryEntry, locale: string): string {
-  if (locale === "ru") return entry.names.ru;
-  if (locale === "es") return entry.names.es;
-  return entry.names.en;
 }
 
 export function CountryPicker({
@@ -72,7 +65,7 @@ export function CountryPicker({
           type="button"
           disabled={disabled}
           aria-label={
-            selected ? getLocalizedName(selected, locale) : t("country.whiteFlag")
+            selected ? getLocalizedCountryName(selected, locale) : t("country.whiteFlag")
           }
           className={[
             "inline-flex items-center gap-2 w-full rounded-lg bg-surface-elevated border px-3 py-2.5",
@@ -88,7 +81,7 @@ export function CountryPicker({
           {selected ? (
             <>
               <UserFlag country={selected.code} size="sm" />
-              <span>{getLocalizedName(selected, locale)}</span>
+              <span>{getLocalizedCountryName(selected, locale)}</span>
             </>
           ) : (
             <span className="text-text-muted">{displayPlaceholder}</span>
@@ -132,7 +125,7 @@ export function CountryPicker({
                     ].join(" ")}
                   >
                     <UserFlag country={c.code} size="sm" />
-                    <span>{getLocalizedName(c, locale)}</span>
+                    <span>{getLocalizedCountryName(c, locale)}</span>
                   </button>
                 </li>
               ))

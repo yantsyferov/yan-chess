@@ -164,7 +164,7 @@ describe("§2.2 UserIdentity in FriendsPopup", () => {
         <FriendsPopup />
       </MemoryRouter>,
     );
-    expect(screen.getByLabelText("No country")).toBeInTheDocument();
+    expect(screen.getByLabelText("No country selected")).toBeInTheDocument();
   });
 
   it("negative: friend with unknown userId does not appear when not in list", () => {
@@ -203,7 +203,7 @@ describe("§2.2 UserIdentity in Profile", () => {
         <Profile />
       </MemoryRouter>,
     );
-    const flags = screen.getAllByLabelText("No country");
+    const flags = screen.getAllByLabelText("No country selected");
     expect(flags.length).toBeGreaterThanOrEqual(1);
   });
 

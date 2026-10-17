@@ -7,6 +7,12 @@ export interface CountryEntry {
   };
 }
 
+export function getLocalizedCountryName(entry: CountryEntry, locale: string): string {
+  if (locale === "ru") return entry.names.ru;
+  if (locale === "es") return entry.names.es;
+  return entry.names.en;
+}
+
 function entry(code: string, en: string, ru?: string, es?: string): CountryEntry {
   return {
     code,

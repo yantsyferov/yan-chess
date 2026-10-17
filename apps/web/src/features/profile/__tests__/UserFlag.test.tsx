@@ -15,7 +15,7 @@ describe("UserFlag", () => {
 
   it("renders a placeholder (no fi-xx class) when country is null", () => {
     render(<UserFlag country={null} />);
-    const el = screen.getByLabelText("No country");
+    const el = screen.getByLabelText("No country selected");
     expect(el.className).not.toContain("fi-");
   });
 
@@ -24,8 +24,8 @@ describe("UserFlag", () => {
     expect(screen.getByLabelText("Mexico")).toBeTruthy();
   });
 
-  it("aria-label is 'No country' when country is null", () => {
+  it("aria-label is 'No country selected' when country is null", () => {
     render(<UserFlag country={null} />);
-    expect(screen.getByLabelText("No country")).toBeTruthy();
+    expect(screen.getByLabelText("No country selected")).toBeTruthy();
   });
 });
