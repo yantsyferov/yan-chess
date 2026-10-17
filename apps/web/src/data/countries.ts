@@ -1,6 +1,5 @@
 export interface CountryEntry {
   code: string;
-  flag: string;
   names: {
     en: string;
     ru: string;
@@ -8,16 +7,15 @@ export interface CountryEntry {
   };
 }
 
-function codeToFlag(code: string): string {
-  return [...code.toUpperCase()]
-    .map((c) => String.fromCodePoint(0x1f1e6 + c.charCodeAt(0) - 65))
-    .join("");
+export function getLocalizedCountryName(entry: CountryEntry, locale: string): string {
+  if (locale === "ru") return entry.names.ru;
+  if (locale === "es") return entry.names.es;
+  return entry.names.en;
 }
 
 function entry(code: string, en: string, ru?: string, es?: string): CountryEntry {
   return {
     code,
-    flag: codeToFlag(code),
     names: { en, ru: ru ?? en, es: es ?? en },
   };
 }

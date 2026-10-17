@@ -57,8 +57,8 @@ describe("CountryPicker — placeholder when value=null", () => {
 describe("CountryPicker — selected value display", () => {
   it("shows flag and localized name when value is set to MX", () => {
     const onChange = vi.fn();
-    renderPicker({ value: "MX", onChange });
-    expect(screen.getByText("🇲🇽")).toBeInTheDocument();
+    const { container } = renderPicker({ value: "MX", onChange });
+    expect(container.querySelector(".fi.fi-mx")).not.toBeNull();
     expect(screen.getByText("Mexico")).toBeInTheDocument();
   });
 });
