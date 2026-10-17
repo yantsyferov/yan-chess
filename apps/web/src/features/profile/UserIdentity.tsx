@@ -26,10 +26,10 @@ export function UserIdentity({
         <OnlineStatusDot online={online} size={size === "md" ? "md" : "sm"} />
       )}
       <span className={textSize}>{nickname}</span>
-      <UserFlag country={country} size={size === "sm" ? "sm" : "md"} />
       {rating !== undefined && (
         <span className="text-text-secondary text-sm">({rating})</span>
       )}
+      <UserFlag country={country} />
     </span>
   );
 }
