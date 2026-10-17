@@ -4,30 +4,22 @@ import { useLangStore } from "../i18n/useLangStore";
 
 interface UserFlagProps {
   country: string | null;
-  size?: "sm" | "md";
   className?: string;
 }
 
-const DIMS = {
-  sm: { width: 16, height: 12 },
-  md: { width: 27, height: 20 },
-};
-
-export function UserFlag({ country, size = "sm", className = "" }: UserFlagProps): JSX.Element {
+export function UserFlag({ country, className = "" }: UserFlagProps): JSX.Element {
   const { t } = useTranslation("common");
   const locale = useLangStore((s) => s.current);
   const entry = country ? COUNTRIES.find((c) => c.code === country) ?? null : null;
   const label = entry ? getLocalizedCountryName(entry, locale) : t("country.whiteFlag");
-  const dims = DIMS[size];
 
   if (!entry) {
     return (
       <svg
         role="img"
         aria-label={label}
-        className={`inline-block shrink-0 ${className}`}
-        width={dims.width}
-        height={dims.height}
+        className={`inline-block align-text-bottom shrink-0 cursor-help ${className}`}
+        style={{ width: "1.333em", height: "1em" }}
         viewBox="0 0 4 3"
       >
         <title>{label}</title>
@@ -50,8 +42,7 @@ export function UserFlag({ country, size = "sm", className = "" }: UserFlagProps
     <span
       aria-label={label}
       title={label}
-      className={`fi fi-${entry.code.toLowerCase()} inline-block rounded-sm shrink-0 ${className}`}
-      style={{ width: dims.width, height: dims.height }}
+      className={`fi fi-${entry.code.toLowerCase()} align-text-bottom rounded-sm shrink-0 cursor-help ${className}`}
     />
   );
 }

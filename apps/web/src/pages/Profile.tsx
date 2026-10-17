@@ -67,7 +67,7 @@ export function Profile(): JSX.Element {
               {user.country == null ? (
                 <div className="flex flex-col gap-1">
                   <p className="text-sm text-text-secondary flex items-center gap-1.5">
-                    <UserFlag country={null} size="sm" />
+                    <UserFlag country={null} />
                     <span>{t("identityCard.international")}</span>
                   </p>
                   <CountryPicker

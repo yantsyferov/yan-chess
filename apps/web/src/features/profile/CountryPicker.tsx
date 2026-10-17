@@ -80,7 +80,7 @@ export function CountryPicker({
         >
           {selected ? (
             <>
-              <UserFlag country={selected.code} size="sm" />
+              <UserFlag country={selected.code} />
               <span>{getLocalizedCountryName(selected, locale)}</span>
             </>
           ) : (
@@ -124,7 +124,7 @@ export function CountryPicker({
                       c.code === value ? "text-accent font-medium" : "text-text-primary",
                     ].join(" ")}
                   >
-                    <UserFlag country={c.code} size="sm" />
+                    <UserFlag country={c.code} />
                     <span>{getLocalizedCountryName(c, locale)}</span>
                   </button>
                 </li>
