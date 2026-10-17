@@ -90,6 +90,8 @@ vi.mock("../features/auth/useAuthStore", () => ({
       selector ? selector(_authState) : _authState,
     { getState: () => ({ ..._authState, clear: vi.fn(), setSession: vi.fn() }) },
   ),
+  hasSessionFlag: () => false,
+  SESSION_FLAG_KEY: "yanchess:session",
 }));
 
 // Stockfish engine — VsBot uses this and it loads a worker
