@@ -155,6 +155,7 @@ export function OnlineResultModal({
                   onRespondRematch(false);
                 }
                 onDismiss();
+                navigate("/");
               }}
             >
               {t("online.result.close")}
