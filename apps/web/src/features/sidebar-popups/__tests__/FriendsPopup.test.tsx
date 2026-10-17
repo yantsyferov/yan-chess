@@ -103,12 +103,11 @@ describe("FriendsPopup", () => {
       expect(screen.getByRole("button", { name: /find friends/i })).toBeTruthy();
     });
 
-    it("'Find friends' button navigates to /friends", async () => {
+    it("'Find friends' button is wrapped in a link to /friends", () => {
       mockFriends = [];
       renderPopup();
-      const user = userEvent.setup();
-      await user.click(screen.getByRole("button", { name: /find friends/i }));
-      expect(mockNavigate).toHaveBeenCalledWith("/friends");
+      const link = screen.getByRole("link", { name: /find friends/i });
+      expect(link).toHaveAttribute("href", "/friends");
     });
   });
 

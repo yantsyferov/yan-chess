@@ -4,14 +4,15 @@ import { toast } from "sonner";
 import type { FriendListItem } from "@yanchess/shared";
 import type { Mode, ChallengeColor } from "@yanchess/shared";
 import { useFriendsStore } from "../friends/useFriendsStore";
-import { UserFlag } from "../profile/UserFlag";
+import { UserIdentity } from "../profile/UserIdentity";
 import { Button } from "../../components/ui/Button";
+import { ToggleGroup } from "../../components/ui/ToggleGroup";
 
-const MODES: Mode[] = ["Bullet", "Blitz", "Rapid", "Classical"];
-const COLORS: { value: ChallengeColor; labelKey: string }[] = [
-  { value: "white", labelKey: "challenge.white" },
-  { value: "black", labelKey: "challenge.black" },
-  { value: "random", labelKey: "challenge.random" },
+const MODE_OPTIONS: { value: Mode; label: string }[] = [
+  { value: "Bullet", label: "Bullet" },
+  { value: "Blitz", label: "Blitz" },
+  { value: "Rapid", label: "Rapid" },
+  { value: "Classical", label: "Classical" },
 ];
 
 interface InlineChallengeFormProps {
@@ -42,25 +43,17 @@ export function InlineChallengeForm({ friend, onSent, onBack }: InlineChallengeF
     toast.info(t("play.friend.challengeLinkComingSoon"));
   }
 
-  const segmentBase =
-    "px-3 py-2 rounded-lg text-sm font-medium border transition-colors";
-  const segmentActive = "bg-accent text-text-inverse border-accent";
-  const segmentInactive =
-    "bg-transparent border-border-subtle text-text-secondary hover:border-border-strong hover:text-text-primary";
+  const colorOptions: { value: ChallengeColor; label: string }[] = [
+    { value: "white", label: tFriends("challenge.white") },
+    { value: "black", label: tFriends("challenge.black") },
+    { value: "random", label: tFriends("challenge.random") },
+  ];
 
   return (
     <div className="flex flex-col gap-4">
       {/* Header */}
       <div className="flex items-center gap-3">
-        <span
-          className={`inline-block w-2.5 h-2.5 rounded-full flex-shrink-0 ${
-            friend.online
-              ? "bg-success"
-              : "border border-text-muted bg-transparent"
-          }`}
-          aria-hidden="true"
-        />
-        <span className="text-base font-semibold text-text-primary">{friend.nickname}<UserFlag country={friend.country} size="md" className="ml-1" /></span>
+        <UserIdentity nickname={friend.nickname} country={friend.country} online={friend.online} size="md" />
       </div>
 
       <button
@@ -72,61 +65,40 @@ export function InlineChallengeForm({ friend, onSent, onBack }: InlineChallengeF
       </button>
 
       {/* Mode selector */}
-      <div>
-        <p className="text-xs text-text-muted mb-2 uppercase tracking-wide">
-          {tFriends("challenge.mode")}
-        </p>
-        <div className="grid grid-cols-4 gap-2">
-          {MODES.map((m) => (
-            <button
-              key={m}
-              type="button"
-              onClick={() => setMode(m)}
-              className={[segmentBase, mode === m ? segmentActive : segmentInactive].join(" ")}
-            >
-              {m}
-            </button>
-          ))}
-        </div>
-      </div>
+      <ToggleGroup
+        value={mode}
+        onChange={setMode}
+        options={MODE_OPTIONS}
+        label={tFriends("challenge.mode")}
+        variant="segment"
+        layout="grid"
+        gridCols={4}
+      />
 
       {/* Rated / Casual */}
-      <div>
-        <p className="text-xs text-text-muted mb-2 uppercase tracking-wide">
-          {t("play.online.rated.label")}
-        </p>
-        <div className="grid grid-cols-2 gap-2">
-          {([true, false] as const).map((rated) => (
-            <button
-              key={String(rated)}
-              type="button"
-              onClick={() => setIsRated(rated)}
-              className={[segmentBase, isRated === rated ? segmentActive : segmentInactive].join(" ")}
-            >
-              {rated ? t("play.online.rated.rated") : t("play.online.rated.casual")}
-            </button>
-          ))}
-        </div>
-      </div>
+      <ToggleGroup
+        value={isRated}
+        onChange={setIsRated}
+        options={[
+          { value: true, label: t("play.online.rated.rated") },
+          { value: false, label: t("play.online.rated.casual") },
+        ]}
+        label={t("play.online.rated.label")}
+        variant="segment"
+        layout="grid"
+        gridCols={2}
+      />
 
       {/* Color selector */}
-      <div>
-        <p className="text-xs text-text-muted mb-2 uppercase tracking-wide">
-          {tFriends("challenge.color")}
-        </p>
-        <div className="grid grid-cols-3 gap-2">
-          {COLORS.map(({ value, labelKey }) => (
-            <button
-              key={value}
-              type="button"
-              onClick={() => setColor(value)}
-              className={[segmentBase, color === value ? segmentActive : segmentInactive].join(" ")}
-            >
-              {tFriends(labelKey)}
-            </button>
-          ))}
-        </div>
-      </div>
+      <ToggleGroup
+        value={color}
+        onChange={setColor}
+        options={colorOptions}
+        label={tFriends("challenge.color")}
+        variant="segment"
+        layout="grid"
+        gridCols={3}
+      />
 
       {/* Actions */}
       <div className="flex flex-col gap-2 mt-2">

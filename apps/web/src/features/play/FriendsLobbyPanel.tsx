@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import type { FriendListItem } from "@yanchess/shared";
 import { useFriendsStore } from "../friends/useFriendsStore";
 import { InlineChallengeForm } from "./InlineChallengeForm";
 import { Button } from "../../components/ui/Button";
-import { UserFlag } from "../profile/UserFlag";
+import { UserIdentity } from "../profile/UserIdentity";
 import { Card } from "../../components/ui/Card";
+import { EmptyState } from "../../components/ui/EmptyState";
 
 type View = "list" | "challenge";
 
@@ -46,17 +46,10 @@ export function FriendsLobbyPanel(): JSX.Element {
       </h2>
 
       {friends.length === 0 ? (
-        <div className="flex flex-col items-center gap-3 py-6 text-center">
-          <p className="text-sm text-text-secondary max-w-sm">
-            {t("play.friend.emptyState")}
-          </p>
-          <Link
-            to="/friends"
-            className="text-sm text-accent hover:underline"
-          >
-            /friends
-          </Link>
-        </div>
+        <EmptyState
+          description={t("play.friend.emptyState")}
+          actions={[{ label: "/friends", to: "/friends", variant: "secondary" }]}
+        />
       ) : (
         <div className="flex flex-col gap-2">
           {friends.map((friend) => (
@@ -65,17 +58,7 @@ export function FriendsLobbyPanel(): JSX.Element {
               className="flex items-center justify-between px-4 py-3 rounded-lg bg-surface-elevated border border-border-subtle"
             >
               <div className="flex items-center gap-3">
-                <span
-                  className={`inline-block w-2.5 h-2.5 rounded-full flex-shrink-0 ${
-                    friend.online
-                      ? "bg-success"
-                      : "border border-text-muted bg-transparent"
-                  }`}
-                  aria-hidden="true"
-                />
-                <span className="text-sm font-medium text-text-primary">
-                  {friend.nickname}<UserFlag country={friend.country} className="ml-1" />
-                </span>
+                <UserIdentity nickname={friend.nickname} country={friend.country} online={friend.online} />
               </div>
               <Button
                 variant="secondary"

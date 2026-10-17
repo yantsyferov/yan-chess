@@ -1,4 +1,4 @@
-import { Link, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useGamesList } from "./useGamesList";
 import { GameRow } from "./GameRow";
@@ -7,6 +7,7 @@ import { HistoryFilters } from "./HistoryFilters";
 import { Card } from "../../components/ui/Card";
 import { Button } from "../../components/ui/Button";
 import { Alert } from "../../components/ui/Alert";
+import { EmptyState } from "../../components/ui/EmptyState";
 
 function SkeletonRow(): JSX.Element {
   return (
@@ -100,13 +101,11 @@ export function GameHistorySection(): JSX.Element {
         <h2 className="text-lg font-medium text-text-primary mb-3 px-1">{t("title")}</h2>
         <HistoryFilters mode={mode} result={result} onChange={handleFiltersChange} />
         <div className="mt-3">
-          <Card variant="default" padding="lg">
-            <div className="flex flex-col items-center gap-3 text-center">
-              <p className="text-sm text-text-secondary">{t("filters.noMatch")}</p>
-              <Button size="sm" variant="secondary" onClick={() => { setSearchParams({}); }}>
-                {t("filters.clear")}
-              </Button>
-            </div>
+          <Card variant="default" padding="none">
+            <EmptyState
+              description={t("filters.noMatch")}
+              actions={[{ label: t("filters.clear"), variant: "secondary", onClick: () => { setSearchParams({}); } }]}
+            />
           </Card>
         </div>
       </section>
@@ -117,19 +116,15 @@ export function GameHistorySection(): JSX.Element {
     return (
       <section>
         <h2 className="text-lg font-medium text-text-primary mb-3 px-1">{t("title")}</h2>
-        <Card variant="default" padding="lg">
-          <div className="flex flex-col items-center gap-3 text-center">
-            <h3 className="text-base font-medium text-text-primary">{t("emptyTitle")}</h3>
-            <p className="text-sm text-text-secondary">{t("emptyBody")}</p>
-            <div className="flex gap-3 mt-2">
-              <Link to="/">
-                <Button>{t("emptyActions.findGame")}</Button>
-              </Link>
-              <Link to="/vs-bot">
-                <Button variant="secondary">{t("emptyActions.playBot")}</Button>
-              </Link>
-            </div>
-          </div>
+        <Card variant="default" padding="none">
+          <EmptyState
+            title={t("emptyTitle")}
+            description={t("emptyBody")}
+            actions={[
+              { label: t("emptyActions.findGame"), to: "/", variant: "primary" },
+              { label: t("emptyActions.playBot"), to: "/vs-bot", variant: "secondary" },
+            ]}
+          />
         </Card>
       </section>
     );

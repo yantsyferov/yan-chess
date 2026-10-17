@@ -2,7 +2,8 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import type { GameListItem, GameEndReason } from "@yanchess/shared";
 import { MODE_LABELS } from "../shared/mode-labels";
-import { UserFlag } from "../profile/UserFlag";
+import { UserIdentity } from "../profile/UserIdentity";
+import { RatedBadge } from "../../components/ui/RatedBadge";
 
 function formatDate(iso: string): string {
   return new Date(iso).toLocaleString(undefined, {
@@ -33,7 +34,6 @@ interface GameRowProps {
 
 export function GameRow({ item }: GameRowProps): JSX.Element {
   const { t } = useTranslation("history");
-  const { t: tGame } = useTranslation("game");
   const location = useLocation();
   const navigate = useNavigate();
   const replayTo = `/history/${item.gameId}`;
@@ -72,23 +72,14 @@ export function GameRow({ item }: GameRowProps): JSX.Element {
       <span className="text-sm text-text-muted w-36 shrink-0">{formatDate(item.startedAt)}</span>
 
       <span className="text-sm text-text-primary grow">
-        {item.opponent.nickname}<UserFlag country={item.opponent.country} className="ml-1" />{" "}
-        <span className="text-text-muted">({item.opponent.ratingAfter})</span>
+        <UserIdentity nickname={item.opponent.nickname} country={item.opponent.country} rating={item.opponent.ratingAfter} />
       </span>
 
       <span className="text-xs font-medium px-2 py-0.5 rounded-full bg-surface-elevated text-text-secondary shrink-0">
         {MODE_LABELS[item.mode]}
       </span>
 
-      {item.isRated ? (
-        <span className="text-xs font-medium px-2 py-0.5 rounded-full bg-accent/10 text-accent shrink-0">
-          {tGame("history.ratedBadge")}
-        </span>
-      ) : (
-        <span className="text-xs font-medium px-2 py-0.5 rounded-full bg-surface-elevated text-text-secondary shrink-0">
-          {tGame("history.casualBadge")}
-        </span>
-      )}
+      <RatedBadge isRated={item.isRated} />
 
       <span className="text-sm font-medium text-text-primary shrink-0">
         {resultLabel}

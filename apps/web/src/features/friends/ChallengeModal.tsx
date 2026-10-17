@@ -10,8 +10,14 @@ import {
   DialogTitle,
 } from "../../components/ui/Dialog";
 import { Button } from "../../components/ui/Button";
+import { ToggleGroup } from "../../components/ui/ToggleGroup";
 
-const MODES: Mode[] = ["Bullet", "Blitz", "Rapid", "Classical"];
+const MODE_OPTIONS: { value: Mode; label: string }[] = [
+  { value: "Bullet", label: "Bullet" },
+  { value: "Blitz", label: "Blitz" },
+  { value: "Rapid", label: "Rapid" },
+  { value: "Classical", label: "Classical" },
+];
 
 function pad(n: number): string {
   return String(n).padStart(2, "0");
@@ -130,68 +136,44 @@ export function ChallengeModal(): JSX.Element | null {
 
             {/* Mode selector */}
             <div className="mt-4">
-              <p className="text-xs text-text-muted mb-2 uppercase tracking-wide">{t("challenge.mode")}</p>
-              <div className="grid grid-cols-4 gap-2">
-                {MODES.map((m) => (
-                  <button
-                    key={m}
-                    type="button"
-                    onClick={() => setLocalMode(m)}
-                    className={[
-                      "px-3 py-2 rounded-lg text-sm font-medium border transition-colors",
-                      localMode === m
-                        ? "bg-accent text-text-inverse border-accent"
-                        : "bg-transparent border-border-subtle text-text-secondary hover:border-border-strong hover:text-text-primary",
-                    ].join(" ")}
-                  >
-                    {m}
-                  </button>
-                ))}
-              </div>
+              <ToggleGroup
+                value={localMode}
+                onChange={setLocalMode}
+                options={MODE_OPTIONS}
+                label={t("challenge.mode")}
+                variant="segment"
+                layout="grid"
+                gridCols={4}
+              />
             </div>
 
             {/* Color selector */}
             <div className="mt-4">
-              <p className="text-xs text-text-muted mb-2 uppercase tracking-wide">{t("challenge.color")}</p>
-              <div className="grid grid-cols-3 gap-2">
-                {COLORS.map(({ value, label }) => (
-                  <button
-                    key={value}
-                    type="button"
-                    onClick={() => setLocalColor(value)}
-                    className={[
-                      "px-3 py-2 rounded-lg text-sm font-medium border transition-colors",
-                      localColor === value
-                        ? "bg-accent text-text-inverse border-accent"
-                        : "bg-transparent border-border-subtle text-text-secondary hover:border-border-strong hover:text-text-primary",
-                    ].join(" ")}
-                  >
-                    {label}
-                  </button>
-                ))}
-              </div>
+              <ToggleGroup
+                value={localColor}
+                onChange={setLocalColor}
+                options={COLORS}
+                label={t("challenge.color")}
+                variant="segment"
+                layout="grid"
+                gridCols={3}
+              />
             </div>
 
             {/* Rated / Casual selector */}
             <div className="mt-4">
-              <p className="text-xs text-text-muted mb-2 uppercase tracking-wide">{tGame("play.online.rated.label")}</p>
-              <div className="grid grid-cols-2 gap-2">
-                {([true, false] as const).map((rated) => (
-                  <button
-                    key={String(rated)}
-                    type="button"
-                    onClick={() => setLocalIsRated(rated)}
-                    className={[
-                      "px-3 py-2 rounded-lg text-sm font-medium border transition-colors",
-                      localIsRated === rated
-                        ? "bg-accent text-text-inverse border-accent"
-                        : "bg-transparent border-border-subtle text-text-secondary hover:border-border-strong hover:text-text-primary",
-                    ].join(" ")}
-                  >
-                    {rated ? tGame("play.online.rated.rated") : tGame("play.online.rated.casual")}
-                  </button>
-                ))}
-              </div>
+              <ToggleGroup
+                value={localIsRated}
+                onChange={setLocalIsRated}
+                options={[
+                  { value: true, label: tGame("play.online.rated.rated") },
+                  { value: false, label: tGame("play.online.rated.casual") },
+                ]}
+                label={tGame("play.online.rated.label")}
+                variant="segment"
+                layout="grid"
+                gridCols={2}
+              />
             </div>
 
             <div className="flex justify-end gap-3 mt-6">
