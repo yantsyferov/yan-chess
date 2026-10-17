@@ -46,6 +46,17 @@ export function PlayOnline(): JSX.Element {
     wireOnlineGameSocket();
   }, []);
 
+  // Fresh-visit semantics: if the store holds an ENDED game (user navigated
+  // away without clicking "New Game" and came back later), reset to a clean
+  // state so the mode-selector appears instead of the dead board.
+  useEffect(() => {
+    const s = useOnlineGameStore.getState();
+    if (s.gameId !== null && s.result !== null) {
+      s.startNewGame();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   // Leave queue if user navigates away while searching
   useEffect(() => {
     return (): void => {
