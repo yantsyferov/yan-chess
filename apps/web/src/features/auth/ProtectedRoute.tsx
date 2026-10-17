@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
-import { useAuthStore } from "./useAuthStore";
+import { useAuthStore, hasSessionFlag } from "./useAuthStore";
 import { fetchMe } from "./authService";
 
 interface RedirectState {
@@ -15,10 +15,14 @@ interface ProtectedRouteProps {
 
 export function ProtectedRoute({ children, redirectState }: ProtectedRouteProps): JSX.Element {
   const { user } = useAuthStore();
-  const [checked, setChecked] = useState(user !== null);
+  // If the user is already in the store (post-login navigation) OR the
+  // session flag is absent (anonymous visitor who never logged in), we can
+  // make the auth decision synchronously without the fetchMe round-trip.
+  const [checked, setChecked] = useState(() => user !== null || !hasSessionFlag());
 
   useEffect(() => {
     if (user) { setChecked(true); return; }
+    if (!hasSessionFlag()) { setChecked(true); return; }
     void (async () => {
       await fetchMe();
       setChecked(true);
