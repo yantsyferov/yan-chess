@@ -78,5 +78,7 @@
   "errors": {
     "loadFailed": "Error al cargar el historial."
   },
-  "tryAgain": "Reintentar"
+  "tryAgain": "Reintentar",
+  "recentGames": "Partidas recientes",
+  "viewAllGames": "Ver todas las partidas"
 }

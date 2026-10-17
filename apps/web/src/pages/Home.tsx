@@ -9,6 +9,7 @@ import { Card } from "../components/ui/Card";
 import { Button } from "../components/ui/Button";
 import { PlayOnlineBlock } from "../features/online/PlayOnlineBlock";
 import { PlayVsBotBlock } from "../features/vs-bot/PlayVsBotBlock";
+import { RecentGamesSection } from "../features/history/RecentGamesSection";
 
 export function Home(): JSX.Element {
   const user = useAuthStore((s) => s.user);
@@ -53,6 +54,7 @@ export function Home(): JSX.Element {
         </Card>
         <PlayOnlineBlock />
         <PlayVsBotBlock />
+        <RecentGamesSection />
       </div>
     );
   }

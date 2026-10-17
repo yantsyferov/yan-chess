@@ -20,7 +20,7 @@ export interface GameListItem {
 
 export interface GameListPagination {
   page: number;
-  perPage: 20;
+  perPage: number;
   totalGames: number;
   totalPages: number;
 }
