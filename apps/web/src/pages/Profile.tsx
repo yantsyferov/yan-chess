@@ -10,6 +10,7 @@ import { Card } from "../components/ui/Card";
 import { Button } from "../components/ui/Button";
 import { CountryPicker } from "../features/profile/CountryPicker";
 import { UserIdentity } from "../features/profile/UserIdentity";
+import { UserFlag } from "../features/profile/UserFlag";
 import { authedFetch } from "../features/auth/apiClient";
 
 export function Profile(): JSX.Element {
@@ -65,8 +66,8 @@ export function Profile(): JSX.Element {
               <span className="text-xs text-text-muted">{t("identityCard.countryLabel")}</span>
               {user.country == null ? (
                 <div className="flex flex-col gap-1">
-                  <p className="text-sm text-text-secondary flex items-center gap-1">
-                    <span aria-hidden="true">🏳</span>
+                  <p className="text-sm text-text-secondary flex items-center gap-1.5">
+                    <UserFlag country={null} size="sm" />
                     <span>{t("identityCard.international")}</span>
                   </p>
                   <CountryPicker

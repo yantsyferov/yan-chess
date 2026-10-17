@@ -260,9 +260,9 @@ describe("§2.10 — Profile page: null country + CountryPicker interaction", ()
         <Profile />
       </MemoryRouter>,
     );
-    // White flag emoji is rendered as aria-hidden span next to "International"
+    // White flag SVG placeholder renders next to "International" (UserFlag with country=null)
     expect(screen.getByText("International")).toBeInTheDocument();
-    expect(document.querySelector("span[aria-hidden='true']")).toBeInTheDocument();
+    expect(screen.getAllByLabelText("No country selected").length).toBeGreaterThanOrEqual(1);
   });
 
   it("handleCountryChange optimistically updates the auth store", async () => {

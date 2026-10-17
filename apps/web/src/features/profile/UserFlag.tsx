@@ -9,8 +9,8 @@ interface UserFlagProps {
 }
 
 const DIMS = {
-  sm: { width: 20, height: 15 },
-  md: { width: 28, height: 21 },
+  sm: { width: 16, height: 12 },
+  md: { width: 27, height: 20 },
 };
 
 export function UserFlag({ country, size = "sm", className = "" }: UserFlagProps): JSX.Element {
@@ -22,12 +22,27 @@ export function UserFlag({ country, size = "sm", className = "" }: UserFlagProps
 
   if (!entry) {
     return (
-      <span
+      <svg
+        role="img"
         aria-label={label}
-        title={label}
-        className={`inline-block rounded-sm bg-surface-elevated ${className}`}
-        style={{ width: dims.width, height: dims.height }}
-      />
+        className={`inline-block shrink-0 ${className}`}
+        width={dims.width}
+        height={dims.height}
+        viewBox="0 0 4 3"
+      >
+        <title>{label}</title>
+        <rect
+          x="0.1"
+          y="0.1"
+          width="3.8"
+          height="2.8"
+          fill="white"
+          stroke="currentColor"
+          strokeOpacity="0.35"
+          strokeWidth="0.15"
+          rx="0.1"
+        />
+      </svg>
     );
   }
 
@@ -35,7 +50,7 @@ export function UserFlag({ country, size = "sm", className = "" }: UserFlagProps
     <span
       aria-label={label}
       title={label}
-      className={`fi fi-${entry.code.toLowerCase()} inline-block rounded-sm ${className}`}
+      className={`fi fi-${entry.code.toLowerCase()} inline-block rounded-sm shrink-0 ${className}`}
       style={{ width: dims.width, height: dims.height }}
     />
   );
