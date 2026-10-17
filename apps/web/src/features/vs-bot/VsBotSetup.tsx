@@ -1,34 +1,12 @@
 import { useTranslation } from "react-i18next";
-import { Zap, Flame, Clock, Hourglass, Sparkles, BookOpen, Users, Swords, Trophy, Loader2 } from "lucide-react";
+import { Sparkles, BookOpen, Users, Swords, Trophy, Loader2 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
-import type { Mode } from "@yanchess/shared";
 import { Card } from "../../components/ui/Card";
 import { Button } from "../../components/ui/Button";
 import { BOT_LEVELS } from "./bot-levels";
 import type { BotLevel } from "./bot-levels";
 import { useVsBotStore } from "./useVsBotStore";
-import { MODE_LABELS } from "../shared/mode-labels";
-
-// ── Mode options ──────────────────────────────────────────────────────────────
-
-const TIME_LABELS: Record<Mode, string> = {
-  Bullet: "1 min",
-  Blitz: "3 min",
-  Rapid: "10 min",
-  Classical: "30 min",
-};
-
-interface ModeOption {
-  readonly mode: Mode;
-  readonly Icon: LucideIcon;
-}
-
-const MODE_OPTIONS: readonly ModeOption[] = [
-  { mode: "Bullet", Icon: Zap },
-  { mode: "Blitz", Icon: Flame },
-  { mode: "Rapid", Icon: Clock },
-  { mode: "Classical", Icon: Hourglass },
-] as const;
+import { MODE_LABELS, TIME_LABELS, MODE_OPTIONS } from "../shared/mode-labels";
 
 // ── Level icons ───────────────────────────────────────────────────────────────
 

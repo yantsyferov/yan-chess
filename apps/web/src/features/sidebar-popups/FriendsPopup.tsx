@@ -1,8 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { Users } from "lucide-react";
 import { useFriendsStore } from "../friends/useFriendsStore";
-import { Button } from "../../components/ui/Button";
 import { UserIdentity } from "../profile/UserIdentity";
+import { EmptyState } from "../../components/ui/EmptyState";
 
 const MAX_ROWS = 10;
 
@@ -20,21 +21,12 @@ export function FriendsPopup(): JSX.Element {
       </h2>
 
       {friends.length === 0 ? (
-        <div className="flex flex-col items-center gap-3 py-4 text-center">
-          <p className="text-sm font-medium text-text-primary">
-            {t("popups.friends.emptyTitle")}
-          </p>
-          <p className="text-xs text-text-secondary">
-            {t("popups.friends.emptyBody")}
-          </p>
-          <Button
-            variant="primary"
-            size="sm"
-            onClick={() => { navigate("/friends"); }}
-          >
-            {t("popups.friends.findFriendsButton")}
-          </Button>
-        </div>
+        <EmptyState
+          icon={Users}
+          title={t("popups.friends.emptyTitle")}
+          description={t("popups.friends.emptyBody")}
+          actions={[{ label: t("popups.friends.findFriendsButton"), to: "/friends", variant: "primary" }]}
+        />
       ) : (
         <div className="flex flex-col gap-1">
           {visibleFriends.map((friend) => (

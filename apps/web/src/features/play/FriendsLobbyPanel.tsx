@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import type { FriendListItem } from "@yanchess/shared";
 import { useFriendsStore } from "../friends/useFriendsStore";
@@ -7,6 +6,7 @@ import { InlineChallengeForm } from "./InlineChallengeForm";
 import { Button } from "../../components/ui/Button";
 import { UserIdentity } from "../profile/UserIdentity";
 import { Card } from "../../components/ui/Card";
+import { EmptyState } from "../../components/ui/EmptyState";
 
 type View = "list" | "challenge";
 
@@ -46,17 +46,10 @@ export function FriendsLobbyPanel(): JSX.Element {
       </h2>
 
       {friends.length === 0 ? (
-        <div className="flex flex-col items-center gap-3 py-6 text-center">
-          <p className="text-sm text-text-secondary max-w-sm">
-            {t("play.friend.emptyState")}
-          </p>
-          <Link
-            to="/friends"
-            className="text-sm text-accent hover:underline"
-          >
-            /friends
-          </Link>
-        </div>
+        <EmptyState
+          description={t("play.friend.emptyState")}
+          actions={[{ label: "/friends", to: "/friends", variant: "secondary" }]}
+        />
       ) : (
         <div className="flex flex-col gap-2">
           {friends.map((friend) => (

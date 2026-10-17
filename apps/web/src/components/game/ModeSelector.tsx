@@ -1,30 +1,8 @@
-import { Zap, Flame, Clock, Hourglass } from "lucide-react";
-import type { LucideIcon } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import type { Mode } from "@yanchess/shared";
 import { Card } from "../ui/Card";
 import { Button } from "../ui/Button";
 import { useGameStore } from "../../features/game/useGameStore";
-import { MODE_LABELS } from "../../features/shared/mode-labels";
-
-const TIME_LABELS: Record<Mode, string> = {
-  Bullet: "1 min",
-  Blitz: "3 min",
-  Rapid: "10 min",
-  Classical: "30 min",
-};
-
-interface ModeOption {
-  mode: Mode;
-  Icon: LucideIcon;
-}
-
-const MODE_OPTIONS: readonly ModeOption[] = [
-  { mode: "Bullet", Icon: Zap },
-  { mode: "Blitz", Icon: Flame },
-  { mode: "Rapid", Icon: Clock },
-  { mode: "Classical", Icon: Hourglass },
-] as const;
+import { MODE_LABELS, TIME_LABELS, MODE_OPTIONS } from "../../features/shared/mode-labels";
 
 interface ModeSelectorProps {
   showStartButton?: boolean;

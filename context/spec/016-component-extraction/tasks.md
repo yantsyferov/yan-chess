@@ -55,19 +55,19 @@ Baseline: 508 web tests, 141 api unit, api e2e unaffected (no backend touch).
 
 ---
 
-- [ ] **Slice 4: Extract `EmptyState` + migrate + mode-card consolidation + Verify screenshots**
+- [x] **Slice 4: Extract `EmptyState` + migrate + mode-card consolidation + Verify screenshots**
 
   > Last extraction slice. EmptyState + shared MODE_OPTIONS/TIME_LABELS constants + before/after visual sanity check.
 
-  - [ ] Create `apps/web/src/components/ui/EmptyState.tsx` — Props: `{ icon?: LucideIcon, title: string, description?: string, actions?: { label: string, onClick: () => void, variant?: 'primary' | 'secondary', to?: string }[], className? }`. Icon centered above, title + description in center column, actions as button row (links if `to` prop set). **[Agent: react-frontend]**
-  - [ ] Add `apps/web/src/components/ui/__tests__/EmptyState.test.tsx` — renders title; description when passed; icon when passed; action buttons fire onClick; `to` prop makes buttons links. **[Agent: react-frontend]**
-  - [ ] Migrate `features/history/GameHistorySection.tsx` — both empty states (no-games + no-filter-results) → `<EmptyState>`. **[Agent: react-frontend]**
-  - [ ] Migrate `features/sidebar-popups/FriendsPopup.tsx` — empty state → `<EmptyState>`. **[Agent: react-frontend]**
-  - [ ] Migrate `features/sidebar-popups/NotificationsPopup.tsx` — empty state → `<EmptyState>` (icon-only variant). **[Agent: react-frontend]**
-  - [ ] Migrate `features/play/FriendsLobbyPanel.tsx` — no-friends empty state → `<EmptyState>`. **[Agent: react-frontend]**
-  - [ ] Grep for other inline "no X yet" + "Find Y" patterns and migrate if found. **[Agent: react-frontend]**
-  - [ ] Amend `apps/web/src/features/shared/mode-labels.ts` — export `MODE_OPTIONS: { mode: Mode, Icon: LucideIcon }[]` + ensure `TIME_LABELS` exported. Both `ModeSelector.tsx` + `VsBotSetup.tsx` now import from here instead of inlining. **[Agent: react-frontend]**
-  - [ ] Grep for any remaining duplicated patterns (e.g., mode-cards grid structure in VsBotSetup vs ModeSelector) — if any clear duplication left, extract or document in Change Log. **[Agent: react-frontend]**
+  - [x] Create `apps/web/src/components/ui/EmptyState.tsx` — Props: `{ icon?: LucideIcon, title: string, description?: string, actions?: { label: string, onClick: () => void, variant?: 'primary' | 'secondary', to?: string }[], className? }`. Icon centered above, title + description in center column, actions as button row (links if `to` prop set). **[Agent: react-frontend]**
+  - [x] Add `apps/web/src/components/ui/__tests__/EmptyState.test.tsx` — renders title; description when passed; icon when passed; action buttons fire onClick; `to` prop makes buttons links. **[Agent: react-frontend]**
+  - [x] Migrate `features/history/GameHistorySection.tsx` — both empty states (no-games + no-filter-results) → `<EmptyState>`. **[Agent: react-frontend]**
+  - [x] Migrate `features/sidebar-popups/FriendsPopup.tsx` — empty state → `<EmptyState>`. **[Agent: react-frontend]**
+  - [x] Migrate `features/sidebar-popups/NotificationsPopup.tsx` — empty state → `<EmptyState>` (icon-only variant). **[Agent: react-frontend]**
+  - [x] Migrate `features/play/FriendsLobbyPanel.tsx` — no-friends empty state → `<EmptyState>`. **[Agent: react-frontend]**
+  - [x] Grep for other inline "no X yet" + "Find Y" patterns and migrate if found. **[Agent: react-frontend]**
+  - [x] Amend `apps/web/src/features/shared/mode-labels.ts` — export `MODE_OPTIONS: { mode: Mode, Icon: LucideIcon }[]` + ensure `TIME_LABELS` exported. Both `ModeSelector.tsx` + `VsBotSetup.tsx` now import from here instead of inlining. **[Agent: react-frontend]**
+  - [x] Grep for any remaining duplicated patterns (e.g., mode-cards grid structure in VsBotSetup vs ModeSelector) — if any clear duplication left, extract or document in Change Log. **[Agent: react-frontend]**
   - [ ] Visual sanity verify: dev-start web preview on 5173 (dev-API already running), take 5 screenshots on key pages (`/`, `/play`, `/play/friend`, `/profile`, `/friends`) → compare with any prior visual baseline (eyes on). Save to `docs/screenshots/016-after-*.png`. **[Agent: general-purpose]**
 
 ---
