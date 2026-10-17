@@ -1,7 +1,7 @@
 # Functional Specification: Home Page Games List
 
 - **Topic:** Add a "Recent games" list to the home page showing a signed-in player's last 10 finished games, with a "View all games" button underneath that routes to a dedicated full history page.
-- **Status:** Draft
+- **Status:** Completed
 - **Author:** AWOS /awos:spec
 
 ---
@@ -33,11 +33,11 @@ The full history page is a new destination — today the full history lives insi
 - If the player has fewer than 10 finished games, the section shows just the ones they have (no empty padding, no placeholders).
 - If the player has zero finished games, the section renders an empty-state card with the same message and action buttons the Profile page's empty state uses today ("No games yet — finish an online game, it will show up here"; "Find game" + "Play vs bot" buttons). Training games vs the bot still do not appear.
 - **Acceptance Criteria:**
-  - [ ] Given a signed-in player with 10 or more finished games opens the home page, when the page loads, then they see a "Recent games" section with their 10 most recent games listed newest first.
-  - [ ] Given a signed-in player with 3 finished games opens the home page, when the page loads, then the "Recent games" section shows exactly 3 rows (not 10 rows with 7 blanks).
-  - [ ] Given a signed-in player with 0 finished games opens the home page, when the page loads, then the "Recent games" section shows the empty-state card with "No games yet" + "Find game" and "Play vs bot" buttons.
-  - [ ] Given a signed-in player's "Recent games" list is rendered, when they click any row, then they land on that game's replay screen (same destination as clicking from the Profile history).
-  - [ ] Given a signed-in player has played both Rated and Casual games, when they look at the "Recent games" list, then each row shows the correct "Rated" or "Casual" badge next to the mode.
+  - [x] Given a signed-in player with 10 or more finished games opens the home page, when the page loads, then they see a "Recent games" section with their 10 most recent games listed newest first.
+  - [x] Given a signed-in player with 3 finished games opens the home page, when the page loads, then the "Recent games" section shows exactly 3 rows (not 10 rows with 7 blanks).
+  - [x] Given a signed-in player with 0 finished games opens the home page, when the page loads, then the "Recent games" section shows the empty-state card with "No games yet" + "Find game" and "Play vs bot" buttons.
+  - [x] Given a signed-in player's "Recent games" list is rendered, when they click any row, then they land on that game's replay screen (same destination as clicking from the Profile history).
+  - [x] Given a signed-in player has played both Rated and Casual games, when they look at the "Recent games" list, then each row shows the correct "Rated" or "Casual" badge next to the mode.
 
 ### 2.2 "View all games" button
 
@@ -45,10 +45,10 @@ The full history page is a new destination — today the full history lives insi
 - The button is visible even if the player has fewer than 10 games — as soon as there is at least one game, "View all games" lets them reach the full-history page (which may still be short, but it's the proper destination).
 - If the player has **zero** games, the "View all games" button is **not** shown — the empty-state card's action buttons cover that case.
 - **Acceptance Criteria:**
-  - [ ] Given a signed-in player with 10 or more games opens the home page, when the page loads, then below the "Recent games" list they see a "View all games" button.
-  - [ ] Given a signed-in player with 3 games opens the home page, when the page loads, then below the 3 rows they see the "View all games" button.
-  - [ ] Given a signed-in player with 0 games opens the home page, when the page loads, then they do NOT see a "View all games" button (the empty-state card is shown instead).
-  - [ ] Given a signed-in player clicks the "View all games" button, when the navigation completes, then they land on the full-history page described in §2.3.
+  - [x] Given a signed-in player with 10 or more games opens the home page, when the page loads, then below the "Recent games" list they see a "View all games" button.
+  - [x] Given a signed-in player with 3 games opens the home page, when the page loads, then below the 3 rows they see the "View all games" button.
+  - [x] Given a signed-in player with 0 games opens the home page, when the page loads, then they do NOT see a "View all games" button (the empty-state card is shown instead).
+  - [x] Given a signed-in player clicks the "View all games" button, when the navigation completes, then they land on the full-history page described in §2.3.
 
 ### 2.3 Dedicated full-history page
 
@@ -57,26 +57,26 @@ The full history page is a new destination — today the full history lives insi
 - Row behavior is identical to the "Recent games" list on the home page: click a row → replay screen.
 - The page title / heading reads **"Game history"** (localized).
 - **Acceptance Criteria:**
-  - [ ] Given a signed-in player clicks "View all games" from the home page, when the full-history page loads, then they see a heading "Game history" and a paginated list of all their finished games, newest first.
-  - [ ] Given a signed-in player is on the full-history page, when they change the mode filter to "Blitz", then the list re-renders to show only their Blitz games.
-  - [ ] Given a signed-in player is on the full-history page, when they change the result filter to "Losses", then the list re-renders to show only their losses.
-  - [ ] Given a signed-in player is on the full-history page with 50+ games, when they open the page, then the list shows 20 rows and pagination controls at the bottom.
-  - [ ] Given an anonymous visitor types "/history" directly in the URL bar, when the page loads, then they are redirected to the sign-in page.
+  - [x] Given a signed-in player clicks "View all games" from the home page, when the full-history page loads, then they see a heading "Game history" and a paginated list of all their finished games, newest first.
+  - [x] Given a signed-in player is on the full-history page, when they change the mode filter to "Blitz", then the list re-renders to show only their Blitz games.
+  - [x] Given a signed-in player is on the full-history page, when they change the result filter to "Losses", then the list re-renders to show only their losses.
+  - [x] Given a signed-in player is on the full-history page with 50+ games, when they open the page, then the list shows 20 rows and pagination controls at the bottom.
+  - [x] Given an anonymous visitor types "/history" directly in the URL bar, when the page loads, then they are redirected to the sign-in page.
 
 ### 2.4 Interaction between the home list, the dedicated history page, and Profile
 
 - The existing Profile page's "Game history" section is **unchanged** by this spec. It continues to show the same paginated history it does today. Profile remains the player's identity surface; the new "/history" page is simply a direct address for the same content.
 - The home page's "Recent games" list is a lightweight preview — it does NOT include filters, pagination, or any controls. For filtering or paging, the player uses "View all games" → "/history".
 - **Acceptance Criteria:**
-  - [ ] Given a signed-in player opens their Profile page, when the page loads, then they see the same "Game history" section they see today — unchanged behavior.
-  - [ ] Given a signed-in player is on the home page's "Recent games" list, when they look at it, then there are no filter dropdowns and no pagination controls visible in that section.
+  - [x] Given a signed-in player opens their Profile page, when the page loads, then they see the same "Game history" section they see today — unchanged behavior.
+  - [x] Given a signed-in player is on the home page's "Recent games" list, when they look at it, then there are no filter dropdowns and no pagination controls visible in that section.
 
 ### 2.5 Localization
 
 - Every new user-facing string — "Recent games" section heading, "View all games" button, "Game history" page heading, and any new empty-state copy — is translated into English, Russian, and Spanish. The row-level labels (date format, Win/Loss/Draw, Rated/Casual, end reasons) reuse the translations already live from spec 006 + spec 014.
 - **Acceptance Criteria:**
-  - [ ] Given a signed-in player's language is Russian, when they open the home page, then the "Recent games" heading and the "View all games" button render in Russian.
-  - [ ] Given a signed-in player's language is Spanish, when they open "/history", then the "Game history" heading renders in Spanish.
+  - [x] Given a signed-in player's language is Russian, when they open the home page, then the "Recent games" heading and the "View all games" button render in Russian.
+  - [x] Given a signed-in player's language is Spanish, when they open "/history", then the "Game history" heading renders in Spanish.
 
 ---
 

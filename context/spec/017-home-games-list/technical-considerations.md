@@ -1,7 +1,7 @@
 # Technical Specification: Home Page Games List
 
 - **Functional Specification:** [`./functional-spec.md`](./functional-spec.md)
-- **Status:** Draft
+- **Status:** Completed
 - **Author(s):** AWOS /awos:tech (orchestrator-authored from Explore findings; small scope — no specialist delegation needed)
 
 ---
