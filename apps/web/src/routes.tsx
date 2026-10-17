@@ -36,12 +36,13 @@ function AuthenticatedLayout(): JSX.Element {
     wireOnlineGameSocket();
   }, []);
 
-  // Navigate to /play when a game starts on any authenticated page.
+  // Navigate to /play/online when a game starts on any authenticated page.
+  // (/play after spec 014 is the public mode-selector hub, not the game screen.)
   const gameId = useOnlineGameStore((s) => s.gameId);
   const pendingNavigate = useOnlineGameStore((s) => s.pendingNavigate);
   useEffect(() => {
     if (gameId !== null && pendingNavigate) {
-      void navigate("/play");
+      void navigate("/play/online");
       useOnlineGameStore.getState().clearPendingNavigate();
     }
   }, [gameId, pendingNavigate, navigate]);

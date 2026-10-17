@@ -5,7 +5,7 @@
 /**
  * Integration tests for the AuthenticatedLayout navigation guard.
  *
- * The guard fires navigate("/play") only when BOTH conditions hold:
+ * The guard fires navigate("/play/online") only when BOTH conditions hold:
  *   gameId !== null AND pendingNavigate === true
  *
  * Four cases are tested:
@@ -121,7 +121,7 @@ afterEach(() => {
 
 describe("AuthenticatedLayout – navigation guard effect", () => {
   // @regression
-  it("Case 1: gameId set + pendingNavigate true → navigate('/play') called and flag cleared", async () => {
+  it('Case 1: gameId set + pendingNavigate true → navigate("/play/online") called and flag cleared', async () => {
     renderLayout();
 
     await act(async () => {
@@ -129,7 +129,7 @@ describe("AuthenticatedLayout – navigation guard effect", () => {
       useOnlineGameStore.setState({ gameId: "game-x" });
     });
 
-    expect(mockNavigate).toHaveBeenCalledWith("/play");
+    expect(mockNavigate).toHaveBeenCalledWith("/play/online");
     expect(mockNavigate).toHaveBeenCalledTimes(1);
     expect(useOnlineGameStore.getState().pendingNavigate).toBe(false);
   });
@@ -143,7 +143,7 @@ describe("AuthenticatedLayout – navigation guard effect", () => {
       useOnlineGameStore.setState({ gameId: "game-x" });
     });
 
-    expect(mockNavigate).not.toHaveBeenCalledWith("/play");
+    expect(mockNavigate).not.toHaveBeenCalledWith("/play/online");
   });
 
   // @regression
@@ -155,7 +155,7 @@ describe("AuthenticatedLayout – navigation guard effect", () => {
       // gameId stays null
     });
 
-    expect(mockNavigate).not.toHaveBeenCalledWith("/play");
+    expect(mockNavigate).not.toHaveBeenCalledWith("/play/online");
   });
 
   // @regression
@@ -167,13 +167,13 @@ describe("AuthenticatedLayout – navigation guard effect", () => {
     });
 
     // Confirm no premature navigation while gameId is still null.
-    expect(mockNavigate).not.toHaveBeenCalledWith("/play");
+    expect(mockNavigate).not.toHaveBeenCalledWith("/play/online");
 
     await act(async () => {
       useOnlineGameStore.setState({ gameId: "game-y" });
     });
 
-    expect(mockNavigate).toHaveBeenCalledWith("/play");
+    expect(mockNavigate).toHaveBeenCalledWith("/play/online");
     expect(mockNavigate).toHaveBeenCalledTimes(1);
   });
 
@@ -185,6 +185,6 @@ describe("AuthenticatedLayout – navigation guard effect", () => {
       await new Promise((r) => setTimeout(r, 0));
     });
 
-    expect(mockNavigate).not.toHaveBeenCalledWith("/play");
+    expect(mockNavigate).not.toHaveBeenCalledWith("/play/online");
   });
 });
