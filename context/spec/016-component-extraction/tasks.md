@@ -42,16 +42,16 @@ Baseline: 508 web tests, 141 api unit, api e2e unaffected (no backend touch).
 
 ---
 
-- [ ] **Slice 3: Extract `ToggleGroup` + migrate 3 segment usages**
+- [x] **Slice 3: Extract `ToggleGroup` + migrate 3 segment usages**
 
   > The highest-LOC extraction. Replaces segmented-button pattern used in InlineChallengeForm (mode + color + rated), ChallengeModal (same 3), and PlayOnline (rated).
 
-  - [ ] Create `apps/web/src/components/ui/ToggleGroup.tsx` — Props: `{ value: T, onChange: (v: T) => void, options: { value: T, label: ReactNode, disabled?: boolean }[], label?: string, ariaLabel?: string, className?: string }`. Renders a horizontal group of buttons with active/inactive styling matching the current segment-button classes (`bg-accent text-white` active, `bg-surface-elevated text-text-secondary hover:text-text-primary` inactive). `aria-pressed` on active option, `role="group"` on container, optional label above. **[Agent: react-frontend]**
-  - [ ] Add `apps/web/src/components/ui/__tests__/ToggleGroup.test.tsx` — options render; click fires onChange with correct value; active option has aria-pressed=true; label renders when passed. RED-validate. **[Agent: react-frontend]**
-  - [ ] Migrate `pages/PlayOnline.tsx` — rated/casual segment → `<ToggleGroup value={isRated} onChange={setIsRated} options={[{value: true, label: 'Рейтинговая'}, {value: false, label: 'Нерейтинговая'}]} label={t('play.online.rated.label')} />`. **[Agent: react-frontend]**
-  - [ ] Migrate `features/play/InlineChallengeForm.tsx` — three segments (mode / rated / color) → three `<ToggleGroup>` instances. Delete the `segmentBase/segmentActive/segmentInactive` variables. **[Agent: react-frontend]**
-  - [ ] Migrate `features/friends/ChallengeModal.tsx` — three segments (mode / color / rated) → three `<ToggleGroup>` instances. **[Agent: react-frontend]**
-  - [ ] Verify: tests + build green; existing component tests still pass. **[Agent: react-frontend]**
+  - [x] Create `apps/web/src/components/ui/ToggleGroup.tsx` — Props: `{ value: T, onChange: (v: T) => void, options: { value: T, label: ReactNode, disabled?: boolean }[], label?: string, ariaLabel?: string, className?: string }`. Renders a horizontal group of buttons with active/inactive styling matching the current segment-button classes (`bg-accent text-white` active, `bg-surface-elevated text-text-secondary hover:text-text-primary` inactive). `aria-pressed` on active option, `role="group"` on container, optional label above. **[Agent: react-frontend]**
+  - [x] Add `apps/web/src/components/ui/__tests__/ToggleGroup.test.tsx` — options render; click fires onChange with correct value; active option has aria-pressed=true; label renders when passed. RED-validate. **[Agent: react-frontend]**
+  - [x] Migrate `pages/PlayOnline.tsx` — rated/casual segment → `<ToggleGroup value={isRated} onChange={setIsRated} options={[{value: true, label: 'Рейтинговая'}, {value: false, label: 'Нерейтинговая'}]} label={t('play.online.rated.label')} />`. **[Agent: react-frontend]**
+  - [x] Migrate `features/play/InlineChallengeForm.tsx` — three segments (mode / rated / color) → three `<ToggleGroup>` instances. Delete the `segmentBase/segmentActive/segmentInactive` variables. **[Agent: react-frontend]**
+  - [x] Migrate `features/friends/ChallengeModal.tsx` — three segments (mode / color / rated) → three `<ToggleGroup>` instances. **[Agent: react-frontend]**
+  - [x] Verify: tests + build green; existing component tests still pass. **[Agent: react-frontend]**
 
 ---
 

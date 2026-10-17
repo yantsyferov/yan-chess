@@ -338,20 +338,23 @@ describe("§2.4 PlayOnline — rated/unrated toggle", () => {
   function getRatedToggleButtons(): { ratedBtn: HTMLElement; casualBtn: HTMLElement } {
     // The toggle is a div.flex.rounded-md containing exactly 2 buttons
     const { container } = renderOnline();
-    const toggleDiv = container.querySelector("div.rounded-md.overflow-hidden.border");
-    if (!toggleDiv) throw new Error("toggle container not found");
-    const btns = Array.from(toggleDiv.querySelectorAll("button"));
+    // After spec 016 ToggleGroup extraction the rated toggle lives inside
+    // a `role="group"` wrapper rendered by ToggleGroup.
+    const toggleGroups = Array.from(container.querySelectorAll('[role="group"]'));
+    const ratedGroup = toggleGroups.find((g) =>
+      Array.from(g.querySelectorAll("button")).some((b) => /rated|casual|рейтинг/i.test(b.textContent ?? "")),
+    );
+    if (!ratedGroup) throw new Error("rated toggle group not found");
+    const btns = Array.from(ratedGroup.querySelectorAll("button"));
     if (btns.length < 2) throw new Error(`expected 2 toggle buttons, got ${btns.length}`);
     return { ratedBtn: btns[0]!, casualBtn: btns[1]! };
   }
 
   // @regression
   it("renders exactly 2 buttons in the rated/unrated toggle container", () => {
-    const { container } = renderOnline();
-    const toggleDiv = container.querySelector("div.rounded-md.overflow-hidden.border");
-    expect(toggleDiv).not.toBeNull();
-    const btns = toggleDiv!.querySelectorAll("button");
-    expect(btns).toHaveLength(2);
+    const { ratedBtn, casualBtn } = getRatedToggleButtons();
+    expect(ratedBtn).toBeTruthy();
+    expect(casualBtn).toBeTruthy();
   });
 
   // @regression

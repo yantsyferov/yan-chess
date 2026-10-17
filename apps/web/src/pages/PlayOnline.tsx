@@ -11,6 +11,7 @@ import { OnlineBoard } from "../features/online/OnlineBoard";
 import { ModeSelector } from "../components/game/ModeSelector";
 import { Card } from "../components/ui/Card";
 import { Button } from "../components/ui/Button";
+import { ToggleGroup } from "../components/ui/ToggleGroup";
 import type { Mode } from "@yanchess/shared";
 
 interface LocationState {
@@ -121,33 +122,16 @@ export function PlayOnline(): JSX.Element {
             </p>
 
             <div className="flex flex-col items-center gap-2">
-              <span className="text-text-secondary text-sm">
-                {t("play.online.rated.label")}
-              </span>
-              <div className="flex rounded-md overflow-hidden border border-border">
-                <button
-                  type="button"
-                  className={`px-4 py-1.5 text-sm font-medium transition-colors ${
-                    isRated
-                      ? "bg-accent text-white"
-                      : "bg-transparent text-text-secondary hover:text-text-primary"
-                  }`}
-                  onClick={() => setIsRated(true)}
-                >
-                  {t("play.online.rated.rated")}
-                </button>
-                <button
-                  type="button"
-                  className={`px-4 py-1.5 text-sm font-medium transition-colors ${
-                    !isRated
-                      ? "bg-accent text-white"
-                      : "bg-transparent text-text-secondary hover:text-text-primary"
-                  }`}
-                  onClick={() => setIsRated(false)}
-                >
-                  {t("play.online.rated.casual")}
-                </button>
-              </div>
+              <ToggleGroup
+                value={isRated}
+                onChange={setIsRated}
+                options={[
+                  { value: true, label: t("play.online.rated.rated") },
+                  { value: false, label: t("play.online.rated.casual") },
+                ]}
+                label={t("play.online.rated.label")}
+                size="sm"
+              />
             </div>
           </div>
         </Card>
