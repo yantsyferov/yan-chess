@@ -7,6 +7,13 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import { ResultModal } from "../ResultModal";
 import { useGameStore } from "../../../features/game/useGameStore";
 
+vi.mock("../../../features/analysis/useFastAnalysis", () => ({
+  useFastAnalysis: () => ({ status: "idle", buckets: null, perSideBuckets: null }),
+}));
+vi.mock("../../../features/analysis/AnalyzeButton", () => ({
+  AnalyzeButton: () => <button>Analyze</button>,
+}));
+
 vi.stubGlobal("performance", { now: () => 0 });
 
 beforeEach(() => {
@@ -19,7 +26,7 @@ describe("ResultModal", () => {
     render(
       <ResultModal
         result={{ winner: "white", reason: "checkmate" }}
-        resultModalDismissed={false}
+        resultModalDismissed={false} pgn=""
         onNewGame={vi.fn()}
         onDismiss={vi.fn()}
       />,
@@ -32,7 +39,7 @@ describe("ResultModal", () => {
     render(
       <ResultModal
         result={{ winner: "draw", reason: "stalemate" }}
-        resultModalDismissed={false}
+        resultModalDismissed={false} pgn=""
         onNewGame={vi.fn()}
         onDismiss={vi.fn()}
       />,
@@ -45,7 +52,7 @@ describe("ResultModal", () => {
     render(
       <ResultModal
         result={{ winner: "black", reason: "flag_fall" }}
-        resultModalDismissed={false}
+        resultModalDismissed={false} pgn=""
         onNewGame={vi.fn()}
         onDismiss={vi.fn()}
       />,
@@ -59,7 +66,7 @@ describe("ResultModal", () => {
     render(
       <ResultModal
         result={{ winner: "white", reason: "checkmate" }}
-        resultModalDismissed={false}
+        resultModalDismissed={false} pgn=""
         onNewGame={store.reset}
         onDismiss={store.dismissResult}
       />,
@@ -76,7 +83,7 @@ describe("ResultModal", () => {
     render(
       <ResultModal
         result={{ winner: "white", reason: "checkmate" }}
-        resultModalDismissed={false}
+        resultModalDismissed={false} pgn=""
         onNewGame={store.reset}
         onDismiss={store.dismissResult}
       />,
@@ -90,7 +97,7 @@ describe("ResultModal", () => {
     render(
       <ResultModal
         result={{ winner: "white", reason: "checkmate" }}
-        resultModalDismissed={true}
+        resultModalDismissed={true} pgn=""
         onNewGame={vi.fn()}
         onDismiss={vi.fn()}
       />,

@@ -1,0 +1,44 @@
+{
+  "page": {
+    "heading": "Анализ — {{opponent}}"
+  },
+  "yourMoves": "Ваши ходы",
+  "tiles": {
+    "standout": "Отличные",
+    "normal": "Нормальные",
+    "mistake": "Ошибки"
+  },
+  "status": {
+    "analyzing": "Анализ…",
+    "analyzingProgress": "Анализ… {{done}} / {{total}} ходов",
+    "notAvailable": "Анализ недоступен.",
+    "notEnoughMoves": "Недостаточно ходов для анализа.",
+    "notAvailableSession": "Проанализированная партия больше недоступна (сессия сброшена). Начните новую игру.",
+    "gameNotAvailable": "Партия недоступна",
+    "reassurance": "Обычно занимает меньше минуты. Можно уйти со страницы и вернуться позже.",
+    "loading": "Загрузка…"
+  },
+  "buttons": {
+    "analyze": "Анализ",
+    "cancel": "Отмена",
+    "back": "← Назад"
+  },
+  "engineSuggests": "Движок советует: {{san}}",
+  "categories": {
+    "brilliant": "Великолепно",
+    "great": "Отличный ход",
+    "best": "Лучший",
+    "excellent": "Превосходно",
+    "good": "Хорошо",
+    "book": "Теория",
+    "forced": "Вынужденный",
+    "inaccuracy": "Неточность",
+    "mistake": "Ошибка",
+    "blunder": "Зевок",
+    "miss": "Упущено"
+  },
+  "hotseat": {
+    "white": "Белые",
+    "black": "Чёрные"
+  }
+}

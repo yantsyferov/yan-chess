@@ -108,6 +108,7 @@ export default function Game(): JSX.Element {
       <ResultModal
         result={vm.result}
         resultModalDismissed={vm.resultModalDismissed}
+        pgn={chess.pgn()}
         onNewGame={vm.onNewGame}
         onDismiss={vm.onDismissResult}
       />

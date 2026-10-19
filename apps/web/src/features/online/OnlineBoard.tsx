@@ -37,6 +37,7 @@ export function OnlineBoard(): JSX.Element {
   const { t } = useTranslation("game");
   const vm = useOnlineGameViewModel();
   const opponent = useOnlineGameStore((s) => s.opponent);
+  const gameId = useOnlineGameStore((s) => s.gameId);
   const mode = useOnlineGameStore((s) => s.mode);
   const color = useOnlineGameStore((s) => s.color);
   const result = useOnlineGameStore((s) => s.result);
@@ -175,6 +176,8 @@ export function OnlineBoard(): JSX.Element {
           rematchExpiredToast={rematchExpiredToast}
           onOfferRematch={offerRematch}
           onRespondRematch={respondRematch}
+          gameId={gameId ?? ""}
+          movesSan={vm.movesSan}
         />
       )}
     </div>

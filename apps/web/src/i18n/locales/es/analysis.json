@@ -1,0 +1,44 @@
+{
+  "page": {
+    "heading": "Análisis — {{opponent}}"
+  },
+  "yourMoves": "Tus jugadas",
+  "tiles": {
+    "standout": "Destacadas",
+    "normal": "Normales",
+    "mistake": "Errores"
+  },
+  "status": {
+    "analyzing": "Analizando…",
+    "analyzingProgress": "Analizando… {{done}} / {{total}} jugadas",
+    "notAvailable": "Análisis no disponible.",
+    "notEnoughMoves": "No hay suficientes jugadas para analizar.",
+    "notAvailableSession": "La partida analizada ya no está disponible (sesión reiniciada). Empieza una nueva partida.",
+    "gameNotAvailable": "Partida no disponible",
+    "reassurance": "Normalmente lleva menos de un minuto. Puedes salir y volver más tarde.",
+    "loading": "Cargando…"
+  },
+  "buttons": {
+    "analyze": "Analizar",
+    "cancel": "Cancelar",
+    "back": "← Atrás"
+  },
+  "engineSuggests": "El motor sugiere: {{san}}",
+  "categories": {
+    "brilliant": "Brillante",
+    "great": "Gran jugada",
+    "best": "Mejor",
+    "excellent": "Excelente",
+    "good": "Buena",
+    "book": "Teoría",
+    "forced": "Forzada",
+    "inaccuracy": "Imprecisión",
+    "mistake": "Error",
+    "blunder": "Error grave",
+    "miss": "Oportunidad perdida"
+  },
+  "hotseat": {
+    "white": "Blancas",
+    "black": "Negras"
+  }
+}

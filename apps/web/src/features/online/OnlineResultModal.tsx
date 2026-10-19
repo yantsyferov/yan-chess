@@ -10,6 +10,9 @@ import { Button } from "../../components/ui/Button";
 import type { GameColor } from "@yanchess/shared";
 import type { Winner } from "../game/useGameStore";
 import type { AnyGameEndReason } from "../shared/game-view-model";
+import { MoveQualityTiles } from "../analysis/MoveQualityTiles";
+import { AnalyzeButton } from "../analysis/AnalyzeButton";
+import { useFastAnalysis } from "../analysis/useFastAnalysis";
 
 function reasonSuffix(t: (k: string) => string, reason: AnyGameEndReason, winner: Winner): string {
   switch (reason) {
@@ -64,6 +67,8 @@ interface OnlineResultModalProps {
   ratingDelta: number | null;
   pendingRematch: { from: "me" | "opponent"; expiresAt: number } | null;
   rematchExpiredToast: boolean;
+  gameId: string;
+  movesSan: string[];
   onDismiss: () => void;
   onNewGame: () => void;
   onOfferRematch: () => void;
@@ -79,6 +84,8 @@ export function OnlineResultModal({
   ratingDelta,
   pendingRematch,
   rematchExpiredToast,
+  gameId,
+  movesSan,
   onDismiss,
   onNewGame,
   onOfferRematch,
@@ -87,6 +94,20 @@ export function OnlineResultModal({
   const { t } = useTranslation("game");
   const navigate = useNavigate();
   const isOpen = result !== null && !resultModalDismissed;
+
+  // Build a minimal PGN from SAN moves (no headers needed for chess.js parsing).
+  const pgn = movesSan
+    .reduce<string[]>((acc, san, i) => {
+      if (i % 2 === 0) acc.push(`${Math.floor(i / 2) + 1}. ${san}`);
+      else acc[acc.length - 1] += ` ${san}`;
+      return acc;
+    }, [])
+    .join(" ");
+
+  const { status: analysisStatus, buckets } = useFastAnalysis({
+    pgn,
+    enabled: isOpen,
+  });
 
   const title =
     result !== null
@@ -123,6 +144,8 @@ export function OnlineResultModal({
             )}
           </div>
         </DialogDescription>
+        <MoveQualityTiles status={analysisStatus} buckets={buckets} />
+
         <div className="mt-6 space-y-2">
           {pendingRematch?.from === "opponent" && (
             <p className="text-sm text-text-secondary">{t("online.result.opponentOffersRematch")}</p>
@@ -130,7 +153,8 @@ export function OnlineResultModal({
           {rematchExpiredToast && (
             <p className="text-sm text-text-secondary">{t("online.result.opponentDidntRespond")}</p>
           )}
-          <div className="flex gap-3">
+          <div className="flex gap-3 flex-wrap">
+            <AnalyzeButton gameRef={{ kind: "online", gameId }} />
             {pendingRematch?.from === "me" ? (
               <Button variant="secondary" size="lg" disabled>
                 {t("online.result.waitingForRematch")}

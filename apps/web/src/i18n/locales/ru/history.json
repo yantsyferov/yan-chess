@@ -80,5 +80,8 @@
   },
   "tryAgain": "Повторить",
   "recentGames": "Недавние партии",
-  "viewAllGames": "Все партии"
+  "viewAllGames": "Все партии",
+  "analyze": {
+    "link": "🔍 Анализ"
+  }
 }

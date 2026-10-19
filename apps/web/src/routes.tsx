@@ -28,6 +28,9 @@ const Friends = lazy(() =>
 const History = lazy(() =>
   import("./pages/History").then((m) => ({ default: m.History })),
 );
+const Analysis = lazy(() =>
+  import("./pages/Analysis").then((m) => ({ default: m.Analysis })),
+);
 
 const SUSPENSE_FALLBACK = <div className="text-text-secondary text-center py-10">Loading...</div>;
 
@@ -133,6 +136,25 @@ export function AppRoutes(): JSX.Element {
           element={
             <Suspense fallback={SUSPENSE_FALLBACK}>
               <HistoryReplay />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/analysis/:gameId"
+          element={
+            <Suspense fallback={SUSPENSE_FALLBACK}>
+              <Analysis />
+            </Suspense>
+          }
+        />
+        {/* /analysis/session serves in-tab vs-bot and hotseat games (no DB persistence).
+            Guest users playing vs-bot will be redirected to /login — accepted trade-off
+            per tech-plan §2.4. A future spec can open this route to guests. */}
+        <Route
+          path="/analysis/session"
+          element={
+            <Suspense fallback={SUSPENSE_FALLBACK}>
+              <Analysis />
             </Suspense>
           }
         />

@@ -98,6 +98,14 @@ export function GameRow({ item }: GameRowProps): JSX.Element {
       >
         &#9654; {t("replay.link")}
       </Link>
+
+      <Link
+        to={`/analysis/${item.gameId}`}
+        className="text-sm text-accent hover:text-accent-hover shrink-0"
+        onClick={(e) => { e.stopPropagation(); }}
+      >
+        {t("analyze.link")}
+      </Link>
     </div>
   );
 }

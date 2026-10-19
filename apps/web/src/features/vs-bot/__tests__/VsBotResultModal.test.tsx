@@ -6,6 +6,13 @@ import { describe, it, expect, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { VsBotResultModal } from "../VsBotResultModal";
 
+vi.mock("../../analysis/useFastAnalysis", () => ({
+  useFastAnalysis: () => ({ status: "idle", buckets: null }),
+}));
+vi.mock("../../analysis/AnalyzeButton", () => ({
+  AnalyzeButton: () => <button>Analyze</button>,
+}));
+
 const noop = vi.fn();
 
 describe("VsBotResultModal — perspective-aware titles", () => {
@@ -18,7 +25,7 @@ describe("VsBotResultModal — perspective-aware titles", () => {
         playerColor="white"
         onDismiss={noop}
         onNewGame={noop}
-        onRematch={noop}
+        movesSan={[]} onRematch={noop}
       />,
     );
     expect(screen.getByText("You won. Checkmate.")).toBeInTheDocument();
@@ -33,7 +40,7 @@ describe("VsBotResultModal — perspective-aware titles", () => {
         playerColor="white"
         onDismiss={noop}
         onNewGame={noop}
-        onRematch={noop}
+        movesSan={[]} onRematch={noop}
       />,
     );
     expect(screen.getByText("You lost. Flag.")).toBeInTheDocument();
@@ -48,7 +55,7 @@ describe("VsBotResultModal — perspective-aware titles", () => {
         playerColor="white"
         onDismiss={noop}
         onNewGame={noop}
-        onRematch={noop}
+        movesSan={[]} onRematch={noop}
       />,
     );
     expect(screen.getByText("Draw. Stalemate.")).toBeInTheDocument();
@@ -63,7 +70,7 @@ describe("VsBotResultModal — perspective-aware titles", () => {
         playerColor="white"
         onDismiss={noop}
         onNewGame={noop}
-        onRematch={noop}
+        movesSan={[]} onRematch={noop}
       />,
     );
     expect(screen.getByText("You resigned. Bot wins.")).toBeInTheDocument();
@@ -78,7 +85,7 @@ describe("VsBotResultModal — perspective-aware titles", () => {
         playerColor="white"
         onDismiss={noop}
         onNewGame={noop}
-        onRematch={noop}
+        movesSan={[]} onRematch={noop}
       />,
     );
     expect(screen.getByRole("button", { name: /rematch/i })).toBeInTheDocument();
@@ -94,7 +101,7 @@ describe("VsBotResultModal — perspective-aware titles", () => {
         playerColor="white"
         onDismiss={noop}
         onNewGame={noop}
-        onRematch={noop}
+        movesSan={[]} onRematch={noop}
       />,
     );
     // When dismissed the Dialog open=false — title should not be in DOM
@@ -109,7 +116,7 @@ describe("VsBotResultModal — perspective-aware titles", () => {
         playerColor="white"
         onDismiss={noop}
         onNewGame={noop}
-        onRematch={noop}
+        movesSan={[]} onRematch={noop}
       />,
     );
     expect(screen.queryByText(/rating/i)).not.toBeInTheDocument();
