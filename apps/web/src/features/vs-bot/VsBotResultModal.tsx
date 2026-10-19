@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import {
   Dialog,
   DialogContent,
@@ -7,6 +8,9 @@ import {
 import { Button } from "../../components/ui/Button";
 import type { AnyGameEndReason } from "../shared/game-view-model";
 import type { Winner } from "../game/useGameStore";
+import { MoveQualityTiles } from "../analysis/MoveQualityTiles";
+import { AnalyzeButton } from "../analysis/AnalyzeButton";
+import { useFastAnalysis } from "../analysis/useFastAnalysis";
 
 type PlayerColor = "white" | "black";
 
@@ -14,6 +18,7 @@ interface VsBotResultModalProps {
   result: { winner: Winner; reason: AnyGameEndReason };
   resultModalDismissed: boolean;
   playerColor: PlayerColor;
+  movesSan: string[];
   onDismiss: () => void;
   onNewGame: () => void;
   onRematch?: () => void;
@@ -70,10 +75,12 @@ export function VsBotResultModal({
   result,
   resultModalDismissed,
   playerColor,
+  movesSan,
   onDismiss,
   onNewGame,
   onRematch,
 }: VsBotResultModalProps): JSX.Element {
+  const { t } = useTranslation("analysis");
   const isOpen = !resultModalDismissed;
 
   const suffix = reasonText(result.reason, result.winner, playerColor);
@@ -83,6 +90,20 @@ export function VsBotResultModal({
     result.reason === "resignation" && suffix === "You resigned."
       ? `You resigned. Bot wins.`
       : `${prefix} ${suffix}`;
+
+  // Build a minimal PGN from SAN moves for the fast analysis pass.
+  const pgn = movesSan
+    .reduce<string[]>((acc, san, i) => {
+      if (i % 2 === 0) acc.push(`${Math.floor(i / 2) + 1}. ${san}`);
+      else acc[acc.length - 1] += ` ${san}`;
+      return acc;
+    }, [])
+    .join(" ");
+
+  const { status: analysisStatus, buckets } = useFastAnalysis({
+    pgn,
+    enabled: isOpen,
+  });
 
   return (
     <Dialog
@@ -96,7 +117,11 @@ export function VsBotResultModal({
         <DialogDescription asChild>
           <div className="mt-3 text-sm text-text-secondary" />
         </DialogDescription>
-        <div className="mt-6 flex gap-3">
+        <MoveQualityTiles status={analysisStatus} buckets={buckets} />
+        <div className="mt-6 flex gap-3 flex-wrap">
+          <AnalyzeButton
+            gameRef={{ kind: "session", source: "vs-bot", pgn, playerColor }}
+          />
           <Button variant="secondary" size="lg" onClick={onRematch ?? (() => {})}>
             Rematch
           </Button>

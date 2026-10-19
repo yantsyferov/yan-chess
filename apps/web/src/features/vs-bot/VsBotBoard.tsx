@@ -119,6 +119,7 @@ export function VsBotBoard(): JSX.Element {
           result={vm.result}
           resultModalDismissed={vm.resultModalDismissed}
           playerColor={vm.boardOrientation}
+          movesSan={vm.movesSan}
           onDismiss={vm.onDismissResult}
           onNewGame={vm.onNewGame}
           onRematch={rematch}

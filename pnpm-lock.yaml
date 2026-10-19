@@ -156,6 +156,9 @@ importers:
       '@yanchess/shared':
         specifier: workspace:*
         version: link:../../packages/shared
+      chess-openings:
+        specifier: ^0.1.1
+        version: 0.1.1
       chess.js:
         specifier: ^1
         version: 1.4.0
@@ -2387,6 +2390,9 @@ packages:
     resolution: {integrity: sha512-PAJdDJusoxnwm1VwW07VWwUN1sl7smmC3OKggvndJFadxxDRyFJBX/ggnu/KE4kQAB7a3Dp8f/YXC1FlUprWmA==}
     engines: {node: '>= 16'}
 
+  chess-openings@0.1.1:
+    resolution: {integrity: sha512-FXk/+po+RBgkKRij0JnULdVjqROH5GVm6FOIGa/cri/a8B/BBnZh5BrUV2TJ2Bkfh9vNKnFNjXvdTRhbKHtjRg==}
+
   chess.js@1.4.0:
     resolution: {integrity: sha512-BBJgrrtKQOzFLonR0l+k64A98NLemPwNsCskwb+29bRwobUa4iTm51E1kwGPbWXAcfdDa18nad6vpPPKPWarqw==}
 
@@ -3085,6 +3091,9 @@ packages:
 
   inspect-with-kind@1.0.5:
     resolution: {integrity: sha512-MAQUJuIo7Xqk8EVNP+6d3CKq9c80hi4tjIbIAT6lmGW9W6WzlHiu9PS8uSuUYU+Do+j1baiFp3H25XEVxDIG2g==}
+
+  int64-buffer@1.1.2:
+    resolution: {integrity: sha512-ZBb2qDtapL5lWiwgXIoNaCRb/OBPrQ6bK6J4p1AcPXzH/JA/eZmoTVCGGCOIQWIsWwOExGsPu5n8+aBG6itMzA==}
 
   ioredis@5.11.1:
     resolution: {integrity: sha512-ehuGcf94bQXhfagULNXrJdfnWO38v070jxSx/qE87Kjzmu2fU7ro5EFAb+OPituLqgfyuQaym5DlrNydW2sJ9A==}
@@ -6706,6 +6715,10 @@ snapshots:
 
   check-error@2.1.3: {}
 
+  chess-openings@0.1.1:
+    dependencies:
+      int64-buffer: 1.1.2
+
   chess.js@1.4.0: {}
 
   chokidar@3.6.0:
@@ -7524,6 +7537,8 @@ snapshots:
   inspect-with-kind@1.0.5:
     dependencies:
       kind-of: 6.0.3
+
+  int64-buffer@1.1.2: {}
 
   ioredis@5.11.1:
     dependencies:

@@ -80,5 +80,8 @@
   },
   "tryAgain": "Try again",
   "recentGames": "Recent games",
-  "viewAllGames": "View all games"
+  "viewAllGames": "View all games",
+  "analyze": {
+    "link": "🔍 Analyze"
+  }
 }

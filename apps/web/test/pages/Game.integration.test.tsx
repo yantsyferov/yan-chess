@@ -18,6 +18,14 @@ vi.mock("../../src/features/game/useGameClock", () => ({
   useGameClock: () => {},
 }));
 
+// Mock analysis components added in Slice 4 — they require a Router context
+vi.mock("../../src/features/analysis/useFastAnalysis", () => ({
+  useFastAnalysis: () => ({ status: "idle", buckets: null, perSideBuckets: null }),
+}));
+vi.mock("../../src/features/analysis/AnalyzeButton", () => ({
+  AnalyzeButton: () => <button>Analyze</button>,
+}));
+
 import Game from "../../src/pages/Game";
 
 function resetStore() {

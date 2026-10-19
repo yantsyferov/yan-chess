@@ -80,5 +80,8 @@
   },
   "tryAgain": "Reintentar",
   "recentGames": "Partidas recientes",
-  "viewAllGames": "Ver todas las partidas"
+  "viewAllGames": "Ver todas las partidas",
+  "analyze": {
+    "link": "🔍 Analizar"
+  }
 }

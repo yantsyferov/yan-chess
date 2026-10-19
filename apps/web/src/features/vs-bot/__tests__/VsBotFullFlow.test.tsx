@@ -21,6 +21,13 @@ import { render, screen } from "@testing-library/react";
 import { useVsBotStore } from "../useVsBotStore";
 import { VsBotResultModal } from "../VsBotResultModal";
 
+vi.mock("../../analysis/useFastAnalysis", () => ({
+  useFastAnalysis: () => ({ status: "idle", buckets: null }),
+}));
+vi.mock("../../analysis/AnalyzeButton", () => ({
+  AnalyzeButton: () => <button>Analyze</button>,
+}));
+
 function resetStore() {
   const s = useVsBotStore.getState();
   s.newGame();
@@ -84,6 +91,7 @@ describe("Full flow: setup → play → resign → result → newGame", () => {
         result={result}
         resultModalDismissed={false}
         playerColor={playerColor}
+        movesSan={[]}
         onDismiss={vi.fn()}
         onNewGame={vi.fn()}
         onRematch={vi.fn()}

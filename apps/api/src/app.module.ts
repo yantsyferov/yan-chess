@@ -14,8 +14,9 @@ import { RatingModule } from "./modules/rating/rating.module";
 import { GameHistoryModule } from "./modules/game-history/game-history.module";
 import { FriendsModule } from "./modules/friends/friends.module";
 import { RealtimeModule } from "./modules/realtime/realtime.module";
+import { GameAnalysisModule } from "./modules/game-analysis/game-analysis.module";
 
 @Module({
-  imports: [ScheduleModule.forRoot(), HealthModule, PrismaModule, RedisModule, RateLimiterModule, MailModule, TokensModule, AuthModule, UsersModule, RealtimeModule, GameModule, MatchmakingModule, RatingModule, GameHistoryModule, FriendsModule],
+  imports: [ScheduleModule.forRoot(), HealthModule, PrismaModule, RedisModule, RateLimiterModule, MailModule, TokensModule, AuthModule, UsersModule, RealtimeModule, GameModule, MatchmakingModule, RatingModule, GameHistoryModule, FriendsModule, GameAnalysisModule],
 })
 export class AppModule {}
